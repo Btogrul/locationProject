@@ -3,6 +3,7 @@ package com.example.locationproject.services;
 import com.example.locationproject.dtos.RequestDto;
 import com.example.locationproject.dtos.ResponseDto;
 import com.example.locationproject.entities.Marker;
+import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.exception.ResourceNotFoundException;
 import com.example.locationproject.repositories.MarkerRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,15 @@ public class LocationService {
 
     public ResponseDto createMarker(RequestDto requestDto) {
         log.info("Request: {}", requestDto);
-        Marker marker = mapper.map(requestDto, Marker.class);
+        MarkerType markerType = MarkerType.fromString(String.valueOf(requestDto.getMarkerType()));
+
+        Marker marker = new Marker();
+        marker.setTitle(requestDto.getTitle());
+        marker.setDescription(requestDto.getDescription());
+        marker.setMarkerType(markerType);
+        marker.setLatitude(requestDto.getLatitude());
+        marker.setLongitude(requestDto.getLongitude());
+
         marker = markerRepo.save(marker);
         return mapper.map(marker, ResponseDto.class);
     }

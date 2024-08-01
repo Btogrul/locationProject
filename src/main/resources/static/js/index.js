@@ -14,19 +14,26 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     async function fetchMarkersAndDisplay() {
-        const response = await fetch('/api/v1/markers/all');
-        const data = await response.json();
+        try {
+            const response = await fetch('/api/v1/markers/all');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
 
-        data.forEach(marker => {
-            const mapMarker = new google.maps.Marker({
-                position: { lat: marker.latitude, lng: marker.longitude },
-                map: map,
-                title: marker.title,
-                label: marker.description,
-                icon: getIcon(marker.type)
+            data.forEach(marker => {
+                const mapMarker = new google.maps.Marker({
+                    position: { lat: marker.latitude, lng: marker.longitude },
+                    map: map,
+                    title: marker.title,
+                    label: marker.description,
+                    icon: getIcon(marker.type)
+                });
+                markers.push(mapMarker);
             });
-            markers.push(mapMarker);
-        });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
 
     fetchMarkersAndDisplay();
