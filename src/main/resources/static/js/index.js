@@ -40,10 +40,23 @@ function initMap() {
 }
 
 function getIcon(type) {
-    if (type === 'restaurant') {
-        return 'https://maps.google.com/mapfiles/kml/pal4/icon61.png';
-    } else {
-        return 'https://maps.google.com/mapfiles/kml/pal4/icon60.png';
+    switch (type) {
+        case 'restaurant':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon61.png';
+        case 'building':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon62.png';
+        case 'road':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon63.png';
+        case 'store':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon64.png';
+        case 'park':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon65.png';
+        case 'river':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon66.png';
+        case 'lake':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon67.png';
+        default:
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon60.png';
     }
 }
 
