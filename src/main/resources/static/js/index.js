@@ -42,21 +42,21 @@ function initMap() {
 function getIcon(type) {
     switch (type) {
         case 'restaurant':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon61.png';
+            return '/images/icons/res.svg';
         case 'building':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon62.png';
+            return '/images/icons/building.svg';
         case 'road':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon63.png';
+            return '/images/icons/road.svg';
         case 'store':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon64.png';
+            return '/images/icons/store.svg';
         case 'park':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon65.png';
+            return '/images/icons/park.svg';
         case 'river':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon66.png';
+            return '/images/icons/river.svg';
         case 'lake':
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon67.png';
+            return '/images/icons/lake.svg';
         default:
-            return 'https://maps.google.com/mapfiles/kml/pal4/icon60.png';
+            return '/images/icons/pin.svg';
     }
 }
 
