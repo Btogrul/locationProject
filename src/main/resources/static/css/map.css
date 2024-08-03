@@ -9,7 +9,11 @@
 }
 
 body {
-    background: #f9f4e8;
+    background: #f9f4e8 center center fixed no-repeat;
+    background-size: cover;
+
+
+
 }
 
 /* Main container styles */
@@ -69,14 +73,17 @@ main nav .nav-main ul {
 }
 
 main nav .nav-main ul li {
-    border-radius: 5px;
+    border-radius: 25%;
+    border: black solid 3px;
+    transition: all 3s ease-in;
 }
 
 main nav .nav-main ul li a {
     text-decoration: none;
     display: block;
-    font-weight: 500;
-    color: #83817e;
+    font-size: 15px;
+    font-weight: bold;
+    color: #d4d4d4;
     padding: 12px 15px;
     border-radius: 5px;
     transition: .2s background ease;

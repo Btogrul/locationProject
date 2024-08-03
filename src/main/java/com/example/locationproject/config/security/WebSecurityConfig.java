@@ -21,14 +21,20 @@ import java.util.List;
 public class WebSecurityConfig {
     static final String[] WHITE_LIST = new String[]{
             "/",
+            "/static/**",
             "/api/v1/auth/**",
             "/css/**",
             "/js/**",
             "images/**",
+            "/images/*.jpg",
+            "/images/*.png",
+            "/images/*.gif",
+            "images/icons/*.svg",
             "/v3/api-docs/**",
             "/api/v1/markers/all",
             "/api/maps-key",
             "http://www.w3.org/2000/svg"
+
     };
     static final String[] SWAGGER_WHITELIST = new String[]{
             "/v3/api-docs/**",
