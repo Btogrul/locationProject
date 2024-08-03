@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(name = "Product Management"),
-                description = "OpenApi documentation for Frontend",
+                description = "dashboard",
                 title = "Location Project",
                 version = "1.0",
                 termsOfService = "Terms of service"

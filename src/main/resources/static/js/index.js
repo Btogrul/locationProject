@@ -1,57 +1,63 @@
 let map;
 let markers = [];
-let isAdmin = true;
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.106451, lng: 46.032736},
-        zoom: 14
-    });
+    const mapOptions = {
+        center: { lat: 40.10789164639515, lng: 46.04158226806454 },
+        zoom: 14,
+        mapTypeId: 'terrain',
+        tilt: 45,
+        gestureHandling: "cooperative",
+        heading: 90
+    };
 
-    map.addListener('click', function (event) {
-        if (isAdmin) {
-            addMarker(event.latLng);
-        }
-    });
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    fetchMarkers();
-}
+    async function fetchMarkersAndDisplay() {
+        try {
+            const response = await fetch('/api/v1/markers/all');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
 
-function addMarker(location) {
-    let marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-
-    markers.push(marker);
-
-    saveMarkerToDatabase(location);
-}
-
-function saveMarkerToDatabase(location) {
-    fetch('/addMarker', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            lat: location.lat(),
-            lng: location.lng()
-        })
-    })
-        .then(response => response.json())
-        .then(data => console.log('Success:', data))
-        .catch((error) => console.error('Error:', error));
-}
-
-function fetchMarkers() {
-    fetch('/getMarkers')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(markerData => {
-                let location = new google.maps.LatLng(markerData.lat, markerData.lng);
-                addMarker(location);
+            data.forEach(marker => {
+                const mapMarker = new google.maps.Marker({
+                    position: { lat: marker.latitude, lng: marker.longitude },
+                    map: map,
+                    title: marker.title,
+                    label: marker.description,
+                    icon: getIcon(marker.type)
+                });
+                markers.push(mapMarker);
             });
-        })
-        .catch((error) => console.error('Error:', error));
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    fetchMarkersAndDisplay();
 }
+
+function getIcon(type) {
+    switch (type) {
+        case 'restaurant':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon61.png';
+        case 'building':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon62.png';
+        case 'road':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon63.png';
+        case 'store':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon64.png';
+        case 'park':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon65.png';
+        case 'river':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon66.png';
+        case 'lake':
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon67.png';
+        default:
+            return 'https://maps.google.com/mapfiles/kml/pal4/icon60.png';
+    }
+}
+
+window.onload = initMap;

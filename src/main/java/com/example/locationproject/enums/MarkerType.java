@@ -16,4 +16,12 @@ public enum MarkerType {
     public String toString() {
         return this.name();
     }
+
+    public static MarkerType fromString(String value) {
+        try {
+            return MarkerType.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
 }

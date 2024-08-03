@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/map.css">
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
     <title>Kalbajar</title>
 </head>
 <body>
-<main>
+
+<main class="container">
+
     <section class="section-1">
         <nav>
             <div class="nav-main">
                 <div class="nav-logo">
-                    <a href="#"><img th:src="@{/images/logoKalb.png}" alt="kalbajar"> </a>
+                    <a href="#"><img th:src="@{/images/logoKalb.png}" alt="kalbajar"></a>
                 </div>
                 <ul>
-                    <li><a th:href="@{/login}">Sign in</a></li>
+                    <li ><a th:href="@{/login}">Sign in</a></li>
                 </ul>
                 <div class="nav-mobile-menu" id="nav-mobile-menu">
                     <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="">
@@ -34,27 +42,16 @@
         </nav>
 
         <div class="section-1-main">
-            <div class="section-1-content">
-            </div>
-<!--            <div class="section-1-imgs">-->
-<!--                <div class="section-1-imgs-main">-->
-<!--                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Blue-Shape.svg" alt="">-->
-<!--                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Pink-Shape.svg" alt="">-->
-<!--                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Purple-Shape.svg" alt="">-->
-<!--                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hero-Image-Model.png" alt="">-->
-<!--                </div>-->
-<!--            </div>-->
-        </div>
+            <div class="section-1-content" id="map">
+<!--                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29848.5480375419!2d46.0430575!3d40.10643544999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403fb1d1313db693%3A0xc9698025f05e0022!2z0JrQtdC70YzQsdCw0LTQttCw0YA!5e1!3m2!1sru!2saz!4v1722351365523!5m2!1sru!2saz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
 
-        <footer>
-            <div class="user-content">
-                <div class="user-img">
-                    <img src="/images/logoKalb.png" alt="">
-                </div>
             </div>
-        </footer>
+        </div>
     </section>
+
 </main>
-<script src="/js/map.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3udL3KCDrHNVCo59XmW6p1ffm6RjVXPk&libraries=places,marker,streetView,visualization&callback=initMap" async></script>
+<script type="module" src="/js/index.js"></script>
 </body>
 </html>

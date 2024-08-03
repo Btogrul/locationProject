@@ -23,7 +23,11 @@ public class WebSecurityConfig {
             "/",
             "/api/v1/auth/**",
             "/css/**",
-            "/js/**"
+            "/js/**",
+            "images/**",
+            "/v3/api-docs/**",
+            "/api/v1/markers/all",
+            "/api/maps-key"
     };
     static final String[] SWAGGER_WHITELIST = new String[]{
             "/v3/api-docs/**",
@@ -35,24 +39,26 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-//                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors
                         .configurationSource(corsConfigurationSource())
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(WHITE_LIST).permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(formLogin ->
-                                formLogin
-//                                .usernameParameter("email")
-                                        .loginPage("/login")
-                                        .defaultSuccessUrl("/dashboard").permitAll()
-
+                        .requestMatchers("/dashboard/**", "/v3/api-docs/**",
+                                "/swagger-ui/**", "/swagger-ui.html").authenticated()
+                        .anyRequest().authenticated()
                 )
-                .logout(logout ->
-                        logout
-                                .logoutSuccessUrl("/")
-                                .permitAll()
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/swagger-ui/index.html", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -64,9 +70,10 @@ public class WebSecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:8082"));
         configuration.setAllowedMethods(List.of("GET", "POST"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("../**" , configuration);
+        source.registerCorsConfiguration("../**", configuration);
         return source;
     }
+
+
 }

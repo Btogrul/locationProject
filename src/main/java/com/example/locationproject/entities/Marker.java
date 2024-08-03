@@ -24,7 +24,9 @@ public class Marker {
     private String title;
     private String description;
     private MarkerType markerType;
+    @Column(nullable = false)
     private double latitude;
+    @Column(nullable = false)
     private double longitude;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
