@@ -1,6 +1,11 @@
 let map;
 let markers = [];
+const navEl = document.getElementById("nav-mobile-menu");
+const nav = document.getElementsByTagName("nav");
 
+navEl.addEventListener("click", () => {
+    nav[1].classList.toggle("active");
+});
 function initMap() {
     const mapOptions = {
         center: { lat: 40.10789164639515, lng: 46.04158226806454 },
