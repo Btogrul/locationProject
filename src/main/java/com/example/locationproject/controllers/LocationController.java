@@ -5,6 +5,7 @@ import com.example.locationproject.dtos.ResponseDto;
 import com.example.locationproject.services.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class LocationController {
         log.info("controller received");
         return locationService.createMarker(requestDto);
     }
+
 
     @GetMapping("/{id}")
     public ResponseDto getLocation(@PathVariable Long id) {

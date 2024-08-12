@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/swagger-ui/index.html", true)
+//
                         .permitAll()
                 )
                 .logout(logout -> logout

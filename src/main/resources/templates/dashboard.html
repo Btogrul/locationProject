@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"  xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Location Dashboard</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: #1c1c1c;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        button {
+            background-color: #555;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .response {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: #2e2e2e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Location Dashboard</h1>
+
+    <div id="map"></div>
+
+    <h2>Create Location</h2>
+    <form method="post" th:action="@{/api/v1/markers/new}" enctype="application/json">
+        <h2>Create Location</h2>
+        <label for="createTitle" class="label">Title:</label>
+        <input type="text" id="createTitle" name="title" placeholder="Title" required>
+
+        <label for="createDescription" class="label">Description:</label>
+        <input type="text" id="createDescription" name="description" placeholder="Description" required>
+
+        <label for="createType" class="label">Type:</label>
+        <input type="text" id="createType" name="type" placeholder="Type" required>
+
+        <label for="createLatitude" class="label">Latitude:</label>
+        <input type="number" id="createLatitude" name="latitude" placeholder="Latitude" step="any" required>
+
+        <label for="createLongitude" class="label">Longitude:</label>
+        <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
+
+        <input class="submit" type="submit" value="Create Location">
+    </form>
+
+
+    <form method="get" th:action="@{/api/v1/markers/{id}(id=${getId})}">
+        <h2>Get Location</h2>
+        <label for="getId" class="label">Location ID:</label>
+        <input type="number" id="getId" name="id" placeholder="Location ID" required>
+
+        <input class="submit" type="submit" value="Get Location">
+    </form>
+
+    <form method="get" th:action="@{/api/v1/markers/all}">
+        <h2>Get All Locations</h2>
+        <input class="submit" type="submit" value="Get All Locations">
+    </form>
+    <form method="post" th:action="@{/api/v1/markers/{id}(id=${updateId})}">
+        <h2>Update Location</h2>
+        <label for="updateId" class="label">Location ID:</label>
+        <input type="number" id="updateId" name="id" placeholder="Location ID" required>
+
+        <label for="updateTitle" class="label">Title:</label>
+        <input type="text" id="updateTitle" name="title" placeholder="Title" required>
+
+        <label for="updateDescription" class="label">Description:</label>
+        <input type="text" id="updateDescription" name="description" placeholder="Description" required>
+
+        <label for="updateType" class="label">Type:</label>
+        <input type="text" id="updateType" name="type" placeholder="Type" required>
+
+        <label for="updateLatitude" class="label">Latitude:</label>
+        <input type="number" id="updateLatitude" name="latitude" placeholder="Latitude" step="any" required>
+
+        <label for="updateLongitude" class="label">Longitude:</label>
+        <input type="number" id="updateLongitude" name="longitude" placeholder="Longitude" step="any" required>
+
+        <input class="submit" type="submit" value="Update Location">
+    </form>
+
+    <form method="post" th:action="@{/api/v1/markers/{id}(id=${deleteId})}" enctype="application/json">
+        <h2>Delete Location</h2>
+        <label for="deleteId" class="label">Location ID:</label>
+        <input type="number" id="deleteId" name="id" placeholder="Location ID" required>
+
+        <input class="submit" type="submit" value="Delete Location">
+    </form>
+</div>
+
+
+</script>
+</body>
+</html>
