@@ -28,9 +28,9 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
+        registry.addMapping("api/v1/markers/*")
                 .allowedOriginPatterns("*")
-                .allowedOrigins("http://localhost:3000", "http://localhost:8082", "https://maps.googleapis.com/")
+                .allowedOrigins("http://localhost:3000", "http://localhost:8082", "https://maps.googleapis.com/", "http://localhost:63342")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

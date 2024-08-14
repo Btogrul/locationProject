@@ -14,8 +14,10 @@
     </style>
     <title>Kalbajar</title>
 </head>
-<body>
-
+<body th:style="'background-image: url(' + @{/images/bgimg.jpg} + '); background-size: cover; background-position: center;'">
+<div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+    <p style="color: white;">Loading...</p>
+</div>
 <main class="container">
 
     <section class="section-1">
@@ -25,10 +27,10 @@
                     <a href="#"><img th:src="@{/images/logoKalb.png}" alt="kalbajar"></a>
                 </div>
                 <ul>
-                    <li ><a th:href="@{/login}">Sign in</a></li>
+                    <li class="log-d" ><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>
                 </ul>
                 <div class="nav-mobile-menu" id="nav-mobile-menu">
-                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="">
+                    <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="burger btn">
                 </div>
             </div>
         </nav>
@@ -36,7 +38,7 @@
         <nav class="mobile-menu">
             <div class="mobile-menu-main">
                 <ul>
-                    <li><a th:href="@{/login}">Sign in</a></li>
+                    <li class="log-d"><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>
                 </ul>
             </div>
         </nav>
@@ -50,8 +52,8 @@
     </section>
 
 </main>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3udL3KCDrHNVCo59XmW6p1ffm6RjVXPk&libraries=places,marker,streetView,visualization&callback=initMap" async></script>
+<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3udL3KCDrHNVCo59XmW6p1ffm6RjVXPk&libraries=places,marker,streetView,visualization&callback=initMap" ></script>
 <script type="module" src="/js/index.js"></script>
 </body>
 </html>

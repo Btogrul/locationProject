@@ -21,10 +21,10 @@ public class AppController {
         return "login";
     }
 
-//    @GetMapping("/dashboard")
-//    public String viewDashboard(){
-//        return "dashboard";
-//    }
+    @GetMapping("/dashboard")
+    public String viewDashboard(){
+        return "dashboard";
+    }
 
     @GetMapping("/api/maps-key")
     public ResponseEntity<String> getMapsApiKey() {

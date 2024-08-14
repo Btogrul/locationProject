@@ -9,7 +9,11 @@
 }
 
 body {
-    background: #f9f4e8;
+    background: #f9f4e8 center center fixed no-repeat;
+    background-size: cover;
+
+
+
 }
 
 /* Main container styles */
@@ -68,23 +72,28 @@ main nav .nav-main ul {
     align-items: center;
 }
 
-main nav .nav-main ul li {
-    border-radius: 5px;
+.log-d{
+    border-radius: 25%;
+    border: black solid 3px;
+    transition: all 3s ease-in;
+}
+main nav .nav-main ul li a {
+    display: block;
 }
 
-main nav .nav-main ul li a {
+.log-inner{
     text-decoration: none;
-    display: block;
-    font-weight: 500;
-    color: #83817e;
+    font-size: 15px;
+    font-weight: bold;
+    color: #d4d4d4;
     padding: 12px 15px;
     border-radius: 5px;
     transition: .2s background ease;
 }
-
-main nav .nav-main ul li a:hover {
+.log-inner:hover{
     background: rgba(128, 128, 128, 0.23);
 }
+
 
 main nav .nav-main .nav-mobile-menu {
     display: none;
