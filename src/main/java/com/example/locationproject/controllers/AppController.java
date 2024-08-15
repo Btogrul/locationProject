@@ -32,9 +32,6 @@ public class AppController {
         return ResponseEntity.ok(apiKey);
     }
 
-//    @GetMapping("/")
-//    public String viewHomePage2(){
-//        return "index";
-//    }
+
 
 }

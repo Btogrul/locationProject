@@ -61,7 +61,7 @@ public class LocationController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseDto updateLocation(
             @PathVariable("id") Long id,
             @RequestParam("title") String title,
@@ -81,7 +81,7 @@ public class LocationController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseDto deleteLocation(@PathVariable Long id) {
         return locationService.deleteMarker(id);
     }

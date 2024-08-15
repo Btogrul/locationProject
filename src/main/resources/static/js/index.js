@@ -63,6 +63,16 @@ function initMap() {
                     label: marker.description,
                     icon: getIcon(type)
                 });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div><strong>${marker.title}</strong><p>${marker.description}</p></div>`
+                });
+
+                mapMarker.addListener('click', () => {
+                    infoWindow.open(map, mapMarker);
+                });
+
+
                 markers.push(mapMarker);
             });
         } catch (error) {
