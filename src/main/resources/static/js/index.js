@@ -20,6 +20,22 @@ function initMap() {
         mapTypeControl: true,
         streetViewControl: false,
         // fullscreenControl: false
+        styles: [
+            {
+                featureType: "all",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            },
+            {
+                featureType: "administrative.country",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "on" }
+                ]
+            }
+        ]
     };
 
 
