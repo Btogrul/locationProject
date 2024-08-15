@@ -37,12 +37,6 @@ public class LocationController {
             @RequestParam("latitude") double latitude,
             @RequestParam("longitude") double longitude) {
 
-//        log.info("controller received");
-//        log.info("Title: " + title);
-//        log.info("Description: " + description);
-//        log.info("MarkerType: " + markerType);
-//        log.info("Latitude: " + latitude);
-//        log.info("Longitude: " + longitude);
         RequestDto requestDto = new RequestDto();
         requestDto.setTitle(title);
         requestDto.setDescription(description);
@@ -54,10 +48,6 @@ public class LocationController {
     }
 
 
-//    @GetMapping("/{id}")
-//    public ResponseDto getLocation(@PathVariable Long id) {
-//        return locationService.getMarker(id);
-//    }
 
     @GetMapping
     public ResponseDto getLocation(@RequestParam Long id) {
@@ -72,9 +62,24 @@ public class LocationController {
 
 
     @PutMapping("/{id}")
-    public ResponseDto updateLocation(@PathVariable Long id, @RequestBody RequestDto requestDto) {
+    public ResponseDto updateLocation(
+            @PathVariable("id") Long id,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("markerType") MarkerType markerType,
+            @RequestParam("latitude") double latitude,
+            @RequestParam("longitude") double longitude) {
+
+        RequestDto requestDto = new RequestDto();
+        requestDto.setTitle(title);
+        requestDto.setDescription(description);
+        requestDto.setMarkerType(markerType);
+        requestDto.setLatitude(latitude);
+        requestDto.setLongitude(longitude);
+
         return locationService.updateMarker(id, requestDto);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseDto deleteLocation(@PathVariable Long id) {
