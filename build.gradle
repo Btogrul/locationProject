@@ -34,7 +34,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.1'
-    implementation 'com.h2database:h2:2.2.224'
+//    implementation 'com.h2database:h2:2.2.224'
+    implementation 'org.postgresql:postgresql:42.7.3'
+
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 

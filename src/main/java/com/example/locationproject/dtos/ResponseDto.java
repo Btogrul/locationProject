@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class ResponseDto {
-    private UUID id;
+    private Long id;
     private String title;
     private String description;
     private MarkerType markerType;

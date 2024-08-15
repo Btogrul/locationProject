@@ -28,7 +28,7 @@ public class SecurityConfig {
         UserDetails user = User.builder()
                 .username("ADMIN")
                 .authorities("ROLE_ADMIN")
-                .password(passwordEncoder().encode(password))
+                .password(password)
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
@@ -43,15 +43,15 @@ public class SecurityConfig {
         return new ProviderManager(authenticationProvider());
     }
 
-    @Autowired
-
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin")
-                .password("$2a$12$6Ff9Y402hHDdB2Q00cBSuOq33Dos6WO.RKTEJONaFkbaTHMZNwZ7G")
-                .roles("ADMIN");
-    }
+//    @Autowired
+//
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("admin")
+//                .password("$2a$12$6Ff9Y402hHDdB2Q00cBSuOq33Dos6WO.RKTEJONaFkbaTHMZNwZ7G")
+//                .roles("ADMIN");
+//    }
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

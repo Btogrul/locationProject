@@ -17,9 +17,8 @@ import java.util.UUID;
 @Entity
 public class Marker {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotNull
     private String title;
     private String description;
