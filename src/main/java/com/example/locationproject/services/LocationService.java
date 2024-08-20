@@ -1,10 +1,14 @@
 package com.example.locationproject.services;
 
+import com.example.locationproject.dtos.ContactDTO;
+import com.example.locationproject.dtos.ContactResponseDTO;
 import com.example.locationproject.dtos.RequestDto;
 import com.example.locationproject.dtos.ResponseDto;
+import com.example.locationproject.entities.Contact;
 import com.example.locationproject.entities.Marker;
 import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.exception.ResourceNotFoundException;
+import com.example.locationproject.repositories.ContactRepository;
 import com.example.locationproject.repositories.MarkerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,7 @@ public class LocationService {
 
     private final MarkerRepository markerRepo;
     private final ModelMapper mapper;
+    private final ContactRepository contactRepository;
 
     public ResponseDto createMarker(RequestDto requestDto) {
         log.info("Request: {}", requestDto);
@@ -68,4 +73,27 @@ public class LocationService {
     public <D, S> List<D> listMapping(List<S> source, Class<D> destination) {
         return source.stream().map(s -> mapper.map(s, destination)).toList();
     }
+
+    public String saveContact(ContactDTO contactDTO) {
+        log.info("Request: {}", contactDTO);
+
+        Contact contact = new Contact();
+        contact.setName(contactDTO.getName());
+        contact.setSurname(contactDTO.getSurname());
+        contact.setEmail(contactDTO.getEmail());
+        contact.setContactNumber(contactDTO.getContactNumber());
+        contact.setDescription(contactDTO.getDescription());
+
+        contact = contactRepository.save(contact);
+        mapper.map(contact, ContactResponseDTO.class);
+        return "göndərildi";
+    }
+
+
+    public List<ContactResponseDTO> getAllContacts() {
+        List<Contact> contacts = contactRepository.findAll();
+        return listMapping(contacts, ContactResponseDTO.class);
+    }
+
+
 }

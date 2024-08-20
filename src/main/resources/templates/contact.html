@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Us</title>
+</head>
+<body>
+<h1>Contact Us</h1>
+
+<form id="contactForm" th:action="@{/api/v1/markers/contact/new}" method="post"  enctype="application/x-www-form-urlencoded">
+
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="surname">Surname:</label><br>
+    <input type="text" id="surname" name="surname" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"  required><br><br>
+
+    <label for="contactNumber">Contact Number:</label><br>
+    <input type="text" id="contactNumber" name="contactNumber"  required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" rows="5" cols="50" name="description" required></textarea><br><br>
+
+    <input  type="submit"  value="submit" />
+</form>
+<div id="message"></div>
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        fetch("/api/v1/markers/contact/new", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Success:", data);
+                document.getElementById("message").innerText = data;
+
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("message").innerText = "An error occurred. Please try again.";
+            });
+    });
+</script>
+</body>
+</html>

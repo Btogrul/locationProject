@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AppController {
     private Environment environment;
 
+
     @GetMapping("")
     public String viewHomePage(){
 
@@ -33,5 +34,14 @@ public class AppController {
     }
 
 
+    @GetMapping("/about")
+    public String viewAboutPage(){
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String viewContactPage(){
+        return "contact";
+    }
 
 }

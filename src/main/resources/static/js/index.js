@@ -72,17 +72,30 @@ function initMap() {
                     return;
                 }
 
+                const description = typeof marker.description === 'string' ? marker.description : JSON.stringify(marker.description);
+
                 const mapMarker = new google.maps.Marker({
                     position: { lat: marker.latitude, lng: marker.longitude },
                     map: map,
-                    title: marker.title,
-                    label: marker.description,
+                    // title: marker.title,
+                    title: typeof marker.title === 'string' ? marker.title : JSON.stringify(marker.title),
+                    // label: marker.description,
+                    label: {
+                        // text: marker.title,
+                        text: typeof marker.title === 'string' ? marker.title : 'Invalid Title',
+                        color: 'black',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        className: 'marker-label'
+                    },
                     icon: getIcon(type)
                 });
 
                 const infoWindow = new google.maps.InfoWindow({
-                    content: `<div><strong>${marker.title}</strong><p>${marker.description}</p></div>`
+                    content: `<div><strong>${marker.title}</strong><p>${description}</p></div>`
                 });
+
+                // marker.description
 
                 mapMarker.addListener('click', () => {
                     infoWindow.open(map, mapMarker);
@@ -118,6 +131,40 @@ function getIcon(type) {
     return icons[type.toLowerCase()] || '/images/icons/pin.svg';
 }
 
+document.getElementById("search-button").addEventListener("click", () => {
+    const searchText = document.getElementById("search-input").value.toLowerCase();
+    let found = false;
+
+    markers.forEach(marker => {
+        if (marker.title.toLowerCase().includes(searchText)) {
+            map.setCenter(marker.getPosition());
+            map.setZoom(15);
+
+            // const searchInfoWindow = new google.maps.InfoWindow({
+            //     content: `<div><strong>${marker.title}</strong><p>daha çox məlumat üçün <br> klikləyin...</p></div>`
+            // });
+            //
+            // searchInfoWindow.open(map, marker);
+            found = true;
+
+
+            google.maps.event.addListener(marker, 'click', () => {
+                searchInfoWindow.close();
+            });
+        }
+    });
+
+    if (!found) {
+        alert("Lokasiya tapılmadı");
+    }
+});
+
+
+document.getElementById("search-input").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        document.getElementById("search-button").click();
+    }
+});
 window.onload = initMap;
 
 

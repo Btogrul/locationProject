@@ -1,6 +1,7 @@
 package com.example.locationproject.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -33,7 +34,10 @@ public class WebSecurityConfig {
             "/v3/api-docs/**",
             "/api/v1/markers/all",
             "/api/maps-key",
-            "http://www.w3.org/2000/svg"
+            "http://www.w3.org/2000/svg",
+            "/about",
+            "/contact",
+            "/api/v1/markers/contact/new"
 
     };
     static final String[] SWAGGER_WHITELIST = new String[]{
@@ -41,6 +45,7 @@ public class WebSecurityConfig {
             "/swagger-ui/**",
             "/swagger-ui.html"
     };
+
     private final JwtAuthFilter jwtAuthFilter;
 
     @Bean

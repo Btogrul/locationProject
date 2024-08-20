@@ -1,13 +1,17 @@
 package com.example.locationproject.controllers;
 
+import com.example.locationproject.dtos.ContactDTO;
+import com.example.locationproject.dtos.ContactResponseDTO;
 import com.example.locationproject.dtos.RequestDto;
 import com.example.locationproject.dtos.ResponseDto;
+import com.example.locationproject.entities.Contact;
 import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.repositories.MarkerRepository;
 import com.example.locationproject.services.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,4 +89,36 @@ public class LocationController {
     public ResponseDto deleteLocation(@PathVariable Long id) {
         return locationService.deleteMarker(id);
     }
+
+
+    @GetMapping("/contact")
+    public String showContactForm(Model model) {
+        model.addAttribute("contact", new ContactDTO());
+        return "contact";
+    }
+
+    @PostMapping("/contact/new")
+    public ResponseEntity saveNewContact(
+            @RequestParam("name") String name,
+            @RequestParam("surname") String surname,
+            @RequestParam("email") String email,
+            @RequestParam("contactNumber") String contactNumber,
+            @RequestParam("description") String description) {
+
+        ContactDTO contactDTO = new ContactDTO();
+        contactDTO.setName(name);
+        contactDTO.setSurname(surname);
+        contactDTO.setEmail(email);
+        contactDTO.setContactNumber(contactNumber);
+        contactDTO.setDescription(description);
+        locationService.saveContact(contactDTO);
+        return ResponseEntity.ok("Contact saved successfully");
+    }
+
+    @GetMapping("/contact/all")
+    public List<ContactResponseDTO> getAllContacts() {
+        return locationService.getAllContacts();
+    }
+
+
 }

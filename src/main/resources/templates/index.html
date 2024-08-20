@@ -12,6 +12,25 @@
             height: 500px;
             width: 100%;
         }
+        #search-container {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        #search-input {
+            width: 60%;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #search-button {
+            padding: 8px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .marker-label {
+            padding-top: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
     </style>
     <title>Zəngəzur</title>
 </head>
@@ -29,6 +48,8 @@
                 </div>
                 <ul>
                     <li class="log-d" ><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>
+                    <li class="log-d"><a class="log-inner" target="_blank" th:href="@{/about}">Haqqımızda</a></li>
+                    <li class="log-d"><a class="log-inner" target="_blank" th:href="@{/contact}">əlaqə</a></li>
                 </ul>
                 <div class="nav-mobile-menu" id="nav-mobile-menu">
                     <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="burger btn">
@@ -45,6 +66,10 @@
         </nav>
 
         <div class="section-1-main">
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Axtarış...">
+                <button id="search-button">Axtar</button>
+            </div>
             <div class="section-1-content" id="map">
 
             </div>
