@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Qərbi Azərbaycan</title>
+    <link rel="shortcut icon" href="/images/logo_nobg.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        #map {
+            height: 100vh;
+            /*width: 100%;*/
+        }
+        .marker-label {
+            padding-top: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header class="container" id="main-header">
+    <div class="nav-logo">
+<!--        <a href="#"><img th:src="@{/images/gerb.png}" alt="logo"></a>-->
+        <a href="#"><img th:src="@{/images/logo_nobg.png}"  alt="logo"></a>
+    </div>
+    <nav>
+        <div class="nav-main">
+            <ul>
+<!--                <li class="log-d" ><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>-->
+                <li class="log-d"><a class="log-inner" href="#about-us" >Haqqımızda</a></li>
+                <li class="log-d"><a class="log-inner" href="#footer" >əlaqə</a></li>
+            </ul>
+            <div class="nav-mobile-menu" id="nav-mobile-menu">
+                <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="burger btn">
+            </div>
+        </div>
+    </nav>
+
+    <nav class="mobile-menu">
+        <div class="mobile-menu-main">
+            <ul>
+                <li class="log-d"><a class="log-inner" target="_blank" >Haqqımızda</a></li>
+                <li class="log-d"><a class="log-inner" target="_blank" >əlaqə</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+    <p style="color: white;">Loading...</p>
+</div>
+<main>
+    <section id="main-section">
+        <div id="search-container" class="container">
+            <input type="text" id="search-input" placeholder="Axtarış...">
+            <button id="search-button"><img th:src="@{/images/icons/search.svg}" alt="search" ></button>
+        </div>
+        <div id="map" class="main-section-content" >
+        </div>
+    </section>
+    <section class="container" id="about-us">
+        <div class="about-content">
+            <h1> Qərbi Azərbaycan </h1>
+            <p>XX əsrdə Qərbi Azərbaycanda başlanmış soyqırımlar türk yaşayış məskənlərinin dağıdılması və bölgə əhalisinin erməniləşdirilməsi ilə nəticələndi. Bu eyni zamanda mədəniyyətimizə qarşı müharibə,  çoxəsrlik irsimizə edilmiş qəsd idi. Viran qalan kəndlərimizlə bərabər toponimlərimiz, şəhərlərimizin və kəndlərimizin adı rəsmi olaraq dəyişdirildi, izlərimiz də torpaqlarımızdan silindi.</p> <br>
+
+               <p> Təqdim olunan layihəmiz dədə-baba yurdumuz Qərbi Azərbaycandakı mədəni-tarixi izlərimizin bərpasına və qorunmasına yönəlmişdir. Əsas məqsədimiz tarixi torpaqlarımızda erməni barbarlığı nəticəsində silinmiş toponimlərimizin bərpası ilə çoxəsrlik qan yaddaşının qaytarılması, gənc nəsildə bu istiqamətdə məlumatlılığın formalaşdırılması və beynəlxalq ictimaiyyətə həqiqətlərin çatdırılmasıdır. </p>
+                <br>
+
+               <p> Saytmız qeyri-kommersiya xarakterli olaraq hər bir Azərbaycanlıya məxsusdur. Biz diqqətdən yayınan toponimlərimizin yerləşdirilməsi və xəritədə ola biləcək hər hansı bir çatışmamazlıqla əlaqədar Qərbi Azərbaycandan olan soydaşlarımızı əməkdaşlığa dəvət edirik. </p>
+                <br>
+
+                <p>44 günlük Vətən müharibəsində qazandığımız zəfərdən və 23 saatlıq uğurlu anti-terror əməliyyatından sonra Qarabağımıza qovuşduğumuz kimi Qərbi Azərbaycanımıza da qovuşmağımızın bir addımlığındayıq.
+
+                Təqdim etdiyimiz bu virtual xəritə dədə baba torpaqlarımızdan didərgin düşən deportasiyaya uğrayan böyük faciələr yaşayan soydaşlarımız üçün onların qayıdışın işıq saça bilər. </p>
+                <br>
+
+                <p>Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk.</p>
+        </div>
+        <div class="about-img">
+            <img  th:src="@{/images/img-map.jpeg}"  alt="map photo" id="imgModal">
+        </div>
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
+</main>
+<footer id="footer">
+    <div class="contact-header">
+        <h2>BİZİMLƏ ƏLAQƏ</h2>
+        <p>Sorğunuzu aşağıdakı formu dolduraraq bizə göndərə bilərsiniz.<br> Tezliklə sizinlə əlaqə saxlayacağıq.</p>
+    </div>
+
+    <form id="contactForm" th:action="@{/api/v1/markers/contact/new}" method="post" enctype="application/x-www-form-urlencoded">
+        <label for="name">Ad:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="surname">Soyad:</label>
+        <input type="text" id="surname" name="surname" required>
+
+        <label for="email">E-poçt:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="contactNumber">Əlaqə Nömrəsi:</label>
+        <input type="text" id="contactNumber" name="contactNumber" required>
+
+        <label for="description">Mesajınız:</label>
+        <textarea id="description" rows="5" cols="50" name="description" required></textarea>
+
+        <input type="submit" value="Göndər">
+    </form>
+    <div id="message"></div>
+</footer>
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        fetch("/api/v1/markers/contact/new", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Success:", data);
+                document.getElementById("message").innerText = data;
+
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("message").innerText = "An error occurred. Please try again.";
+            });
+    });
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3udL3KCDrHNVCo59XmW6p1ffm6RjVXPk&libraries=places,marker,streetView,visualization&callback=initMap" ></script>
+<script src="/js/modal.js"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

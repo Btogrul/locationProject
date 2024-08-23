@@ -120,5 +120,15 @@ public class LocationController {
         return locationService.getAllContacts();
     }
 
+    @DeleteMapping("/contact/delete/{id}")
+    public ContactResponseDTO deleteContact(@PathVariable Long id) {
+        return locationService.deleteMessage(id);
+    }
+
+    @DeleteMapping("/contact/deleteAll")
+    public ResponseEntity<String> deleteAllContacts() {
+        locationService.deleteAllContacts();
+        return ResponseEntity.ok("Hamısı uğurla silindi");
+    }
 
 }

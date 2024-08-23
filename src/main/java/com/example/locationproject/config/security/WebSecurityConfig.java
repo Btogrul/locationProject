@@ -37,7 +37,8 @@ public class WebSecurityConfig {
             "http://www.w3.org/2000/svg",
             "/about",
             "/contact",
-            "/api/v1/markers/contact/new"
+            "/api/v1/markers/contact/new",
+            "/test"
 
     };
     static final String[] SWAGGER_WHITELIST = new String[]{

@@ -19,7 +19,10 @@ function initMap() {
         // zoomControl: false,
         mapTypeControl: true,
         streetViewControl: false,
-        // fullscreenControl: false
+        fullscreenControl: true,
+        fullscreenControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
         styles: [
             {
                 featureType: "all",

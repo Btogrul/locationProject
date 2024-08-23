@@ -13,7 +13,7 @@ public class AppController {
     @GetMapping("")
     public String viewHomePage(){
 
-        return "index";
+        return "test";
     }
 
 
@@ -44,4 +44,8 @@ public class AppController {
         return "contact";
     }
 
+    @GetMapping("/test")
+    public String viewTestPage(){
+        return "test";
+    }
 }

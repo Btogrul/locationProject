@@ -10,10 +10,12 @@ import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.exception.ResourceNotFoundException;
 import com.example.locationproject.repositories.ContactRepository;
 import com.example.locationproject.repositories.MarkerRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,6 +77,9 @@ public class LocationService {
     }
 
     public String saveContact(ContactDTO contactDTO) {
+        if (contactDTO.getEmail() == null) {
+            throw new IllegalArgumentException("zəhmət olmasa email bölməsini boş saxlamayın.");
+        }
         log.info("Request: {}", contactDTO);
 
         Contact contact = new Contact();
@@ -93,6 +98,20 @@ public class LocationService {
     public List<ContactResponseDTO> getAllContacts() {
         List<Contact> contacts = contactRepository.findAll();
         return listMapping(contacts, ContactResponseDTO.class);
+    }
+
+    public ContactResponseDTO deleteMessage(Long id) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("message not found : " + id));
+        contactRepository.delete(contact);
+        return mapper.map(contact, ContactResponseDTO.class);
+    }
+
+
+    @Transactional
+    public void deleteAllContacts() {
+        log.info("Deleting all contacts");
+        contactRepository.deleteAll();
     }
 
 

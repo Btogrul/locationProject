@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"  xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -15,14 +15,17 @@
             margin: 0;
             padding: 20px;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
         }
+
         h1, h2 {
             text-align: center;
             margin-bottom: 20px;
         }
+
         form {
             margin-bottom: 20px;
             padding: 20px;
@@ -30,7 +33,8 @@
             border-radius: 5px;
             background-color: #1c1c1c;
         }
-        input, button {
+
+        input, button, select, textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -39,123 +43,167 @@
             background-color: #333;
             color: white;
         }
+
         button {
             background-color: #555;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #777;
         }
-        .response {
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
             padding: 10px;
-            margin-top: 10px;
-            border: 1px solid white;
+            background-color: #555;
+            border: none;
+            cursor: pointer;
+            color: white;
             border-radius: 5px;
-            background-color: #2e2e2e;
+        }
+
+        .tab-button.active {
+            background-color: #777;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Location Dashboard</h1>
-
-    <div id="map" style="height: 450px; width: 100%;">
-
+    <div class="tabs">
+        <button class="tab-button active" onclick="showContent('mapSection')">Map</button>
+        <button class="tab-button" onclick="showContent('contactsSection')">Contacts</button>
     </div>
 
-    <h2>Create Location</h2>
-    <form method="post" th:action="@{/api/v1/markers/new}" enctype="application/x-www-form-urlencoded">
+
+    <div id="mapSection" class="content active">
+        <div id="map" style="height: 450px; width: 100%;">
+
+        </div>
         <h2>Create Location</h2>
+        <form method="post" th:action="@{/api/v1/markers/new}" enctype="application/x-www-form-urlencoded">
+            <h2>Create Location</h2>
 
-        <label for="createTitle" class="label">Title:</label>
-        <input type="text" id="createTitle" name="title" placeholder="Title" required>
+            <label for="createTitle" class="label">Title:</label>
+            <input type="text" id="createTitle" name="title" placeholder="Title" required>
 
-        <label for="createDescription" class="label">Description:</label>
-        <input type="text" id="createDescription" name="description" placeholder="Description" required>
+            <label for="createDescription" class="label">Description:</label>
+            <input type="text" id="createDescription" name="description" placeholder="Description" required>
 
-        <label class="label" for="createType">Marker Type:</label>
-        <select id="createType" name="markerType" required>
-            <option value="CUSTOM">Custom</option>
-            <option value="BUILDING">Building</option>
-            <option value="ROAD">Road</option>
-            <option value="RESTAURANT">Restaurant</option>
-            <option value="STORE">Store</option>
-            <option value="PARK">Park</option>
-            <option value="RIVER">River</option>
-            <option value="LAKE">Lake</option>
-        </select><br><br>
+            <label class="label" for="createType">Marker Type:</label>
+            <select id="createType" name="markerType" required>
+                <option value="CUSTOM">Custom</option>
+                <option value="BUILDING">Building</option>
+                <option value="ROAD">Road</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">Store</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">River</option>
+                <option value="LAKE">Lake</option>
+            </select><br><br>
 
-        <label for="createLatitude" class="label">Latitude:</label>
-        <input type="number" id="createLatitude" name="latitude" placeholder="Latitude" step="any" required>
+            <label for="createLatitude" class="label">Latitude:</label>
+            <input type="number" id="createLatitude" name="latitude" placeholder="Latitude" step="any" required>
 
-        <label for="createLongitude" class="label">Longitude:</label>
-        <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
+            <label for="createLongitude" class="label">Longitude:</label>
+            <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
 
-        <input formtarget="_blank" class="submit" type="submit" value="Create Location">
-    </form>
-
-
-
-    <form method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
-        <h2>Get Location</h2>
-        <label for="getId" class="label">Location ID:</label>
-        <input type="text" id="getId" name="id" placeholder="Location ID" required>
-        <input formtarget="_blank" class="submit" type="submit" value="Get Location">
-    </form>
+            <input formtarget="_blank" class="submit" type="submit" value="Create Location">
+        </form>
 
 
-    <form method="get" th:action="@{/api/v1/markers/all}">
-        <h2>Get All Locations</h2>
-        <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
-    </form>
+        <form method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
+            <h2>Get Location</h2>
+            <label for="getId" class="label">Location ID:</label>
+            <input type="text" id="getId" name="id" placeholder="Location ID" required>
+            <input formtarget="_blank" class="submit" type="submit" value="Get Location">
+        </form>
 
 
-    <form method="get" th:action="@{/api/v1/markers/contact/all}">
-        <h2>Get All Contacts</h2>
-        <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
-    </form>
-
-    <form id="updateForm">
-        <h2>Update</h2>
-
-        <label for="markerUpId">Marker ID:</label>
-        <input type="number" id="markerUpId" name="markerUpId" required><br><br>
-
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required rows="5" cols="40"></textarea><br><br>
-
-        <label for="markerType">Marker Type:</label>
-        <select id="markerType" name="markerType" required>
-            <option value="CUSTOM">Custom</option>
-            <option value="BUILDING">Building</option>
-            <option value="ROAD">Road</option>
-            <option value="RESTAURANT">Restaurant</option>
-            <option value="STORE">Store</option>
-            <option value="PARK">Park</option>
-            <option value="RIVER">River</option>
-            <option value="LAKE">Lake</option>
-        </select><br><br>
-
-        <label for="latitude">Latitude:</label>
-        <input type="number" id="latitude" name="latitude" step="any" required><br><br>
-
-        <label for="longitude">Longitude:</label>
-        <input type="number" id="longitude" name="longitude" step="any" required><br><br>
-
-        <button type="submit">Update Marker</button>
-    </form>
+        <form method="get" th:action="@{/api/v1/markers/all}">
+            <h2>Get All Locations</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
+        </form>
 
 
-    <form id="deleteForm">
-        <h2>Delete</h2>
+        <form id="updateForm">
+            <h2>Update</h2>
 
-        <label for="markerId">Enter Marker ID to Delete:</label>
-        <input type="number" id="markerId" name="markerId" required>
-        <button type="submit">Delete Marker</button>
-    </form>
+            <label for="markerUpId">Marker ID:</label>
+            <input type="number" id="markerUpId" name="markerUpId" required><br><br>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required rows="5" cols="40"></textarea><br><br>
+
+            <label for="markerType">Marker Type:</label>
+            <select id="markerType" name="markerType" required>
+                <option value="CUSTOM">Custom</option>
+                <option value="BUILDING">Building</option>
+                <option value="ROAD">Road</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">Store</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">River</option>
+                <option value="LAKE">Lake</option>
+            </select><br><br>
+
+            <label for="latitude">Latitude:</label>
+            <input type="number" id="latitude" name="latitude" step="any" required><br><br>
+
+            <label for="longitude">Longitude:</label>
+            <input type="number" id="longitude" name="longitude" step="any" required><br><br>
+
+            <button type="submit">Update Marker</button>
+        </form>
+
+
+        <form id="deleteForm">
+            <h2>Delete</h2>
+
+            <label for="markerId">Enter Marker ID to Delete:</label>
+            <input type="number" id="markerId" name="markerId" required>
+            <button type="submit">Delete Marker</button>
+        </form>
+    </div>
+
+    <div id="contactsSection" class="content">
+        <form method="get" th:action="@{/api/v1/markers/contact/all}">
+            <h2>Get All Contacts</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
+        </form>
+        <form id="deleteSingleForm">
+            <h2>Delete Contact</h2>
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+
+            <label for="contactId">Enter Contact ID to Delete:</label>
+            <input type="number" id="contactId" name="contactId" required>
+            <input type="submit" value="delete a contact"/>
+        </form>
+
+        <form id="deleteAllContactsForm">
+            <h2>Delete All Contacts</h2>
+            <button type="submit">Delete All Contacts</button>
+        </form>
+
+
+    </div>
 
 </div>
 
@@ -187,28 +235,28 @@
     window.onload = initMap;
 
 
-        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+    document.getElementById('deleteForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const markerId = document.getElementById('markerId').value;
         const url = `/api/v1/markers/delete/${markerId}`;
 
         fetch(url, {
-        method: 'DELETE',
-        headers: {
-        'Content-Type': 'application/json'
-    }
-    })
-        .then(response => response.json())
-        .then(data => {
-        alert(`Status: ${data.status}\nMessage: ${data.message}`);
-    })
-        .catch((error) => {
-        console.error('Error:', error);
-    });
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     });
 
-    document.getElementById('updateForm').addEventListener('submit', function(event) {
+    document.getElementById('updateForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const markerId = document.getElementById('markerUpId').value;
@@ -242,6 +290,68 @@
                 console.error('Error:', error);
             });
     });
+
+
+    document.getElementById('deleteSingleForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const contactId = document.getElementById('contactId').value;
+        const url = `/api/v1/markers/contact/delete/${contactId}`;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+    document.getElementById('deleteAllContactsForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const url = '/api/v1/markers/contact/deleteAll';
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+
+    function showContent(sectionId) {
+        const sections = document.querySelectorAll('.content');
+        const buttons = document.querySelectorAll('.tab-button');
+
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelector(`button[onclick="showContent('${sectionId}')"]`).classList.add('active');
+    }
 </script>
 </body>
 </html>
+
+
+
