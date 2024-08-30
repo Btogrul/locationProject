@@ -12,6 +12,9 @@ public enum MarkerType {
     STORE,
     PARK,
     RIVER,
+    REGION,
+    CITY,
+    VILLAGE,
     LAKE;
 
 

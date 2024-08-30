@@ -52,6 +52,12 @@ body::-webkit-scrollbar-thumb {
     padding: 0 15px;
 }
 
+.header-container{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
 
 li{
     list-style: none;
