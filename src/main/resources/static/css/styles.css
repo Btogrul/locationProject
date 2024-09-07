@@ -147,6 +147,10 @@ body{
     padding: 5px;
 
 }
+
+#search-container .change-buttons .button_map{
+    padding: 10px;
+}
 .search-container-inner{
     position: relative;
     display: flex;
@@ -196,61 +200,42 @@ body{
     margin: 40px auto;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
-#about-us .about-content{
-    width: 60%;
-}
-
-
-#about-us .about-content h1{
-    font-size: 2rem;
-    text-align: center;
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    letter-spacing: 8px;
-}
-
-#about-us .about-content p{
-    line-height: 1.8;
-    font-size: 15px;
-    color: var(--gray-dark);
-    padding: 0 20px;
-    text-indent: 40px;
-}
-
-#about-us .about-content-right-side{
-    width: 35%;
-}
-#about-us .about-content-right-side .right-side-text{
-    max-height: 300px;
-    max-width: 100%;
-    overflow: hidden;
-    min-height: 100px;
-    padding: 40px 0 20px 0;
-    margin-top: 10px;
-}
-
-#about-us .about-content-right-side .right-side-text p{
-    font-size: 18px;
-    font-family: "Cormorant Garamond", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-#about-us .about-content-right-side .right-side-text h3{
-    font-weight: 300 ;
-    text-align: right;
+#about-us .main-content {
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
 }
+#about-us .main-content  p{
+        font-size: 18px;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-style: normal;
+}
 
+#about-us .main-content  h3,
+#about-us .about-author h3{
+        font-weight: 300 ;
+        text-align: right;
+        padding: 10px;
+}
 
+#about-us .main-content .left-main-content {
+    width: 45%;
+}
 
+#about-us .main-content  .right-main-content{
+    width: 45%;
+}
+/*================img===================*/
 #about-us .about-img{
     width: 100%;
     display: flex;
+    overflow: hidden;
+    padding: 20px;
+    margin: 20px 0;
 }
 
 #about-us .about-img img{
@@ -259,8 +244,40 @@ body{
     object-fit: contain;
     cursor: pointer;
 }
+/*img ended*/
 
-/*About us finished */
+#about-us .about-content {
+    margin: 20px 0;
+    padding: 20px 0;
+    width: 100%;
+}
+
+
+#about-us .about-author{
+    margin: 20px 0;
+}
+
+#about-us .about-content p,
+#about-us .about-author p{
+    line-height: 1.8;
+    font-size: 15px;
+    color: var(--gray-dark);
+    padding: 0 20px;
+    text-indent: 40px;
+}
+
+
+#about-us .about-author h2{
+    text-align: center;
+    margin: 10px 0;
+    font-weight: 300;
+    padding: 10px;
+    font-size: 30px;
+}
+
+
+
+    /*About us finished */
 
 /*footer contact us */
 #contactForm {
@@ -372,23 +389,7 @@ body{
         /*padding: 0 20px 0 0;*/
     }
 
-    /*#search-input{*/
-    /*    width: 12em;*/
-    /*}*/
 
-    /*#search-button{*/
-    /*    right: 20px;*/
-    /*}*/
-    #about-us .about-content{
-        width: 100%;
-    }
-
-    /*#about-us .about-content-right-side{*/
-    /*    width: 100%;*/
-    /*}*/
-    /*#about-us .about-content-right-side .right-side-text{*/
-    /*    padding: 40px 40px 20px;*/
-    /*}*/
 }
 
 @media(max-width: 768px){
@@ -412,25 +413,7 @@ body{
         right: 20px;
     }
 
-    /*#about-us{*/
-    /*    flex-direction: column;*/
-    /*}*/
 
-    /*#about-us .about-img{*/
-    /*    width: 100%;*/
-    /*}*/
-
-    /*#about-us .about-content{*/
-    /*    width: 80%;*/
-    /*    margin-bottom: 20px;*/
-    /*}*/
-
-    #about-us .about-content-right-side{
-        width: 100%;
-    }
-    /*#about-us .about-content-right-side .right-side-text{*/
-    /*    padding: 40px 40px 20px;*/
-    /*}*/
     *,::before,::after{
         scrollbar-width: auto;
     }
@@ -451,24 +434,14 @@ body{
         flex-direction: column;
     }
 
-    #about-us .about-img{
-        width: 100%;
-    }
-
-    #about-us .about-content{
-        width: 80%;
-        margin-bottom: 20px;
-    }
-
-    #about-us .about-content-right-side{
-        width: 90%;
-    }
-    #about-us .about-content-right-side .right-side-text{
-        padding: 40px 40px 20px;
-    }
-
 }
 
+@media(min-width: 1024px){
+    #about-us .about-author,
+    #about-us .about-content{
+        width: 80%;
+    }
+}
 @media(max-width: 1200px){
     #main-header{
         padding: 15px 10px 0;

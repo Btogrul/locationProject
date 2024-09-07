@@ -68,17 +68,40 @@
                 <button id="search-button"><img th:src="@{/images/icons/search.svg}" alt="search"></button>
             </div>
             <div class="change-buttons">
-                <button id="prev-button" style="display: none;">Əvvəlki</button>
-                <button id="next-button" style="display: none;">Sonrakı</button>
+                <button class="button_map" id="prev-button" style="display: none;">Əvvəlki</button>
+                <button class="button_map" id="next-button" style="display: none;">Sonrakı</button>
             </div>
         </div>
 
         <div id="map" class="main-section-content">
         </div>
     </section>
+
+
+
     <section class="container" id="about-us">
+
+        <div class="main-content">
+            <div class="left-main-content">
+                <p>
+                    “1918-ci ildə Azərbaycan Respublikasının ərazisi 114 min kv kilometr olub. İndi isə 86 min kv kilometr qalıb. Gör əlimizdən nə qədər torpaqlar gedib.”
+                </p>
+                <h3>Heydər Əliyev</h3>
+            </div>
+            <div class="right-main-content">
+                <p>
+                    “Əminəm ki, gün gələcək və Qərbi Azərbaycandan olan soydaşlarımız, onların yaxınları, uşaqları, nəvələri tarixi diyarımız olan Qərbi Azərbaycana qayıdacaqlar”.
+                </p>
+                <h3>İlham Əliyev</h3>
+            </div>
+        </div>
+
+        <div class="about-img">
+            <img th:src="@{/images/midaze2clean.png}" alt="map photo" id="imgModal">
+        </div>
+
+
         <div class="about-content">
-            <h1> Qərbi Azərbaycan </h1>
             <p>XX əsrdə Qərbi Azərbaycanda başlanmış soyqırımlar türk yaşayış məskənlərinin dağıdılması və bölgə
                 əhalisinin erməniləşdirilməsi ilə nəticələndi. Bu eyni zamanda mədəniyyətimizə qarşı müharibə, çoxəsrlik
                 irsimizə edilmiş qəsd idi. Viran qalan kəndlərimizlə bərabər toponimlərimiz, şəhərlərimizin və
@@ -104,22 +127,28 @@
 
             <p>Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk.</p>
         </div>
-        <div class="about-content-right-side">
-            <div class="right-side-text">
-                <p>
-                    “Əminəm ki, gün gələcək və Qərbi Azərbaycandan olan soydaşlarımız, onların yaxınları, uşaqları, nəvələri tarixi diyarımız olan Qərbi Azərbaycana qayıdacaqlar”.
-                </p>
-                <h3>İlham Əliyev</h3>
-            </div>
-            <div class="about-img">
-                <img th:src="@{/images/midaze2clean.png}" alt="map photo" id="imgModal">
-            </div>
-        </div>
         <div id="myModal" class="modal">
             <span class="close">&times;</span>
             <img class="modal-content" id="modalImage">
         </div>
+        <div class="about-author">
+            <h2>İdea Sahibi</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, ape
+                riam dolores eveniet impedit libero optio quo vel? Animi atque debitis impedi
+                t, in laborum libero minus nam nobis quae quo veritatis?Animi aperiam asperior
+                es deleniti dicta, in molestias odio optio quam sapiente tenetur vel vitae. Asperiores, at atque aut
+                beatae consequatur debitis dicta facilis labore natus, ratione, suscipit totam unde vero!Ab aperiam assum
+                enda error explicabo, id illo inventore libero maiores maxime, molestiae nobis possimus reiciendis repellendus repudiandae sapie
+                nte sint soluta tempora totam ullam voluptates. Beatae explicabo id labore ratione suscipit.
+            </p>
+            <h3>
+               Ad Soyad
+            </h3>
+        </div>
     </section>
+
+
+
 </main>
 <footer id="footer">
     <div class="contact-header">
