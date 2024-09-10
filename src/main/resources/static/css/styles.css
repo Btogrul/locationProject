@@ -390,6 +390,7 @@ body{
     }
 
 
+
 }
 
 @media(max-width: 768px){
@@ -416,6 +417,17 @@ body{
 
     *,::before,::after{
         scrollbar-width: auto;
+    }
+
+    #about-us .main-content{
+        flex-direction: column;
+    }
+    #about-us .main-content .left-main-content{
+        margin: 20px 0;
+    }
+    #about-us .main-content .left-main-content,
+    #about-us .main-content .right-main-content{
+        width: 90%;
     }
 }
 

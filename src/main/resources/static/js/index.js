@@ -122,7 +122,7 @@ function initMap() {
                 markers.forEach(marker => {
                     const markerType = marker.getIcon() === getIcon('region') ? 'region' : 'other';
 
-                    if ((currentZoom === 10 || currentZoom === 11) && markerType !== 'region') {
+                    if ((currentZoom === 10 || currentZoom === 11 || currentZoom < 12) && markerType !== 'region') {
                         marker.setVisible(false);
                     } else {
                         marker.setVisible(true);
