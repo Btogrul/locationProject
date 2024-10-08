@@ -236,6 +236,27 @@
             const lng = event.latLng.lng();
             alert('Latitude: ' + lat + ', Longitude: ' + lng);
         });
+
+
+        let touchStartTime;
+        let longPressTimeout;
+
+        map.addListener('touchstart', function(event) {
+            touchStartTime = new Date().getTime();
+
+            longPressTimeout = setTimeout(function() {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                alert('Latitude: ' + lat + ', Longitude: ' + lng);
+            }, 2000);
+        });
+
+        map.addListener('touchend', function() {
+            const touchEndTime = new Date().getTime();
+            if (touchEndTime - touchStartTime < 2000) {
+                clearTimeout(longPressTimeout);
+            }
+        });
     }
 
     window.onload = initMap;
