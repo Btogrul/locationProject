@@ -22,6 +22,7 @@ public class AppController {
         return "login";
     }
 
+
     @GetMapping("/dashboard")
     public String viewDashboard(){
         return "dashboard";
