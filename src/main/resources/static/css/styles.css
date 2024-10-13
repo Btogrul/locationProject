@@ -363,9 +363,13 @@ body{
 }
 
 #footer {
-    padding: 50px 0;
+    padding: 8px 0;
     background-color: #e9ecef;
+    text-align: center;
 
+}
+#footer p{
+    font-size: 12px;
 }
 
 @media screen and (max-width: 600px) {
@@ -385,9 +389,7 @@ body{
         right: 0 !important;
         margin-right:0 !important;
     }
-    #search-input {
-        max-width: 130px !important;
-    }
+
     #search-container .search-container-inner{
         margin: 0 !important;
         padding: 0 !important;
@@ -409,6 +411,9 @@ body{
         margin: 0 15px 0 0;
         padding: 0 20px 0 0;
     }
+    #search-input {
+        max-width: 130px !important;
+    }
 
     #search-container .search-container-inner{
         /*margin: 0 15px 0 0;*/
@@ -416,9 +421,6 @@ body{
         /*right: 30px;*/
     }
 
-    #search-input{
-        width: 12em;
-    }
 
     #search-button{
         right: 20px;
