@@ -13,15 +13,22 @@
 <body>
 <header class="header-container" id="main-header">
     <div class="nav-logo">
-        <!--        <a href="#"><img th:src="@{/images/gerb.png}" alt="logo"></a>-->
-        <a href="#"><img th:src="@{/images/clean-darkline.png}" alt="logo"></a>
+        <a th:href="@{/}" ><img  th:src="@{/images/clean-darkline.png}" alt="logo"></a>
     </div>
     <nav>
         <div class="nav-main">
+            <div class="lang-btns">
+                <button class="lang-btn" onclick="translateToEnglish()">
+                    <img src="/images/flag-eng.png" alt="English Flag" width="20" height="15">
+                </button>
+                <button class="lang-btn" onclick="translateToAzerbaijani()">
+                    <img src="/images/flag-aze.png" alt="English Flag" width="20" height="15">
+                </button>
+            </div>
             <ul>
                 <!--                <li class="log-d" ><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>-->
-                <li class="log-d"><a class="log-inner" th:href="@{/}">Ana Səhifə</a></li>
-                <li class="log-d"><a class="log-inner" th:href="@{/about}">Haqqımızda</a></li>
+                <li class="log-d"><a class="log-inner"  id="head-main-btn" th:href="@{/}">Ana Səhifə</a></li>
+                <li class="log-d"><a class="log-inner"  id="head-about-btn" th:href="@{/about}">Haqqımızda</a></li>
             </ul>
             <div class="nav-mobile-menu" id="nav-mobile-menu">
                 <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="burger btn">
@@ -42,31 +49,31 @@
 <main>
     <section>
         <div class="contact-header">
-            <h2>BİZİMLƏ ƏLAQƏ</h2>
-            <p>Sorğunuzu aşağıdakı formu dolduraraq bizə göndərə bilərsiniz.<br> Tezliklə sizinlə əlaqə saxlayacağıq.
+            <h2 id="contact-title">BİZİMLƏ ƏLAQƏ</h2>
+            <p id="contact-description">Sorğunuzu aşağıdakı formu dolduraraq bizə göndərə bilərsiniz.<br> Tezliklə sizinlə əlaqə saxlayacağıq.
             </p>
         </div>
 
         <form id="contactForm" th:action="@{/api/v1/markers/contact/new}" method="post"
               enctype="application/x-www-form-urlencoded">
-            <label for="name">Ad:</label>
+            <label for="name"  id="label-name">Ad:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="surname">Soyad:</label>
+            <label for="surname" id="label-surname">Soyad:</label>
             <input type="text" id="surname" name="surname" required>
 
-            <label for="email">E-poçt:</label>
+            <label for="email" id="label-email">E-poçt:</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="contactNumber">Əlaqə Nömrəsi:</label>
+            <label for="contactNumber" id="label-contactNumber">Əlaqə Nömrəsi:</label>
             <input type="text" id="contactNumber" name="contactNumber" required>
 
-            <label for="description">Mesajınız:</label>
+            <label for="description"  id="label-description">Mesajınız:</label>
             <textarea id="description" rows="5" cols="50" name="description" required></textarea>
 
             <div class="g-recaptcha" data-sitekey="6Lfa1zEqAAAAAE-KScPnPI3Bg2qyBZ8fclzf4LhR"></div>
             <p th:if="${captchaError}" th:text="${captchaError}"></p>
-            <input type="submit" value="Göndər">
+            <input type="submit" id="submit-button" value="Göndər">
         </form>
         <div id="message"></div>
     </section>
@@ -158,6 +165,7 @@
 
 </script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="/js/translateContact.js"></script>
 <script src="/js/index.js"></script>
 </body>
 </html>

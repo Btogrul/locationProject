@@ -76,6 +76,13 @@ body{
 #main-header nav .nav-main ul li:hover a:before{
     width: 100%;
 }
+#main-header nav .nav-main .lang-btns .lang-btn{
+    border: none;
+}
+
+#main-header nav .nav-main .lang-btns .lang-btn:hover{
+    cursor: pointer;
+}
 
 /* mobile menu header */
 .nav-mobile-menu {

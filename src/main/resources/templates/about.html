@@ -13,14 +13,22 @@
 <header class="header-container" id="main-header">
     <div class="nav-logo">
         <!--        <a href="#"><img th:src="@{/images/gerb.png}" alt="logo"></a>-->
-        <a href="#"><img th:src="@{/images/clean-darkline.png}" alt="logo"></a>
+        <a th:href="@{/}"><img th:src="@{/images/clean-darkline.png}" alt="logo"></a>
     </div>
     <nav>
         <div class="nav-main">
+            <div class="lang-btns">
+                <button class="lang-btn" onclick="translateToEnglish()">
+                    <img src="/images/flag-eng.png" alt="English Flag" width="20" height="15">
+                </button>
+                <button class="lang-btn" onclick="translateToAzerbaijani()">
+                    <img src="/images/flag-aze.png" alt="English Flag" width="20" height="15">
+                </button>
+            </div>
             <ul>
                 <!--                <li class="log-d" ><a class="log-inner" target="_blank" th:href="@{/login}">Daxil ol</a></li>-->
-                <li class="log-d"><a class="log-inner" th:href="@{/}">Ana Səhifə</a></li>
-                <li class="log-d"><a class="log-inner" th:href="@{/contact}">əlaqə</a></li>
+                <li class="log-d"><a class="log-inner" id="head-main-btn" th:href="@{/}">Ana Səhifə</a></li>
+                <li class="log-d"><a class="log-inner"  id="head-contact-btn"  th:href="@{/contact}">əlaqə</a></li>
             </ul>
             <div class="nav-mobile-menu" id="nav-mobile-menu">
                 <img src="https://rvs-hosterr-waitlist-page.vercel.app/Assets/Hamburger-Menu.svg" alt="burger btn">
@@ -41,8 +49,8 @@
 <main>
     <section class="container" id="about-us">
         <div id="about-me" class="about-author">
-            <h2>İdea və layihə müəllifi</h2>
-            <p>Asif Sevindik oğlu Muradzadə 1969-cu ildə anadan olub. Əslən Qərbi Azərbaycanın Zəngəzur mahalının
+            <h2 id="idea-author-title">İdea və layihə müəllifi</h2>
+            <p id="idea-author-description">Asif Sevindik oğlu Muradzadə 1969-cu ildə anadan olub. Əslən Qərbi Azərbaycanın Zəngəzur mahalının
                 Qarakilsə rayonunun Ağdü kəndindəndir. Azərbaycan Texnologiya İnstitutunu və Azərbaycan Dövlət İqtisad
                 Universitetini bitirmişdir. Azərbaycan Respublikası Dövlət Gömrük Komitəsində və Azərbaycan Respublikası
                 Vergilər Nazirliyində müxtəlif vəzifələrdə işləmişdir. Hal-hazırda Azərbaycan Respublikasının
@@ -52,5 +60,6 @@
         </div>
     </section>
 </main>
+<script src="/js/translateAbout.js"></script>
 </body>
 </html>
