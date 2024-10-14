@@ -24,11 +24,11 @@ const translations = {
         text4: "Axtar...",
         prevButton: "Əvvəlki",
         nextButton: "Sonrakı",
-        aboutText1: "XX əsrdə Qərbi Azərbaycanda başlanmış soyqırımlar türk yaşayış məskənlərinin dağıdılması və bölgə əhalisinin erməniləşdirilməsi ilə nəticələndi. Bu eyni zamanda mədəniyyətimizə qarşı müharibə, çoxəsrlik irsimizə edilmiş qəsd idi. Viran qalan kəndlərimizlə bərabər toponimlərimiz, şəhərlərimizin və kəndlərimizin adı rəsmi olaraq dəyişdirildi, izlərimiz də torpaqlarımızdan silindi.",
-        aboutText2: "Təqdim olunan layihəmiz dədə-baba yurdumuz Qərbi Azərbaycandakı mədəni-tarixi izlərimizin bərpasına və qorunmasına yönəlmişdir. Əsas məqsədimiz tarixi torpaqlarımızda erməni barbarlığı nəticəsində silinmiş toponimlərimizin bərpası ilə çoxəsrlik qan yaddaşının qaytarılması, gənc nəsildə bu istiqamətdə məlumatlılığın formalaşdırılması və beynəlxalq ictimaiyyətə həqiqətlərin çatdırılmasıdır.",
+        aboutText1: "XX əsrdə Qərbi Azərbaycanda başlanmış soyqırımlar türk yaşayış məskənlərinin dağıdılması və bölgə əhalisinin erməniləşdirilməsi ilə nəticələndi. Bu, eyni zamanda, mədəniyyətimizə qarşı müharibə, çoxəsrlik irsimizə edilmiş qəsd idi. Viran qalan kəndlərimizlə bərabər toponimlərimiz, şəhərlərimizin və kəndlərimizin adı rəsmi olaraq dəyişdirildi, izlərimiz də torpaqlarımızdan silindi.",
+        aboutText2: "Təqdim olunan layihəmiz dədə-baba yurdumuz olan Qərbi Azərbaycandakı mədəni-tarixi izlərimizin bərpasına və qorunmasına yönəlmişdir. Əsas məqsədimiz tarixi torpaqlarımızda erməni barbarlığı nəticəsində silinmiş toponimlərimizin bərpası ilə çoxəsrlik qan yaddaşının qaytarılması, gənc nəsildə bu istiqamətdə məlumatlılığın formalaşdırılması və beynəlxalq ictimaiyyətə həqiqətlərin çatdırılmasıdır.",
         aboutText3: "Biz diqqətdən yayınan toponimlərimizin yerləşdirilməsi və xəritədə ola biləcək hər hansı bir çatışmamazlıqla əlaqədar Qərbi Azərbaycandan olan soydaşlarımızı əməkdaşlığa dəvət edirik.",
-        aboutText4: "44 günlük Vətən müharibəsində qazandığımız zəfərdən və 23 saatlıq uğurlu anti-terror əməliyyatından sonra Qarabağımıza qovuşduğumuz kimi Qərbi Azərbaycanımıza da qovuşmağımızın bir addımlığındayıq. Təqdim etdiyimiz bu virtual xəritə dədə baba torpaqlarımızdan didərgin düşən deportasiyaya uğrayan böyük faciələr yaşayan soydaşlarımız üçün onların qayıdışına işıq saça bilər.",
-        aboutText5: "Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk.",
+        aboutText4: "44 günlük Vətən müharibəsində qazandığımız Zəfərdən və 23 saatlıq uğurlu anti-terror əməliyyatından sonra Qarabağımıza qovuşduğumuz kimi Qərbi Azərbaycanımıza da qovuşmağımızın bir addımlığındayıq. Təqdim etdiyimiz bu virtual xəritə dədə baba torpaqlarımızdan didərgin düşən, deportasiyaya uğrayan və böyük faciələr yaşayan soydaşlarımız üçün onların qayıdışına işıq saça bilər.",
+        aboutText5: "Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk!",
         nonCommercialText: "Sayt qeyri-kommersiya xarakterlidir. <br> Reklam xarakteri daşımır və heç bir ianə qəbul edilmir.",
         quote1: "“1918-ci ildə Azərbaycan Respublikasının ərazisi 114 min kv kilometr olub. İndi isə 86 min kv kilometr qalıb. Gör əlimizdən nə qədər torpaqlar gedib.”",
         author1: "Heydər Əliyev",
@@ -37,7 +37,6 @@ const translations = {
 
     }
 };
-
 
 
 function translateToEnglish() {
@@ -77,7 +76,6 @@ function translateToAzerbaijani() {
     document.getElementById("author1").innerText = translations.az.author1;
     document.getElementById("quote2").innerText = translations.az.quote2;
     document.getElementById("author2").innerText = translations.az.author2;
-
 
 
 }
