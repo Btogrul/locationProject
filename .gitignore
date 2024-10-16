@@ -39,3 +39,4 @@ out/
 
 
 .postgre_env
+pgdb/
