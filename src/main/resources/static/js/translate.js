@@ -30,9 +30,9 @@ const translations = {
         aboutText4: "44 günlük Vətən müharibəsində qazandığımız Zəfərdən və 23 saatlıq uğurlu anti-terror əməliyyatından sonra Qarabağımıza qovuşduğumuz kimi Qərbi Azərbaycanımıza da qovuşmağımızın bir addımlığındayıq. Təqdim etdiyimiz bu virtual xəritə dədə baba torpaqlarımızdan didərgin düşən, deportasiyaya uğrayan və böyük faciələr yaşayan soydaşlarımız üçün onların qayıdışına işıq saça bilər.",
         aboutText5: "Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk!",
         nonCommercialText: "Sayt qeyri-kommersiya xarakterlidir. <br> Reklam xarakteri daşımır və heç bir ianə qəbul edilmir.",
-        quote1: "“1918-ci ildə Azərbaycan Respublikasının ərazisi 114 min kv kilometr olub. İndi isə 86 min kv kilometrdir. Gör əlimizdən nə qədər torpaqlar gedib.”",
+        quote1: "1918-ci ildə Azərbaycan Respublikasının ərazisi 114 min kv kilometr olub. İndi isə 86 min kv kilometrdir. Gör əlimizdən nə qədər torpaqlar gedib.",
         author1: "Heydər Əliyev",
-        quote2: "“Əminəm ki, gün gələcək və Qərbi Azərbaycandan olan soydaşlarımız, onların yaxınları, uşaqları, nəvələri tarixi diyarımız olan Qərbi Azərbaycana qayıdacaqlar”.",
+        quote2: "Əminəm ki, gün gələcək və Qərbi Azərbaycandan olan soydaşlarımız, onların yaxınları, uşaqları, nəvələri tarixi diyarımız olan Qərbi Azərbaycana qayıdacaqlar.",
         author2: "İlham Əliyev",
 
     }
