@@ -12,9 +12,9 @@ const translations = {
         aboutText4: "After the victory in the 44-day Patriotic War and the successful 23-hour anti-terror operation, we are just one step away from reaching Western Azerbaijan, just as we have reunited with our Karabakh. This virtual map can shed light on the return of our compatriots who were displaced and experienced great tragedies in their ancestral lands.",
         aboutText5: "Lastly, we would like to thank everyone who contributed and helped us in this work.",
         nonCommercialText: "The site is non-commercial. <br> It does not carry any advertising and no donations are accepted.",
-        quote1: "“In 1918, the territory of the Republic of Azerbaijan was 114 thousand square kilometers. Now, only 86 thousand square kilometers remain. See how much land we have lost.”",
+        quote1: "In 1918, the territory of the Republic of Azerbaijan was 114 thousand square kilometers. Now, only 86 thousand square kilometers remain. See how much land we have lost.",
         author1: "Heydar Aliyev",
-        quote2: "“I am sure that the day will come when our compatriots from Western Azerbaijan, their relatives, children, and grandchildren will return to our historical land, Western Azerbaijan.”",
+        quote2: "I am sure that the day will come when our compatriots from Western Azerbaijan, their relatives, children, and grandchildren will return to our historical land, Western Azerbaijan.",
         author2: "Ilham Aliyev",
     },
     az: {
