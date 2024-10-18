@@ -263,6 +263,9 @@ body{
 #about-us .about-author{
     margin: 20px 0;
 }
+#about-us .about-content > p{
+    word-break: break-word;
+}
 
 #about-us .about-content p,
 #about-us .about-author p{
