@@ -265,6 +265,7 @@ body{
 }
 #about-us .about-content > p{
     word-break: break-word;
+    text-align: justify;
 }
 
 #about-us .about-content p,
