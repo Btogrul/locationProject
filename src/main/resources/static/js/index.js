@@ -57,7 +57,7 @@ function initMap() {
                 console.warn('Loading overlay element not found');
             }
 
-            const response = await fetch('http://localhost:8082/api/v1/markers/all', {
+            const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', {
                 headers: {
                     'Content-Type': 'application/json'
                 }
