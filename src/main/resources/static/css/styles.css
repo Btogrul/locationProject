@@ -216,10 +216,10 @@ body{
     padding: 10px;
 }
 #about-us .main-content  p{
-        font-size: 18px;
-        font-family: "Cormorant Garamond", serif;
-        font-weight: 400;
-        font-style: normal;
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #about-us .main-content  h3,
