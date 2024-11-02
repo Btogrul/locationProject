@@ -1,0 +1,9 @@
+{"type":"FeatureCollection", "features":[
+{"type":"Feature","id":"03C14D903230EAC98E63","geometry":{"type":"Region","coordinates":[46.02885022090079,39.52224039472319,1585.99434618989]},"properties":{"0B3BC86C8130EAC98E7E":0,"name":"Qarakilsə","extrude":true}},
+{"type":"Feature","id":"06F2235FAD30EACB8D23","geometry":{"type":"Point","coordinates":[46.04914494308112,39.5240986037243,1616.817848690501]},"properties":{"04CF4D0DCA30EACB8D34":0,"name":"Qarabulaq","extrude":true}},
+{"type":"Feature","id":"033DEEC71930EACC89DE","geometry":{"type":"Point","coordinates":[46.00990143280442,39.53051381407216,1616.817848690501]},"properties":{"011EA1C15E30EACC89FA":0,"name":"Dəhnə","extrude":true}},
+{"type":"Feature","id":"0736D60C4A30EACED594","geometry":{"type":"Point","coordinates":[46.05406095194046,39.51119094464198,1586.835226460242]},"properties":{"00DCC8036A30EACED5A8":0,"name":"Səngər","extrude":true}},
+{"type":"Feature","id":"0A1DEFFB9830EACFB0F2","geometry":{"type":"Point","coordinates":[46.07258048668783,39.50603971471795,1646.014515122826]},"properties":{"0CAE5C675930EACFB10C":0,"name":"Alma bağları","extrude":true}},
+{"type":"Feature","id":"0D426B27FC30EAD089DD","geometry":{"type":"Point","coordinates":[46.05907613957123,39.50436512878471,1646.014515122826]},"properties":{"056011363730EAD089F9":0,"name":"Qışlaq","extrude":true}},
+{"type":"Feature","id":"0CD713B84730EAD1D97D","geometry":{"type":"Point","coordinates":[46.07121797084915,39.50913720786585,1616.67577841651]},"properties":{"0C1D22807430EAD1D992":0,"name":"Qədim abidə","extrude":true}}
+]}

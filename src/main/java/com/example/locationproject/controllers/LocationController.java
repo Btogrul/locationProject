@@ -5,10 +5,13 @@ import com.example.locationproject.dtos.ContactResponseDTO;
 import com.example.locationproject.dtos.RequestDto;
 import com.example.locationproject.dtos.ResponseDto;
 import com.example.locationproject.entities.Contact;
+import com.example.locationproject.entities.geojson.GeoJsonData;
 import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.repositories.MarkerRepository;
 import com.example.locationproject.services.CaptchaService;
 import com.example.locationproject.services.LocationService;
+import com.example.locationproject.services.MarkerService;
+import com.example.locationproject.utils.GeoJsonParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -28,6 +31,9 @@ public class LocationController {
     private final MarkerRepository markerRepo;
     private final ModelMapper mapper;
     private final CaptchaService captchaService;
+    @Autowired
+    private MarkerService markerService;
+
 
 
 //    @PostMapping("/new")
@@ -62,6 +68,11 @@ public class LocationController {
         return locationService.getMarker(id);
     }
 
+    @GetMapping("/by-title")
+    public List<ResponseDto> getMarkersByTitle(@RequestParam("title") String title) {
+        return locationService.getMarkersByTitle(title);
+    }
+
     @GetMapping("/all")
     public List<ResponseDto> getAllLocations() {
         return locationService.getAllMarkers();
@@ -87,6 +98,19 @@ public class LocationController {
         return locationService.updateMarker(id, requestDto);
     }
 
+    @PutMapping("/update-description/{id}")
+    public ResponseDto updateMarkerDescription(
+            @PathVariable("id") Long id,
+            @RequestParam("description") String description) {
+        return locationService.updateMarkerDescription(id, description);
+    }
+
+    @PutMapping("/update-marker-type/{id}")
+    public ResponseDto updateMarkerType(
+            @PathVariable("id") Long id,
+            @RequestParam("markerType") MarkerType markerType) {
+        return locationService.updateMarkerType(id, markerType);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseDto deleteLocation(@PathVariable Long id) {
@@ -158,5 +182,10 @@ public ResponseEntity<String> saveNewContact(
         locationService.deleteAllContacts();
         return ResponseEntity.ok("Hamısı uğurla silindi");
     }
+
+
+
+
+
 
 }

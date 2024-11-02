@@ -14,6 +14,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -27,7 +28,7 @@
         }
 
         form {
-            margin-bottom: 20px;
+            margin-bottom: 60px;
             padding: 20px;
             border: 1px solid white;
             border-radius: 5px;
@@ -79,6 +80,45 @@
         .content.active {
             display: block;
         }
+
+
+        details {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        summary {
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            color: #1c1c1c;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        ul li {
+            margin: 5px 0;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #050505;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #3d6693;
+        }
     </style>
 </head>
 <body>
@@ -88,35 +128,48 @@
         <button class="tab-button active" onclick="showContent('mapSection')">Map</button>
         <button class="tab-button" onclick="showContent('contactsSection')">Contacts</button>
     </div>
+</div>
 
-
-    <div id="mapSection" class="content active">
+    <div id="mapSection" class="container content active">
         <div id="map" style="height: 450px; width: 100%;">
 
         </div>
-        <h2>Create Location</h2>
-        <form method="post" th:action="@{/api/v1/markers/new}" enctype="application/x-www-form-urlencoded">
-            <h2>Create Location</h2>
+        <details>
+            <summary>Markerlər üçün metodlar</summary>
+            <ul>
+                <li><a href="#yaratmaqD">1 ~ Yenisini yaratmaq</a></li>
+                <li><a href="#hamisiniT">2 ~ Bütün lokasiyaların siyahısı</a></li>
+                <li><a href="#adiIleT">3 ~ Lokasiya adı ilə axtarış</a></li>
+                <li><a href="#idTapmaq">4 ~ id ilə axtarış</a></li>
+                <li><a href="#updateMarkerTypeForm">5 ~ Lokasiyanın növünü dəyişmək</a></li>
+                <li><a href="#updateDescriptionForm">6 ~ Lokasiya haqqında məlumatı dəyişmək</a></li>
+                <li><a href="#updateForm">7 ~ Lokasiyanı tam dəyişmək</a></li>
+                <li><a href="#deleteForm">8 ~ Lokasiyanı İD ilə silmək</a></li>
+            </ul>
+        </details>
+        <h2>Markerlər üçün methodlar</h2>
+        <form id="yaratmaqD" method="post" th:action="@{/api/v1/markers/new}" enctype="application/x-www-form-urlencoded">
+            <h2>Yenisini Yaratmaq</h2>
 
-            <label for="createTitle" class="label">Title:</label>
+            <label for="createTitle" class="label">Yerin adı:</label>
             <input type="text" id="createTitle" name="title" placeholder="Title" required>
 
-            <label for="createDescription" class="label">Description:</label>
+            <label for="createDescription" class="label">haqqında:</label>
             <input type="text" id="createDescription" name="description" placeholder="Description" required>
 
-            <label class="label" for="createType">Marker Type:</label>
+            <label class="label" for="createType">Növe(şəhər, rayon,kənd və s):</label>
             <select id="createType" name="markerType" required>
-                <option value="CUSTOM">Custom</option>
-                <option value="BUILDING">Building</option>
-                <option value="ROAD">Road</option>
+                <option value="CUSTOM">normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">yol</option>
                 <option value="RESTAURANT">Restaurant</option>
-                <option value="STORE">Store</option>
+                <option value="STORE">mağaza</option>
                 <option value="PARK">Park</option>
-                <option value="RIVER">River</option>
-<!--                <option value="LAKE">Lake</option>-->
-<!--                <option value="VILLAGE">Village</option>-->
-<!--                <option value="CITY">City</option>-->
-                <option value="REGION">Region</option>
+                <option value="RIVER">çay</option>
+                <!--                <option value="LAKE">Lake</option>-->
+                <!--                <option value="VILLAGE">Village</option>-->
+                <option value="CITY">Şəhər</option>
+                <option value="REGION">Rayon</option>
             </select><br><br>
 
             <label for="createLatitude" class="label">Latitude:</label>
@@ -125,26 +178,71 @@
             <label for="createLongitude" class="label">Longitude:</label>
             <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
 
-            <input formtarget="_blank" class="submit" type="submit" value="Create Location">
+            <input formtarget="_blank" class="submit" type="submit" value="yeni lokasiya yarat">
         </form>
 
 
-        <form method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
-            <h2>Get Location</h2>
+        <form id="idTapmaq" method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
+            <h2>İd-yə görə tapmaq</h2>
             <label for="getId" class="label">Location ID:</label>
             <input type="text" id="getId" name="id" placeholder="Location ID" required>
             <input formtarget="_blank" class="submit" type="submit" value="Get Location">
         </form>
 
 
-        <form method="get" th:action="@{/api/v1/markers/all}">
-            <h2>Get All Locations</h2>
-            <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
+        <form id="hamisiniT" method="get" th:action="@{/api/v1/markers/all}">
+            <h2>Bütün lokasitaları tapmaq</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="Bütün lokasiyaların siyahısı">
         </form>
 
 
+        <form id="adiIleT" method="get" action="/api/v1/markers/by-title" enctype="application/x-www-form-urlencoded">
+            <h2>Adına görə tapmaq</h2>
+
+            <label for="getTitle" class="label">Title:</label>
+            <input type="text" id="getTitle" name="title" placeholder="Enter Title" required>
+
+            <input formtarget="_blank" class="submit" type="submit" value="məlumatı əldə et">
+        </form>
+
+
+        <form id="updateMarkerTypeForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin növünü dəyişmək</h2>
+
+            <label for="markerId">Marker ID:</label>
+            <input type="number" id="typeMarkerId" name="markerId" required><br><br>
+
+            <label for="markerType">Marker Type:</label>
+            <select id="newMarkerType" name="markerType" required>
+                <option value="CUSTOM">Normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">Yol</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">Mağaza</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">Çay</option>
+                <option value="REGION">Rayon</option>
+                <option value="CITY">Şəhər</option>
+            </select><br><br>
+
+            <button type="submit">Update Marker Type</button>
+        </form>
+
+        <form id="updateDescriptionForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin ~haqqında(description)~ hissəsini yeniləmək</h2>
+
+            <label for="markerId">Marker ID:</label>
+            <input type="number" id="markerIdGet" name="markerId" required><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="newDescription" name="description" required rows="5" cols="40"
+                      placeholder="Enter new description"></textarea><br><br>
+
+            <button type="submit">Yenilə</button>
+        </form>
+
         <form id="updateForm" enctype="application/x-www-form-urlencoded">
-            <h2>Update</h2>
+            <h2>tam Dəyişmək</h2>
 
             <label for="markerUpId">Marker ID:</label>
             <input type="number" id="markerUpId" name="markerUpId" required><br><br>
@@ -157,17 +255,17 @@
 
             <label for="markerType">Marker Type:</label>
             <select id="markerType" name="markerType" required>
-                <option value="CUSTOM">Custom</option>
-                <option value="BUILDING">Building</option>
-                <option value="ROAD">Road</option>
+                <option value="CUSTOM">Normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">Yol</option>
                 <option value="RESTAURANT">Restaurant</option>
-                <option value="STORE">Store</option>
+                <option value="STORE">Mağaza</option>
                 <option value="PARK">Park</option>
-                <option value="RIVER">River</option>
-<!--                <option value="LAKE">Lake</option>-->
-<!--                <option value="VILLAGE">Village</option>-->
-<!--                <option value="CITY">City</option>-->
-                <option value="REGION">Region</option>
+                <option value="RIVER">çay</option>
+                <!--                <option value="LAKE">Lake</option>-->
+                <!--                <option value="VILLAGE">Village</option>-->
+                <option value="CITY">Şəhər</option>
+                <option value="REGION">Rayon</option>
             </select><br><br>
 
             <label for="latitude">Latitude:</label>
@@ -183,35 +281,30 @@
         <form id="deleteForm">
             <h2>Delete</h2>
 
-            <label for="markerId">Enter Marker ID to Delete:</label>
+            <label for="markerId">Lokasiyanın İd -ni əlavə et:</label>
             <input type="number" id="markerId" name="markerId" required>
-            <button type="submit">Delete Marker</button>
+            <button type="submit">Məlumatı silmək</button>
         </form>
 
-<!--        <form method="post" th:action="@{/api/v1/markers/import-markers}" enctype="application/x-www-form-urlencoded">-->
-<!--            <h2>Import Markers</h2>-->
-<!--            <p>GeoJSON</p>-->
-<!--            <input class="submit" type="submit" value="Import Markers">-->
-<!--        </form>-->
     </div>
 
     <div id="contactsSection" class="content">
         <form method="get" th:action="@{/api/v1/markers/contact/all}">
-            <h2>Get All Contacts</h2>
-            <input formtarget="_blank" class="submit" type="submit" value="Get All Locations">
+            <h2>Məktub qutusuna baxmaq</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="məktub qutusunu açmaq">
         </form>
         <form id="deleteSingleForm">
-            <h2>Delete Contact</h2>
+            <h2>id ilə gələn mesajları silmək </h2>
             <input type="hidden" name="_csrf" value="${_csrf.token}">
 
-            <label for="contactId">Enter Contact ID to Delete:</label>
+            <label for="contactId">silmək istədiyiniz mesajın İD-si: </label>
             <input type="number" id="contactId" name="contactId" required>
             <input type="submit" value="delete a contact"/>
         </form>
 
         <form id="deleteAllContactsForm">
-            <h2>Delete All Contacts</h2>
-            <button type="submit">Delete All Contacts</button>
+            <h2>bütün mesajları silmək</h2>
+            <button type="submit">Hamısını silmək</button>
         </form>
 
 
@@ -287,6 +380,58 @@
             });
     });
 
+
+    document.getElementById('updateMarkerTypeForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const markerId = document.getElementById('typeMarkerId').value;
+        const markerType = document.getElementById('newMarkerType').value;
+
+        const url = `/api/v1/markers/update-marker-type/${markerId}`;
+        const data = new URLSearchParams();
+        data.append('markerType', markerType);
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+    document.getElementById('updateDescriptionForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const markerId = document.getElementById('markerIdGet').value;
+        const description = document.getElementById('newDescription').value;
+
+        const url = `/api/v1/markers/update-description/${markerId}`;
+        const data = new URLSearchParams();
+        data.append('description', description);
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
     document.getElementById('updateForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -380,6 +525,8 @@
         document.getElementById(sectionId).classList.add('active');
         document.querySelector(`button[onclick="showContent('${sectionId}')"]`).classList.add('active');
     }
+
+
 </script>
 </body>
 </html>

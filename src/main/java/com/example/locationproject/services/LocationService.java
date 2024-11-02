@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -51,10 +52,33 @@ public class LocationService {
         return mapper.map(marker, ResponseDto.class);
     }
 
+    public List<ResponseDto> getMarkersByTitle(String title) {
+        List<Marker> markers = markerRepo.findByTitleIgnoreCase(title);
+        return markers.stream()
+                .map(marker -> mapper.map(marker, ResponseDto.class))
+                .collect(Collectors.toList());
+    }
+
     public List<ResponseDto> getAllMarkers() {
         List<Marker> markers = markerRepo.findAll();
         return listMapping(markers, ResponseDto.class);
     }
+
+
+    public ResponseDto updateMarkerType(Long id, MarkerType markerType) {
+        Marker existingMarker = markerRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Marker not found with id: " + id));
+
+        existingMarker.setMarkerType(markerType);
+
+        markerRepo.save(existingMarker);
+
+        return mapper.map(existingMarker, ResponseDto.class);
+    }
+
+
+
+
 
     public ResponseDto updateMarker(Long id, RequestDto requestDto) {
         Marker existingMarker = markerRepo.findById(id)
@@ -63,6 +87,22 @@ public class LocationService {
         markerRepo.save(existingMarker);
         return mapper.map(existingMarker, ResponseDto.class);
     }
+
+
+
+
+
+
+    public ResponseDto updateMarkerDescription(Long id, String newDescription) {
+        Marker existingMarker = markerRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Marker not found with id: " + id));
+        existingMarker.setDescription(newDescription);
+        markerRepo.save(existingMarker);
+        return mapper.map(existingMarker, ResponseDto.class);
+    }
+
+
+
 
     public ResponseDto deleteMarker(Long id) {
         Marker marker = markerRepo.findById(id)

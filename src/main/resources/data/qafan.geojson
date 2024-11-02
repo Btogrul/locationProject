@@ -1,0 +1,5 @@
+{"type":"FeatureCollection", "features":[
+{"type":"Feature","id":"02BE467F3633299CA60B","geometry":{"type":"Point","coordinates":[46.40899309043382,39.20589817954375,770.9334342126328]},"properties":{"0021352E9E33299CA63D":0,"name":"Qafan","extrude":true}},
+{"type":"Feature","id":"05E372EE3033299D575E","geometry":{"type":"Point","coordinates":[46.42289268673812,39.19966794544955,744.9588594333505]},"properties":{"0A8BA2FB4233299D578C":0,"name":"Oxçu çay","extrude":true}},
+{"type":"Feature","id":"04BC41919E332B881640","geometry":{"type":"Point","coordinates":[46.45870915331777,39.20237889263996,699.7131687213221]},"properties":{"0196B7D7B5332B881679":0,"name":"Qafan aeroportu","extrude":true}}
+]}

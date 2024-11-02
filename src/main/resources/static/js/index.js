@@ -12,7 +12,7 @@ navEl.addEventListener("click", () => {
 
 function initMap() {
     const mapOptions = {
-        center: { lat: 39.15991494905332, lng: 46.26663066688381 },
+        center: {lat: 39.15991494905332, lng: 46.26663066688381},
         zoom: 10,
         // zoom: 15,
         mapTypeId: 'hybrid',
@@ -31,19 +31,18 @@ function initMap() {
                 featureType: "all",
                 elementType: "labels",
                 stylers: [
-                    { visibility: "off" }
+                    {visibility: "off"}
                 ]
             },
             {
                 featureType: "administrative.country",
                 elementType: "labels",
                 stylers: [
-                    { visibility: "on" }
+                    {visibility: "on"}
                 ]
             }
         ]
     };
-
 
 
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -57,7 +56,7 @@ function initMap() {
                 console.warn('Loading overlay element not found');
             }
 
-            const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', {
+            const response = await fetch('http://localhost:8082/api/v1/markers/all', {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -82,7 +81,7 @@ function initMap() {
 
 
                 const mapMarker = new google.maps.Marker({
-                    position: { lat: marker.latitude, lng: marker.longitude },
+                    position: {lat: marker.latitude, lng: marker.longitude},
                     map: map,
                     // title: marker.title,
                     title: typeof marker.title === 'string' ? marker.title : JSON.stringify(marker.title),
@@ -108,24 +107,44 @@ function initMap() {
                     infoWindow.open(map, mapMarker);
                 });
 
-                const currentZoom = map.getZoom();
-                if ((currentZoom === 10 || currentZoom === 11) && type.toLowerCase() !== 'region') {
-                    mapMarker.setVisible(false);
-                } else {
+                let currentZoomh = map.getZoom();
+
+                if (currentZoomh >= 18) {
                     mapMarker.setVisible(true);
+                } else if (currentZoomh >= 12 && currentZoomh < 18 && type.toLowerCase() === 'building') {
+                    mapMarker.setVisible(true);
+                } else if (currentZoomh < 12 && (type.toLowerCase() === 'city' || type.toLowerCase() === 'region')) {
+                    mapMarker.setVisible(true);
+                } else {
+                    mapMarker.setVisible(false);
                 }
 
                 markers.push(mapMarker);
             });
             map.addListener('zoom_changed', () => {
-                const currentZoom = map.getZoom();
+                let currentZoom = map.getZoom();
                 markers.forEach(marker => {
-                    const markerType = marker.getIcon() === getIcon('region') ? 'region' : 'other';
-
-                    if ((currentZoom === 10 || currentZoom === 11 || currentZoom < 12) && markerType !== 'region') {
-                        marker.setVisible(false);
+                    let markerType;
+                    if (marker.getIcon() === getIcon('region')) {
+                        markerType = 'region';
+                    } else if (marker.getIcon() === getIcon('building')) {
+                        markerType = 'building';
+                    } else if (marker.getIcon() === getIcon('city')) {
+                        markerType = 'city';
                     } else {
+                        markerType = 'other';
+                    }
+
+                    let currentZoom = map.getZoom();
+
+                    if (currentZoom >= 18) {
                         marker.setVisible(true);
+                    } else if (currentZoom >= 12 && currentZoom < 18 && markerType.toLowerCase() === 'building') {
+                        marker.setVisible(true);
+                    } else if (currentZoom < 12 && (markerType.toLowerCase() === 'city' || markerType.toLowerCase() === 'region')) {
+                        marker.setVisible(true);
+                    } else {
+                        marker.setVisible(false);
                     }
                 });
             });
@@ -153,11 +172,12 @@ function getIcon(type) {
         lake: '/images/icons/lake.svg',
         village: '/images/icons/v.svg',
         region: '/images/icons/region.svg',
-        city: '/images/icons/ci.svg'
+        city: '/images/icons/city.svg'
     };
 
     return icons[type.toLowerCase()] || '/images/icons/pin.svg';
 }
+
 //
 // document.getElementById("search-button").addEventListener("click", () => {
 //     const searchText = document.getElementById("search-input").value.toLowerCase();

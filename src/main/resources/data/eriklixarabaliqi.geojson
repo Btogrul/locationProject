@@ -1,0 +1,4 @@
+{"type":"FeatureCollection", "features":[
+{"type":"Feature","id":"011ADBF4E8340F102376","geometry":{"type":"Point","coordinates":[45.81279672927714,39.54708883709853,2355.768036442269]},"properties":{"0F079AD22D340F1023B6":0,"name":"Ərikli xarabalığı","extrude":true}},
+{"type":"Feature","id":"073B6053CE340F10B722","geometry":{"type":"Point","coordinates":[45.8069671060544,39.5474691379896,2424.550194889002]},"properties":{"04B182B818340F10B75E":0,"name":"Ərikli dağı","extrude":true}}
+]}
