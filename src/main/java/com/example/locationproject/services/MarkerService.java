@@ -27,10 +27,10 @@ public class MarkerService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void saveGeoJsonMarkersOnStartup() throws IOException {
-        if (markerRepository.count() > 0) {
-            System.out.println("Markers already exist in the database. Skipping import.");
-            return;
-        }
+        //if (markerRepository.count() > 0) {
+        //    System.out.println("Markers already exist in the database. Skipping import.");
+        //    return;
+        //}
         List<String> geoJsonFiles = List.of("data/earthLocFiles.geojson", "data/shaki.geojson", "data/urud.geojson", "data/whitebulaq.geojson",
                 "data/shahverdiler.geojson", "data/shurnuxu.geojson", "data/aliqulukend.geojson", "data/mezre.geojson", "data/qizilciq.geojson",
                 "data/qafan.geojson", "data/shixlar.geojson", "data/sofulu.geojson", "data/vagudi.geojson", "data/murxuz.geojson", "data/desteyird.geojson",
