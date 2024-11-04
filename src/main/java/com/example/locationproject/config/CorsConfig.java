@@ -30,7 +30,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 //.allowedOriginPatterns("*")
-                .allowedOrigins("https://qerbiazerbaycanim.com")
+                .allowedOrigins("https://qerbiazerbaycanim.com/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
