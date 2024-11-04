@@ -157,7 +157,7 @@
             <label for="createDescription" class="label">haqqında:</label>
             <input type="text" id="createDescription" name="description" placeholder="Description" required>
 
-            <label class="label" for="createType">Növe(şəhər, rayon,kənd və s):</label>
+            <label class="label" for="createType">Növü(şəhər, rayon, kənd və s):</label>
             <select id="createType" name="markerType" required>
                 <option value="CUSTOM">normal</option>
                 <option value="BUILDING">Kənd</option>
@@ -191,7 +191,7 @@
 
 
         <form id="hamisiniT" method="get" th:action="@{/api/v1/markers/all}">
-            <h2>Bütün lokasitaları tapmaq</h2>
+            <h2>Bütün lokasiyaları tapmaq</h2>
             <input formtarget="_blank" class="submit" type="submit" value="Bütün lokasiyaların siyahısı">
         </form>
 
@@ -242,18 +242,18 @@
         </form>
 
         <form id="updateForm" enctype="application/x-www-form-urlencoded">
-            <h2>tam Dəyişmək</h2>
+            <h2>Tam dəyişmək</h2>
 
             <label for="markerUpId">Marker ID:</label>
             <input type="number" id="markerUpId" name="markerUpId" required><br><br>
 
-            <label for="title">Title:</label>
+            <label for="title">Adı:</label>
             <input type="text" id="title" name="title" required><br><br>
 
-            <label for="description">Description:</label>
+            <label for="description">Haqqında:</label>
             <textarea id="description" name="description" required rows="5" cols="40"></textarea><br><br>
 
-            <label for="markerType">Marker Type:</label>
+            <label for="markerType">Marker növü:</label>
             <select id="markerType" name="markerType" required>
                 <option value="CUSTOM">Normal</option>
                 <option value="BUILDING">Kənd</option>
@@ -274,12 +274,12 @@
             <label for="longitude">Longitude:</label>
             <input type="number" id="longitude" name="longitude" step="any" required><br><br>
 
-            <button type="submit">Update Marker</button>
+            <button type="submit">lokasiyanı yenilə</button>
         </form>
 
 
         <form id="deleteForm">
-            <h2>Delete</h2>
+            <h2>Silmək</h2>
 
             <label for="markerId">Lokasiyanın İd -ni əlavə et:</label>
             <input type="number" id="markerId" name="markerId" required>
