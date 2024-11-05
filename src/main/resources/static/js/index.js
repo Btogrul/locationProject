@@ -12,7 +12,9 @@ navEl.addEventListener("click", () => {
 
 function initMap() {
     const mapOptions = {
-        center: {lat: 39.15991494905332, lng: 46.26663066688381},
+        center: {lat: 39.390480143978934, lng: 46.15494790448468},
+        // 39.390480143978934, 46.15494790448468
+        // lat: 39.15991494905332, lng: 46.26663066688381
         zoom: 10,
         // zoom: 15,
         mapTypeId: 'hybrid',
@@ -159,6 +161,32 @@ function initMap() {
     }
 
     fetchMarkersAndDisplay();
+
+    map.addListener('idle', () => {
+        const bounds = map.getBounds();
+        const currentZoom = map.getZoom();
+
+        markers.forEach(marker => {
+            const markerType = getMarkerType(marker);
+
+            if (currentZoom >= 18) {
+                marker.setVisible(bounds.contains(marker.getPosition()));
+            } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
+                marker.setVisible(bounds.contains(marker.getPosition()));
+            } else if (currentZoom < 12 && (markerType === 'city' || markerType === 'region')) {
+                marker.setVisible(bounds.contains(marker.getPosition()));
+            } else {
+                marker.setVisible(false);
+            }
+        });
+    });
+}
+
+function getMarkerType(marker) {
+    if (marker.getIcon() === getIcon('region')) return 'region';
+    if (marker.getIcon() === getIcon('building')) return 'building';
+    if (marker.getIcon() === getIcon('city')) return 'city';
+    return 'other';
 }
 
 function getIcon(type) {
