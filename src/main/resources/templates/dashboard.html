@@ -186,7 +186,7 @@
             <h2>İd-yə görə tapmaq</h2>
             <label for="getId" class="label">Location ID:</label>
             <input type="text" id="getId" name="id" placeholder="Location ID" required>
-            <input formtarget="_blank" class="submit" type="submit" value="Get Location">
+            <input formtarget="_blank" class="submit" type="submit" value="Lokasiyanı əldə et">
         </form>
 
 
@@ -199,8 +199,8 @@
         <form id="adiIleT" method="get" action="/api/v1/markers/by-title" enctype="application/x-www-form-urlencoded">
             <h2>Adına görə tapmaq</h2>
 
-            <label for="getTitle" class="label">Title:</label>
-            <input type="text" id="getTitle" name="title" placeholder="Enter Title" required>
+            <label for="getTitle" class="label">Adı:</label>
+            <input type="text" id="getTitle" name="title" placeholder="adını yaz" required>
 
             <input formtarget="_blank" class="submit" type="submit" value="məlumatı əldə et">
         </form>
@@ -225,7 +225,7 @@
                 <option value="CITY">Şəhər</option>
             </select><br><br>
 
-            <button type="submit">Update Marker Type</button>
+            <button type="submit">Markerin növünü yenilə</button>
         </form>
 
         <form id="updateDescriptionForm" enctype="application/x-www-form-urlencoded">
@@ -234,7 +234,7 @@
             <label for="markerId">Marker ID:</label>
             <input type="number" id="markerIdGet" name="markerId" required><br><br>
 
-            <label for="description">Description:</label>
+            <label for="description">Haqqında:</label>
             <textarea id="newDescription" name="description" required rows="5" cols="40"
                       placeholder="Enter new description"></textarea><br><br>
 
