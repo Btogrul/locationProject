@@ -1,243 +1,162 @@
 let map;
 let markers = [];
-const navEl = document.getElementById("nav-mobile-menu");
-const nav = document.getElementsByTagName("nav");
-let currentIndex = 0;
 let foundMarkers = [];
+let cacheMarkers = {};
+let currentIndex = 0;
 
+const navEl = document.getElementById("nav-mobile-menu");
+const nav = document.querySelector("nav");
+const loadingOverlay = document.getElementById("loadingOverlay");
+const searchButton = document.getElementById("search-button");
+const searchInput = document.getElementById("search-input");
+const prevButton = document.getElementById("prev-button");
+const nextButton = document.getElementById("next-button");
 
 navEl.addEventListener("click", () => {
-    nav[1].classList.toggle("active");
+    nav.classList.toggle("active");
 });
 
-function initMap() {
+async function initMap() {
     const mapOptions = {
-        center: {lat: 39.390480143978934, lng: 46.15494790448468},
-        // 39.390480143978934, 46.15494790448468
-        // lat: 39.15991494905332, lng: 46.26663066688381
+        center: { lat: 39.39048, lng: 46.15494 },
         zoom: 10,
-        // zoom: 15,
         mapTypeId: 'hybrid',
         tilt: 45,
         gestureHandling: "cooperative",
         heading: 90,
-        // zoomControl: false,
         mapTypeControl: true,
         streetViewControl: false,
         fullscreenControl: true,
-        fullscreenControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_CENTER
-        },
+        fullscreenControlOptions: { position: google.maps.ControlPosition.RIGHT_CENTER },
         styles: [
-            {
-                featureType: "all",
-                elementType: "labels",
-                stylers: [
-                    {visibility: "off"}
-                ]
-            },
-            {
-                featureType: "administrative.country",
-                elementType: "labels",
-                stylers: [
-                    {visibility: "on"}
-                ]
-            }
+            { featureType: "all", elementType: "labels", stylers: [{ visibility: "off" }] },
+            { featureType: "administrative.country", elementType: "labels", stylers: [{ visibility: "on" }] }
         ]
     };
 
-
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    await fetchMarkersAndDisplay();
 
-    async function fetchMarkersAndDisplay() {
-        try {
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            if (loadingOverlay) {
-                loadingOverlay.style.display = 'flex';
-            } else {
-                console.warn('Loading overlay element not found');
-            }
+    map.addListener('idle', manageMarkerVisibility);
+}
 
-            const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+async function fetchMarkersAndDisplay() {
+    toggleLoading(true);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    try {
+        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-            const data = await response.json();
-            console.log('Full Response:', data);
-
-
-            data.forEach(marker => {
-                const type = marker.type || marker.markerType;
-                if (!marker.latitude || !marker.longitude || !marker.title || !marker.description || !type) {
-                    console.error('Invalid marker data:', marker);
-                    return;
-                }
-
-                const description = typeof marker.description === 'string' ? marker.description : JSON.stringify(marker.description);
-
-
-                const mapMarker = new google.maps.Marker({
-                    position: {lat: marker.latitude, lng: marker.longitude},
-                    map: map,
-                    // title: marker.title,
-                    title: typeof marker.title === 'string' ? marker.title : JSON.stringify(marker.title),
-                    // label: marker.description,
-                    label: {
-                        // text: marker.title,
-                        text: typeof marker.title === 'string' ? marker.title : 'Invalid Title',
-                        color: '#ffffff',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        className: 'marker-label'
-                    },
-                    icon: getIcon(type)
-                });
-
-                const infoWindow = new google.maps.InfoWindow({
-                    content: `<div><strong>${marker.title}</strong><p>${description}</p></div>`
-                });
-
-                // marker.description
-
-                mapMarker.addListener('click', () => {
-                    infoWindow.open(map, mapMarker);
-                });
-
-                let currentZoomh = map.getZoom();
-
-                if (currentZoomh >= 18) {
-                    mapMarker.setVisible(true);
-                } else if (currentZoomh >= 12 && currentZoomh < 18 && type.toLowerCase() === 'building') {
-                    mapMarker.setVisible(true);
-                } else if (currentZoomh < 12 && (type.toLowerCase() === 'city' || type.toLowerCase() === 'region')) {
-                    mapMarker.setVisible(true);
-                } else {
-                    mapMarker.setVisible(false);
-                }
-
-                markers.push(mapMarker);
-            });
-            map.addListener('zoom_changed', () => {
-                let currentZoom = map.getZoom();
-                markers.forEach(marker => {
-                    let markerType;
-                    if (marker.getIcon() === getIcon('region')) {
-                        markerType = 'region';
-                    } else if (marker.getIcon() === getIcon('building')) {
-                        markerType = 'building';
-                    } else if (marker.getIcon() === getIcon('city')) {
-                        markerType = 'city';
-                    } else {
-                        markerType = 'other';
-                    }
-
-                    let currentZoom = map.getZoom();
-
-                    if (currentZoom >= 18) {
-                        marker.setVisible(true);
-                    } else if (currentZoom >= 12 && currentZoom < 18 && markerType.toLowerCase() === 'building') {
-                        marker.setVisible(true);
-                    } else if (currentZoom < 12 && (markerType.toLowerCase() === 'city' || markerType.toLowerCase() === 'region')) {
-                        marker.setVisible(true);
-                    } else {
-                        marker.setVisible(false);
-                    }
-                });
-            });
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error: ' + error.message);
-        } finally {
-            if (loadingOverlay) {
-                loadingOverlay.style.display = 'none';
-            }
-        }
-    }
-
-    fetchMarkersAndDisplay();
-
-    map.addListener('idle', () => {
-        const bounds = map.getBounds();
-        const currentZoom = map.getZoom();
-
+        const data = await response.json();
+        data.forEach(markerData => addMarkerToMap(markerData));
         markers.forEach(marker => {
-            const markerType = getMarkerType(marker);
-
-            if (currentZoom >= 18) {
-                marker.setVisible(bounds.contains(marker.getPosition()));
-            } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
-                marker.setVisible(bounds.contains(marker.getPosition()));
-            } else if (currentZoom < 12 && (markerType === 'city' || markerType === 'region')) {
-                marker.setVisible(bounds.contains(marker.getPosition()));
+            let markerType;
+            if (marker.getIcon() === getIcon('region')) {
+                markerType = 'region';
+            } else if (marker.getIcon() === getIcon('building')) {
+                markerType = 'building';
+            } else if (marker.getIcon() === getIcon('city')) {
+                markerType = 'city';
             } else {
-                marker.setVisible(false);
+                markerType = 'other';
             }
+
+            if(markerType.toLowerCase() === 'city' || markerType.toLowerCase() === 'region'){
+                marker.setVisible(true);
+            }
+
         });
+    } catch (error) {
+        console.error('Error fetching markers:', error);
+        alert(`Error: ${error.message}`);
+    } finally {
+        toggleLoading(false);
+    }
+}
+
+function addMarkerToMap(markerData) {
+    const markerId = `${markerData.latitude}_${markerData.longitude}`;
+    if (cacheMarkers[markerId]) return;
+
+    const mapMarker = new google.maps.Marker({
+        position: { lat: markerData.latitude, lng: markerData.longitude },
+        map: map,
+        title: markerData.title,
+        label: {
+            text: markerData.title || 'Invalid Title',
+            color: '#ffffff',
+            fontSize: '14px',
+            fontWeight: '500',
+            className: 'marker-label'
+        },
+        icon: getIcon(markerData.type || markerData.markerType),
+        visible: false
+    });
+
+    mapMarker.addListener('click', () => {
+        new google.maps.InfoWindow({
+            content: `<div><strong>${markerData.title}</strong><p>${markerData.description}</p></div>`
+        }).open(map, mapMarker);
+    });
+
+    markers.push(mapMarker);
+    cacheMarkers[markerId] = mapMarker;
+}
+
+function manageMarkerVisibility() {
+    const bounds = map.getBounds();
+    const currentZoom = map.getZoom();
+
+    markers.forEach(marker => {
+        const markerPosition = marker.getPosition();
+        const markerId = `${markerPosition.lat()}_${markerPosition.lng()}`;
+        if (!cacheMarkers[markerId]) cacheMarkers[markerId] = marker;
+
+        let shouldBeVisible = false;
+        const markerType = getMarkerType(marker);
+
+        if (currentZoom >= 18) {
+            shouldBeVisible = bounds.contains(markerPosition);
+        } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
+            shouldBeVisible = bounds.contains(markerPosition);
+        } else if (currentZoom < 12 && (markerType === 'city' || markerType === 'region')) {
+            shouldBeVisible = bounds.contains(markerPosition);
+        }
+
+        marker.setVisible(shouldBeVisible);
     });
 }
 
 function getMarkerType(marker) {
-    if (marker.getIcon() === getIcon('region')) return 'region';
-    if (marker.getIcon() === getIcon('building')) return 'building';
-    if (marker.getIcon() === getIcon('city')) return 'city';
-    return 'other';
+    const icon = marker.getIcon();
+    return Object.keys(markerIcons).find(type => markerIcons[type] === icon) || 'other';
 }
+
+const markerIcons = {
+    restaurant: '/images/icons/res.svg',
+    building: '/images/icons/building.svg',
+    road: '/images/icons/road.svg',
+    store: '/images/icons/store.svg',
+    park: '/images/icons/park.svg',
+    river: '/images/icons/river.svg',
+    lake: '/images/icons/lake.svg',
+    village: '/images/icons/v.svg',
+    region: '/images/icons/region.svg',
+    city: '/images/icons/city.svg',
+    default: '/images/icons/pin.svg'
+};
 
 function getIcon(type) {
-    const icons = {
-        restaurant: '/images/icons/res.svg',
-        building: '/images/icons/building.svg',
-        road: '/images/icons/road.svg',
-        store: '/images/icons/store.svg',
-        park: '/images/icons/park.svg',
-        river: '/images/icons/river.svg',
-        lake: '/images/icons/lake.svg',
-        village: '/images/icons/v.svg',
-        region: '/images/icons/region.svg',
-        city: '/images/icons/city.svg'
-    };
-
-    return icons[type.toLowerCase()] || '/images/icons/pin.svg';
+    return markerIcons[type.toLowerCase()] || markerIcons.default;
 }
 
-//
-// document.getElementById("search-button").addEventListener("click", () => {
-//     const searchText = document.getElementById("search-input").value.toLowerCase();
-//     let found = false;
-//
-//     markers.forEach(marker => {
-//         if (marker.title.toLowerCase().includes(searchText)) {
-//             map.setCenter(marker.getPosition());
-//             map.setZoom(15);
-//
-//             // const searchInfoWindow = new google.maps.InfoWindow({
-//             //     content: `<div><strong>${marker.title}</strong><p>daha çox məlumat üçün <br> klikləyin...</p></div>`
-//             // });
-//             //
-//             // searchInfoWindow.open(map, marker);
-//             found = true;
-//
-//
-//             google.maps.event.addListener(marker, 'click', () => {
-//                 searchInfoWindow.close();
-//             });
-//         }
-//     });
-//
-//     if (!found) {
-//         alert("Lokasiya tapılmadı");
-//     }
-// });
+searchButton.addEventListener("click", handleSearch);
+searchInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") handleSearch();
+});
 
-
-document.getElementById("search-button").addEventListener("click", () => {
-    const searchText = document.getElementById("search-input").value.toLowerCase();
+function handleSearch() {
+    const searchText = searchInput.value.toLowerCase();
     foundMarkers = markers.filter(marker => marker.title.toLowerCase().includes(searchText));
 
     if (foundMarkers.length > 0) {
@@ -245,26 +164,23 @@ document.getElementById("search-button").addEventListener("click", () => {
         focusOnMarker(foundMarkers[currentIndex]);
         updateNavigationButtons();
     } else {
-        alert("Lokasiya tapılmadı");
+        alert("Location not found");
         hideNavigationButtons();
     }
-});
+}
 
-document.getElementById("next-button").addEventListener("click", () => {
-    if (foundMarkers.length > 1) {
-        currentIndex = (currentIndex + 1) % foundMarkers.length;
-        focusOnMarker(foundMarkers[currentIndex]);
-        updateNavigationButtons();
-    }
-});
+prevButton.addEventListener("click", navigateMarkers(-1));
+nextButton.addEventListener("click", navigateMarkers(1));
 
-document.getElementById("prev-button").addEventListener("click", () => {
-    if (foundMarkers.length > 1) {
-        currentIndex = (currentIndex - 1 + foundMarkers.length) % foundMarkers.length;
-        focusOnMarker(foundMarkers[currentIndex]);
-        updateNavigationButtons();
-    }
-});
+function navigateMarkers(step) {
+    return () => {
+        if (foundMarkers.length > 1) {
+            currentIndex = (currentIndex + step + foundMarkers.length) % foundMarkers.length;
+            focusOnMarker(foundMarkers[currentIndex]);
+            updateNavigationButtons();
+        }
+    };
+}
 
 function focusOnMarker(marker) {
     map.setCenter(marker.getPosition());
@@ -272,25 +188,18 @@ function focusOnMarker(marker) {
 }
 
 function updateNavigationButtons() {
-    if (foundMarkers.length > 1) {
-        document.getElementById("prev-button").style.display = "block";
-        document.getElementById("next-button").style.display = "block";
-    } else {
-        hideNavigationButtons();
-    }
+    const visible = foundMarkers.length > 1 ? "block" : "none";
+    prevButton.style.display = visible;
+    nextButton.style.display = visible;
 }
 
 function hideNavigationButtons() {
-    document.getElementById("prev-button").style.display = "none";
-    document.getElementById("next-button").style.display = "none";
+    prevButton.style.display = "none";
+    nextButton.style.display = "none";
 }
 
-document.getElementById("search-input").addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        document.getElementById("search-button").click();
-    }
-});
+function toggleLoading(show) {
+    if (loadingOverlay) loadingOverlay.style.display = show ? 'flex' : 'none';
+}
+
 window.onload = initMap;
-
-
-
