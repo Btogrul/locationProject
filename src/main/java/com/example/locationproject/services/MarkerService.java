@@ -38,7 +38,7 @@ public class MarkerService {
                  "data/shamsiz.geojson","data/gorus.geojson","data/tezekend.geojson", "data/elili.geojson",
                 "data/pirnaut.geojson", "data/sisyan.geojson", "data/engelevit.geojson","data/belek.geojson", "data/shukarxarabaliqi.geojson",
                 "data/pullkendxarabaliqi.geojson", "data/eriklixarabaliqi.geojson", "data/zabazadirxarabaliqi.geojson",
-                "data/hortoyuzxarabaliqi.geojson", "data/comerdlievler.geojson");
+                "data/hortoyuzxarabaliqi.geojson", "data/comerdlievler.geojson", "data/oxtar.geojson", "data/qurdqalaq.geojson");
         saveGeoJsonMarkers(geoJsonFiles);
     }
 
