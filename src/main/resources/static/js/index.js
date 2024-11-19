@@ -115,7 +115,7 @@ function manageMarkerVisibility() {
         let shouldBeVisible = false;
         const markerType = getMarkerType(marker);
 
-        if (currentZoom >= 18) {
+        if (currentZoom >= 14) {
             shouldBeVisible = bounds.contains(markerPosition);
         } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
             shouldBeVisible = bounds.contains(markerPosition);
