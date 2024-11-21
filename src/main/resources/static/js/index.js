@@ -35,37 +35,29 @@ async function initMap() {
     };
 
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
     await fetchMarkersAndDisplay();
 
-    map.addListener('idle', manageMarkerVisibility);
+    map.addListener('idle', debounce(manageMarkerVisibility, 300));
 }
 
 async function fetchMarkersAndDisplay() {
     toggleLoading(true);
 
     try {
-        const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
         data.forEach(markerData => addMarkerToMap(markerData));
-        markers.forEach(marker => {
-            let markerType;
-            if (marker.getIcon() === getIcon('region')) {
-                markerType = 'region';
-            } else if (marker.getIcon() === getIcon('building')) {
-                markerType = 'building';
-            } else if (marker.getIcon() === getIcon('city')) {
-                markerType = 'city';
-            } else {
-                markerType = 'other';
-            }
 
-            if(markerType.toLowerCase() === 'city' || markerType.toLowerCase() === 'region'){
+        markers.forEach(marker => {
+            const markerType = getMarkerType(marker);
+            if (['city', 'region'].includes(markerType)) {
                 marker.setVisible(true);
             }
-
         });
+
     } catch (error) {
         console.error('Error fetching markers:', error);
         alert(`Error: ${error.message}`);
@@ -76,7 +68,7 @@ async function fetchMarkersAndDisplay() {
 
 function addMarkerToMap(markerData) {
     const markerId = `${markerData.latitude}_${markerData.longitude}`;
-    if (cacheMarkers[markerId]) return;
+    if (cacheMarkers[markerId]) return; // Avoid duplicates
 
     const mapMarker = new google.maps.Marker({
         position: { lat: markerData.latitude, lng: markerData.longitude },
@@ -200,6 +192,14 @@ function hideNavigationButtons() {
 
 function toggleLoading(show) {
     if (loadingOverlay) loadingOverlay.style.display = show ? 'flex' : 'none';
+}
+
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
 }
 
 window.onload = initMap;
