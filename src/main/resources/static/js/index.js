@@ -1,7 +1,6 @@
 let map;
 let markers = [];
 let foundMarkers = [];
-let cacheMarkers = {};
 let currentIndex = 0;
 
 const navEl = document.getElementById("nav-mobile-menu");
@@ -35,29 +34,28 @@ async function initMap() {
     };
 
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
     await fetchMarkersAndDisplay();
 
-    map.addListener('idle', debounce(manageMarkerVisibility, 300));
+    map.addListener('idle', manageMarkerVisibility);
 }
 
 async function fetchMarkersAndDisplay() {
     toggleLoading(true);
 
     try {
-        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
-        data.forEach(markerData => addMarkerToMap(markerData));
 
+        data.forEach(markerData => addMarkerToMap(markerData));
         markers.forEach(marker => {
-            const markerType = getMarkerType(marker);
-            if (['city', 'region'].includes(markerType)) {
+            let markerType = getMarkerType(marker);
+
+            if (markerType === 'city' || markerType === 'region') {
                 marker.setVisible(true);
             }
         });
-
     } catch (error) {
         console.error('Error fetching markers:', error);
         alert(`Error: ${error.message}`);
@@ -67,9 +65,6 @@ async function fetchMarkersAndDisplay() {
 }
 
 function addMarkerToMap(markerData) {
-    const markerId = `${markerData.latitude}_${markerData.longitude}`;
-    if (cacheMarkers[markerId]) return; // Avoid duplicates
-
     const mapMarker = new google.maps.Marker({
         position: { lat: markerData.latitude, lng: markerData.longitude },
         map: map,
@@ -92,7 +87,6 @@ function addMarkerToMap(markerData) {
     });
 
     markers.push(mapMarker);
-    cacheMarkers[markerId] = mapMarker;
 }
 
 function manageMarkerVisibility() {
@@ -101,13 +95,10 @@ function manageMarkerVisibility() {
 
     markers.forEach(marker => {
         const markerPosition = marker.getPosition();
-        const markerId = `${markerPosition.lat()}_${markerPosition.lng()}`;
-        if (!cacheMarkers[markerId]) cacheMarkers[markerId] = marker;
-
         let shouldBeVisible = false;
         const markerType = getMarkerType(marker);
 
-        if (currentZoom >= 14) {
+        if (currentZoom >= 15) {
             shouldBeVisible = bounds.contains(markerPosition);
         } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
             shouldBeVisible = bounds.contains(markerPosition);
@@ -192,14 +183,6 @@ function hideNavigationButtons() {
 
 function toggleLoading(show) {
     if (loadingOverlay) loadingOverlay.style.display = show ? 'flex' : 'none';
-}
-
-function debounce(func, delay) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-    };
 }
 
 window.onload = initMap;
