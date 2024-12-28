@@ -10,6 +10,7 @@ const searchButton = document.getElementById("search-button");
 const searchInput = document.getElementById("search-input");
 const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
+let lastOpenedInfoWindow = null;
 
 navEl.addEventListener("click", () => {
     nav.classList.toggle("active");
@@ -43,7 +44,7 @@ async function fetchMarkersAndDisplay() {
     toggleLoading(true);
 
     try {
-        const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
@@ -80,12 +81,25 @@ function addMarkerToMap(markerData) {
         visible: false
     });
 
-    mapMarker.addListener('click', () => {
-        new google.maps.InfoWindow({
-            content: `<div><strong>${markerData.title}</strong><p>${markerData.description}</p></div>`
-        }).open(map, mapMarker);
+    // mapMarker.addListener('click', () => {
+    //     new google.maps.InfoWindow({
+    //         content: `<div><strong>${markerData.title}</strong><p>${markerData.description}</p></div>`
+    //     }).open(map, mapMarker);
+    // });
+    const infoWindowContent = `<div class="custom-info-window"><strong>${markerData.title}</strong><p>${markerData.description}</p></div>`;
+    const infoWindow = new google.maps.InfoWindow({
+        content: infoWindowContent
     });
 
+    mapMarker.addListener('click', () => {
+        if (lastOpenedInfoWindow) {
+            lastOpenedInfoWindow.close();
+        }
+
+        infoWindow.open(map, mapMarker);
+
+        lastOpenedInfoWindow = infoWindow;
+    });
     markers.push(mapMarker);
 }
 
