@@ -11,6 +11,7 @@ const translations = {
         aboutText3: "We invite our compatriots from Western Azerbaijan to cooperate in the placement of overlooked toponyms and to address any possible inaccuracies on the map.",
         aboutText4: "Just as we reunited with our Karabakh following the 44-day Patriotic War victory and the successful 23-hour anti-terror operation, we are now one step away from reuniting with our Western Azerbaijan. This virtual map we present can serve as a beacon of hope for our compatriots who were displaced, deported, and endured great tragedies from their ancestral lands.",
         aboutText5: "Lastly, we would like to thank everyone who contributed and helped us in this work!",
+        aboutText6: "The website encompasses four main directions: The homes of our compatriots who were expelled from Western Azerbaijan, our ancient, eternal, and historical lands, in 1988, including the names and surnames of family heads associated with these homes. The toponyms of the area.  Villages destroyed and left in ruins by Armenians during 1918-1920. Azerbaijani settlements within the territory of the Republic of Armenia with altered or Armenized place names. Our goal is to uncover historical truths through the website, expose the ethnic-historical cleansing carried out by Armenians against Azerbaijanis, and bring their actions to the attention of the world.",
         nonCommercialText: "The site is non-commercial. <br> It does not carry any advertising and no donations are accepted. <br>© 2024 All rights reserved.",
         quote1: "In 1918, the territory of the Republic of Azerbaijan was 114 thousand square kilometers. Now, only 86 thousand square kilometers remain. See how much land we have lost.",
         author1: "Heydar Aliyev",
@@ -29,6 +30,7 @@ const translations = {
         aboutText3: "Biz diqqətdən yayınan toponimlərimizin yerləşdirilməsi və xəritədə ola biləcək hər hansı bir çatışmamazlıqla əlaqədar Qərbi Azərbaycandan olan soydaşlarımızı əməkdaşlığa dəvət edirik.",
         aboutText4: "44 günlük Vətən müharibəsində qazandığımız Zəfərdən və 23 saatlıq uğurlu anti-terror əməliyyatından sonra Qarabağımıza qovuşduğumuz kimi Qərbi Azərbaycanımıza da qovuşmağımızın bir addımlığındayıq. Təqdim etdiyimiz bu virtual xəritə dədə baba torpaqlarımızdan didərgin düşən, deportasiyaya uğrayan və böyük faciələr yaşayan soydaşlarımız üçün onların qayıdışına işıq saça bilər.",
         aboutText5: "Son olaraq bu işdə əməyi keçən, bizə kömək edən hər bir şəxsə öz təşəkkürümüzü bildiririk!",
+        aboutText6: "Sayt özündə dörd istiqaməti ehtiva edir: 1988-ci ildə əzəli, əbədi, tarixi torpaqlarımız olan Qərbi Azərbaycandan qovulmuş soydaşlarımızın evləri üzərində ailə başçısının ad və soyadı, ərazidəki toponimlər, 1918-1920-ci illərdə ermənilər tərəfindən dağıdılmış, xaraba kəndlər və Ermənistan Respublikası ərazisində azərbaycanlılara məxsus yaşayış məskənlərinin dəyişdirilmiş-erməniləşdirilmiş yer adları. Məqsədimiz sayt vasitəsi ilə tarixi həqiqətləri üzə çıxartmaq, ermənilərin azərbaycanlılara qarşı etdikləri etnik-tarixi təmizləməni dünyaya çatdırmaq və onların əməllərini ifşa etməkdir",
         nonCommercialText: "Sayt qeyri-kommersiya xarakterlidir. <br> Reklam xarakteri daşımır və heç bir ianə qəbul edilmir. <br>© 2024 Bütün hüquqlar qorunur.",
         quote1: "1918-ci ildə Azərbaycan Respublikasının ərazisi 114 min kv kilometr olub. İndi isə 86 min kv kilometrdir. Gör əlimizdən nə qədər torpaqlar gedib.",
         author1: "Heydər Əliyev",
@@ -51,6 +53,7 @@ function translateToEnglish() {
     document.getElementById("about-text3").innerText = translations.en.aboutText3;
     document.getElementById("about-text4").innerText = translations.en.aboutText4;
     document.getElementById("about-text5").innerText = translations.en.aboutText5;
+    document.getElementById("about-text6").innerText = translations.en.aboutText6;
     document.getElementById("non-commercial-text").innerHTML = translations.en.nonCommercialText;
     document.getElementById("quote1").innerText = translations.en.quote1;
     document.getElementById("author1").innerText = translations.en.author1;
@@ -71,6 +74,7 @@ function translateToAzerbaijani() {
     document.getElementById("about-text3").innerText = translations.az.aboutText3;
     document.getElementById("about-text4").innerText = translations.az.aboutText4;
     document.getElementById("about-text5").innerText = translations.az.aboutText5;
+    document.getElementById("about-text6").innerText = translations.az.aboutText6;
     document.getElementById("non-commercial-text").innerHTML = translations.az.nonCommercialText;
     document.getElementById("quote1").innerText = translations.az.quote1;
     document.getElementById("author1").innerText = translations.az.author1;
