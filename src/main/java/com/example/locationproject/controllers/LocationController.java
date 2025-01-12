@@ -105,6 +105,13 @@ public class LocationController {
         return locationService.updateMarkerDescription(id, description);
     }
 
+    @PutMapping("/update-name/{id}")
+    public ResponseDto updateMarkerName(
+            @PathVariable("id") Long id,
+            @RequestParam("name") String name){
+        return locationService.updateMarkerName(id, name);
+    }
+
     @PutMapping("/update-marker-type/{id}")
     public ResponseDto updateMarkerType(
             @PathVariable("id") Long id,
@@ -150,12 +157,12 @@ public ResponseEntity<String> saveNewContact(
         @RequestParam("description") String description,
         @RequestParam("g-recaptcha-response") String captchaResponse) {
 
-    // Validate the reCAPTCHA
+
     if (!captchaService.verifyCaptcha(captchaResponse)) {
         return ResponseEntity.badRequest().body("Captcha verification failed");
     }
 
-    // Proceed with saving the contact if captcha is valid
+
     ContactDTO contactDTO = new ContactDTO();
     contactDTO.setName(name);
     contactDTO.setSurname(surname);
@@ -182,8 +189,6 @@ public ResponseEntity<String> saveNewContact(
         locationService.deleteAllContacts();
         return ResponseEntity.ok("Hamısı uğurla silindi");
     }
-
-
 
 
 

@@ -228,18 +228,31 @@
             <button type="submit">Markerin növünü yenilə</button>
         </form>
 
+        <form id="updateNameForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin adını dəyişmək</h2>
+
+            <label for="markerIdGetN">Marker ID:</label>
+            <input type="number" id="markerIdGetN" name="markerN" required><br><br>
+            <label for="newName">Yeni adı : </label>
+            <input  type="text" id="newName" name="name" required><br><br>
+            <button type="submit">Yenilə</button>
+        </form>
+
+
         <form id="updateDescriptionForm" enctype="application/x-www-form-urlencoded">
             <h2>Markerin ~haqqında(description)~ hissəsini yeniləmək</h2>
 
-            <label for="markerId">Marker ID:</label>
+            <label for="markerIdGet">Marker ID:</label>
             <input type="number" id="markerIdGet" name="markerId" required><br><br>
 
-            <label for="description">Haqqında:</label>
+            <label for="newDescription">Haqqında:</label>
             <textarea id="newDescription" name="description" required rows="5" cols="40"
                       placeholder="Enter new description"></textarea><br><br>
 
             <button type="submit">Yenilə</button>
         </form>
+
+
 
         <form id="updateForm" enctype="application/x-www-form-urlencoded">
             <h2>Tam dəyişmək</h2>
@@ -406,7 +419,31 @@
                 console.error('Error:', error);
             });
     });
+    document.getElementById('updateNameForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
+        const markerId = document.getElementById('markerIdGetN').value;
+        const name = document.getElementById('newName').value;
+
+        const url = `/api/v1/markers/update-name/${markerId}`;
+        const data = new URLSearchParams();
+        data.append('name', name);
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Status: ${data.status}\nMessage: ${data.message}`);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
     document.getElementById('updateDescriptionForm').addEventListener('submit', function (event) {
         event.preventDefault();
 

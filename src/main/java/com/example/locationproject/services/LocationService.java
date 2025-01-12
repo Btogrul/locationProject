@@ -102,6 +102,13 @@ public class LocationService {
     }
 
 
+    public ResponseDto updateMarkerName(Long id, String newName) {
+        Marker existingMarker = markerRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Marker not found with id: " + id));
+        existingMarker.setTitle(newName);
+        markerRepo.save(existingMarker);
+        return mapper.map(existingMarker, ResponseDto.class);
+    }
 
 
     public ResponseDto deleteMarker(Long id) {
@@ -154,5 +161,14 @@ public class LocationService {
         contactRepository.deleteAll();
     }
 
+
+
+
+//    public List<ResponseDto> getMarkersWithinBounds(double minLat, double maxLat, double minLng, double maxLng) {
+//        List<Marker> markers = markerRepo.findMarkersWithinBounds(minLat, maxLat, minLng, maxLng);
+//        return markers.stream()
+//                .map(marker -> mapper.map(marker, ResponseDto.class))
+//                .collect(Collectors.toList());
+//    }
 
 }
