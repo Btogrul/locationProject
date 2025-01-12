@@ -177,35 +177,19 @@
 
 </main>
 <footer id="footer">
+    <div id="footer-links">
+        <span id="footer-link-span">
+            <a target="_blank" href="https://president.az/">president.az</a> <a target="_blank" href="https://heydar-aliyev-foundation.org/az"> <img id="footer-link-icon"
+                th:src="@{/images/logo_az.png}" alt="Heydər Əliyev Fondu"> </a>
+            <a target="_blank" href="https://westaz.org/az">westaz.org</a>
+
+        </span>
+    </div>
+
     <p id="non-commercial-text">Sayt qeyri-kommersiya xarakterlidir. <br>
         Reklam xarakteri daşımır və heç bir ianə qəbul edilmir. <br> © 2024 Bütün hüquqlar qorunur.</p>
-    <!--    <div class="contact-header">-->
-    <!--        <h2>BİZİMLƏ ƏLAQƏ</h2>-->
-    <!--        <p>Sorğunuzu aşağıdakı formu dolduraraq bizə göndərə bilərsiniz.<br> Tezliklə sizinlə əlaqə saxlayacağıq.</p>-->
-    <!--    </div>-->
 
-    <!--    <form id="contactForm" th:action="@{/api/v1/markers/contact/new}" method="post"-->
-    <!--          enctype="application/x-www-form-urlencoded">-->
-    <!--        <label for="name">Ad:</label>-->
-    <!--        <input type="text" id="name" name="name" required>-->
 
-    <!--        <label for="surname">Soyad:</label>-->
-    <!--        <input type="text" id="surname" name="surname" required>-->
-
-    <!--        <label for="email">E-poçt:</label>-->
-    <!--        <input type="email" id="email" name="email" required>-->
-
-    <!--        <label for="contactNumber">Əlaqə Nömrəsi:</label>-->
-    <!--        <input type="text" id="contactNumber" name="contactNumber" required>-->
-
-    <!--        <label for="description">Mesajınız:</label>-->
-    <!--        <textarea id="description" rows="5" cols="50" name="description" required></textarea>-->
-
-    <!--        <div class="g-recaptcha" data-sitekey="6Lfa1zEqAAAAAE-KScPnPI3Bg2qyBZ8fclzf4LhR"></div>-->
-    <!--        <p th:if="${captchaError}" th:text="${captchaError}"></p>-->
-    <!--        <input type="submit" value="Göndər">-->
-    <!--    </form>-->
-    <!--    <div id="message"></div>-->
 </footer>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3udL3KCDrHNVCo59XmW6p1ffm6RjVXPk&libraries=places,marker,streetView,visualization&callback=initMap"></script>

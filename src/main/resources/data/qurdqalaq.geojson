@@ -79,6 +79,9 @@
 {"type":"Feature","id":"0A30EC563834509A42C5","geometry":{"type":"Point","coordinates":[46.4369249317055,39.33787714041157,1276.636274943001]},"properties":{"03D7E6CBDC34509A4306":0,"name":"Dondarlı yurdu","extrude":true}},
 {"type":"Feature","id":"05BEC950DB34509C6629","geometry":{"type":"Point","coordinates":[46.43074441924006,39.34331251838369,1343.869973959505]},"properties":{"072EE5B42534509C6677":0,"name":"Xırmanlar","extrude":true}},
 {"type":"Feature","id":"045522CDB73450A5AA2A","geometry":{"type":"Point","coordinates":[46.43071504132403,39.34347955162173,1349.89169656618]},"properties":{"08A9C71AF03450A5AAA6":0,"name":"Əlinin xırmanı","extrude":true}},
-{"type":"Feature","id":"03CE014A9B3450A7708A","geometry":{"type":"Point","coordinates":[46.4198200429349,39.34114243193467,1354.106277593422]},"properties":{"05108400133450A77101":0,"name":"Mirsuad bulağı","extrude":true}},
-{"type":"Feature","id":"0BD706D87B3450ABD65B","geometry":{"type":"Point","coordinates":[46.4308244870066,39.34306005943252,1335.800115203705]},"properties":{"0AB0B6F8883450ABD69D":0,"name":"Təndir","extrude":true}}
+{"type":"Feature","id":"03CE014A9B3450A7708A","geometry":{"type":"Point","coordinates":[46.4198200429349,39.34114243193467,1354.106277593422]},"properties":{"05108400133450A77101":0,"name":"Mirsuad yurdu","extrude":true}},
+{"type":"Feature","id":"0BD706D87B3450ABD65B","geometry":{"type":"Point","coordinates":[46.4308244870066,39.34306005943252,1335.800115203705]},"properties":{"0AB0B6F8883450ABD69D":0,"name":"Təndir","extrude":true}},
+{"type":"Feature","id":"0C7569A96D34D68AFF4A","geometry":{"type":"Point","coordinates":[46.43081386429479,39.3426037814076,1322.567128381265]},"properties":{"0BCD9A603634D68AFF6C":0,"name":"Quliyev Bəhrəm","extrude":true}},
+{"type":"Feature","id":"0B99A3864934D68C3CB4","geometry":{"type":"Point","coordinates":[46.43088050383937,39.34262011312254,1322.665435931289]},"properties":{"0053806CB734D68C3CD0":0,"name":"Quliyev Fərrux","extrude":true}},
+{"type":"Feature","id":"0C7BAC89EC34D68D43C4","geometry":{"type":"Point","coordinates":[46.43132769190626,39.34302221567797,1332.989540077374]},"properties":{"0BBA64C70A34D68D43E3":0,"name":"Quliyev Cəlil","extrude":true}}
 ]}

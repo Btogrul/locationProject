@@ -382,6 +382,21 @@ body{
 #footer p{
     font-size: 12px;
 }
+#footer-links {
+    margin-bottom: 10px;
+}
+/*#footer-link-span{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+#footer-link-span > a {
+    color: #10579D;
+    font-weight: bold;
+}
+#footer-link-icon{
+    width: 125px;
+}
 
 @media screen and (max-width: 600px) {
     #contactForm {
