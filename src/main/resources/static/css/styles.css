@@ -157,6 +157,7 @@ body{
 
 #search-container .change-buttons .button_map{
     padding: 10px;
+    cursor: pointer;
 }
 .search-container-inner{
     position: relative;
