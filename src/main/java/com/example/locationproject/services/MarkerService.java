@@ -45,7 +45,7 @@ public class MarkerService {
                 "data/xalac.geojson", "data/davudbey.geojson", "data/qovshud.geojson", "data/shabadin.geojson", "data/maralzemi.geojson", "data/heceti.geojson",
                 "data/dovrus.geojson", "data/dere.geojson");
         saveGeoJsonMarkers(geoJsonFiles);
-        System.out.println(geoJsonFiles);
+        log.info("Markers saved successfully." + geoJsonFiles);
     }
 
     public void saveGeoJsonMarkers(List<String> geoJsonFilePaths) throws IOException {
@@ -98,7 +98,7 @@ public class MarkerService {
                     }
 
                     markerRepository.save(marker);
-                    System.out.println("Marker: " + marker.getTitle());
+                    log.info("Markers saved successfully." + marker.getTitle());
                 }
             }catch (IOException error){
                 System.out.println("Error while saving geojson file" + filePath + error);
