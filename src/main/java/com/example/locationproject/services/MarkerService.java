@@ -29,24 +29,26 @@ public class MarkerService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void saveGeoJsonMarkersOnStartup() throws IOException {
-        if (markerRepository.count() > 0) {
-            System.out.println("Markers already exist in the database. Skipping import.");
-            return;
-        }
-        List<String> geoJsonFiles = List.of( "data/qushculudavud.geojson","data/earthLocFiles.geojson", "data/shaki.geojson", "data/urud.geojson", "data/whitebulaq.geojson",
-                "data/shahverdiler.geojson", "data/shurnuxu.geojson", "data/aliqulukend.geojson", "data/mezre.geojson", "data/qizilciq.geojson",
-                "data/qafan.geojson", "data/shixlar.geojson", "data/sofulu.geojson", "data/vagudi.geojson", "data/murxuz.geojson", "data/desteyird.geojson",
-                "data/agdu.geojson", "data/agduhouses.geojson", "data/derekend.geojson",
-                 "data/shamsiz.geojson","data/gorus.geojson","data/tezekend.geojson", "data/elili.geojson",
-                "data/pirnaut.geojson", "data/sisyan.geojson", "data/engelevit.geojson","data/belek.geojson", "data/shukarxarabaliqi.geojson",
-                "data/pullkendxarabaliqi.geojson", "data/eriklixarabaliqi.geojson", "data/zabazadirxarabaliqi.geojson",
-                "data/hortoyuzxarabaliqi.geojson", "data/comerdlievler.geojson", "data/oxtar.geojson", "data/qurdqalaq.geojson",
-                "data/aqvanlıxarabalıgı.geojson", "data/macxarabalıgı.geojson", "data/agduplaces.geojson", "data/comerdliplaces.geojson", "data/babacan.geojson",
+//        if (!markerRepository.findAll().isEmpty()) {
+//            System.out.println("Markers already exist in the database. Skipping import.");
+//            return;
+//        }
+        List<String> geoJsonFiles = List.of( "data/qushculudavud.geojson", "data/babacan.geojson",
                 "data/xalac.geojson", "data/davudbey.geojson", "data/qovshud.geojson", "data/shabadin.geojson", "data/maralzemi.geojson", "data/heceti.geojson",
                 "data/dovrus.geojson", "data/dere.geojson");
         saveGeoJsonMarkers(geoJsonFiles);
         log.info("Markers saved successfully." + geoJsonFiles);
     }
+
+    //,"data/earthLocFiles.geojson", "data/shaki.geojson", "data/urud.geojson", "data/whitebulaq.geojson",
+    //                "data/shahverdiler.geojson", "data/shurnuxu.geojson", "data/aliqulukend.geojson", "data/mezre.geojson", "data/qizilciq.geojson",
+    //                "data/qafan.geojson", "data/shixlar.geojson", "data/sofulu.geojson", "data/vagudi.geojson", "data/murxuz.geojson", "data/desteyird.geojson",
+    //                "data/agdu.geojson", "data/agduhouses.geojson", "data/derekend.geojson",
+    //                 "data/shamsiz.geojson","data/gorus.geojson","data/tezekend.geojson", "data/elili.geojson",
+    //                "data/pirnaut.geojson", "data/sisyan.geojson", "data/engelevit.geojson","data/belek.geojson", "data/shukarxarabaliqi.geojson",
+    //                "data/pullkendxarabaliqi.geojson", "data/eriklixarabaliqi.geojson", "data/zabazadirxarabaliqi.geojson",
+    //                "data/hortoyuzxarabaliqi.geojson", "data/comerdlievler.geojson", "data/oxtar.geojson", "data/qurdqalaq.geojson",
+    //                "data/aqvanlıxarabalıgı.geojson", "data/macxarabalıgı.geojson", "data/agduplaces.geojson","data/comerdliplaces.geojson",
 
     public void saveGeoJsonMarkers(List<String> geoJsonFilePaths) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
