@@ -1,6 +1,6 @@
 {"type":"FeatureCollection", "features":[
-{"type":"Feature","id":"0DC9A4B29C35516D9451","geometry":{"type":"Point","coordinates":[46.26353552189146,39.20357809464926,1418.160959308695]},"properties":{"name":"Quşçulu-Davudbəy"}},
-{"type":"Feature","id":"0A159879E935516F68C9","geometry":{"type":"Point","coordinates":[46.2711630057487,39.20891319129692,1247.441514813052]},"properties":{"name":"Meydanlar"}},
+{"type":"Feature","id":"0DC9A4B29C35516D9451","geometry":{"type":"Point","coordinates":[46.26353552189146,39.20357809464926,1418.160959308695]},"properties":{"0D78B0325B355173FA74":0,"name":"Quşçulu-Davudbəy","extrude":true}},
+{"type":"Feature","id":"0A159879E935516F68C9","geometry":{"type":"Point","coordinates":[46.2711630057487,39.20891319129692,1247.441514813052]},"properties":{"0D78B0325B353333074":0,"name":"Meydanlar","extrude":true}},
 {"type":"Feature","id":"0512318B9B355170005D","geometry":{"type":"Point","coordinates":[46.26776819284596,39.2051942989289,1263.542890110368]},"properties":{"0D78B0325B3551700074":0,"name":"Baş meydanlar","extrude":true}},
 {"type":"Feature","id":"0CA480C3BD355170CEF6","geometry":{"type":"Point","coordinates":[46.26083269021467,39.19881991539193,1256.692768264498]},"properties":{"0AC8A35BC0355170CF08":0,"name":"Ağ körpü","extrude":true}},
 {"type":"Feature","id":"0DB49262DA3551717768","geometry":{"type":"Point","coordinates":[46.27550475643797,39.21213940860444,1251.266452506677]},"properties":{"089D7A693A355171777C":0,"name":"Qanlı zəmi","extrude":true}},
@@ -13,7 +13,7 @@
 {"type":"Feature","id":"0CDACD35DA355176BC00","geometry":{"type":"Point","coordinates":[46.2833831750893,39.21771724386382,1244.709168829292]},"properties":{"0D846DF4CE355176BC12":0,"name":"Sürüngab","extrude":true}},
 {"type":"Feature","id":"0F9A6B15843551776482","geometry":{"type":"Point","coordinates":[46.27202392662586,39.2098502311384,1235.969913974294]},"properties":{"0B5932254D355177649A":0,"name":"Nuru çeşməsi","extrude":true}},
 {"type":"Feature","id":"00A28F0E41355178CE54","geometry":{"type":"Point","coordinates":[46.2757511384144,39.21121031604049,1221.022858173607]},"properties":{"098B34BD8F355178CE67":0,"name":"Park","extrude":true}},
-{"type":"Feature","id":"0F3D175FC935517965A6","geometry":{"type":"Point","coordinates":[46.27652583072231,39.21131550437173,1221.225082678508]},"properties":{"name":"Məktəbin bağı"}},
+{"type":"Feature","id":"0F3D175FC935517965A6","geometry":{"type":"Point","coordinates":[46.27652583072231,39.21131550437173,1221.225082678508]},"properties":{"0123B0325B3551700074":0,"name":"Məktəbin bağı","extrude":true}},
 {"type":"Feature","id":"05B8665960355179EE50","geometry":{"type":"Point","coordinates":[46.27525121088635,39.21150857397209,1228.860198732039]},"properties":{"030B3BC29D355179EE64":0,"name":"Məktəb","extrude":true}},
 {"type":"Feature","id":"08698B382435517A67D0","geometry":{"type":"Point","coordinates":[46.27502785798728,39.21120447829929,1226.46503652114]},"properties":{"0A95F9287835517A67E1":0,"name":"Klub","extrude":true}},
 {"type":"Feature","id":"001EF32C5135517AD62D","geometry":{"type":"Point","coordinates":[46.27447386695889,39.21108544088176,1227.815565627242]},"properties":{"0F3DAF480735517AD644":0,"name":"Qaraj","extrude":true}},
