@@ -5,6 +5,7 @@ import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.repositories.MarkerRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class MarkerService {
     @Autowired
     private MarkerRepository markerRepository;
@@ -31,7 +33,7 @@ public class MarkerService {
             System.out.println("Markers already exist in the database. Skipping import.");
             return;
         }
-        List<String> geoJsonFiles = List.of("data/earthLocFiles.geojson", "data/shaki.geojson", "data/urud.geojson", "data/whitebulaq.geojson",
+        List<String> geoJsonFiles = List.of( "data/qushculudavud.geojson","data/earthLocFiles.geojson", "data/shaki.geojson", "data/urud.geojson", "data/whitebulaq.geojson",
                 "data/shahverdiler.geojson", "data/shurnuxu.geojson", "data/aliqulukend.geojson", "data/mezre.geojson", "data/qizilciq.geojson",
                 "data/qafan.geojson", "data/shixlar.geojson", "data/sofulu.geojson", "data/vagudi.geojson", "data/murxuz.geojson", "data/desteyird.geojson",
                 "data/agdu.geojson", "data/agduhouses.geojson", "data/derekend.geojson",
@@ -41,12 +43,13 @@ public class MarkerService {
                 "data/hortoyuzxarabaliqi.geojson", "data/comerdlievler.geojson", "data/oxtar.geojson", "data/qurdqalaq.geojson",
                 "data/aqvanlıxarabalıgı.geojson", "data/macxarabalıgı.geojson", "data/agduplaces.geojson", "data/comerdliplaces.geojson", "data/babacan.geojson",
                 "data/xalac.geojson", "data/davudbey.geojson", "data/qovshud.geojson", "data/shabadin.geojson", "data/maralzemi.geojson", "data/heceti.geojson",
-                "data/qushculudavud.geojson", "data/dovrus.geojson", "data/dere.geojson");
+                "data/dovrus.geojson", "data/dere.geojson");
         saveGeoJsonMarkers(geoJsonFiles);
     }
 
     public void saveGeoJsonMarkers(List<String> geoJsonFilePaths) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
+
 
         for (String filePath : geoJsonFilePaths) {
             Resource resource = resourceLoader.getResource("classpath:" + filePath);
@@ -70,6 +73,8 @@ public class MarkerService {
                     } else {
                         markerType = MarkerType.CUSTOM;
                     }
+
+
 
                     Marker marker = new Marker();
                     marker.setTitle(name);
