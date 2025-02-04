@@ -17,9 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -64,6 +62,10 @@ public class LocationService {
         return listMapping(markers, ResponseDto.class);
     }
 
+    public List<ResponseDto> getDuplicateMarkers() {
+        List <Marker> dupMarkers = markerRepo.findDuplicateMarkers();
+        return listMapping(dupMarkers, ResponseDto.class);
+    }
 
     public ResponseDto updateMarkerType(Long id, MarkerType markerType) {
         Marker existingMarker = markerRepo.findById(id)

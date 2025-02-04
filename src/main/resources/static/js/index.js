@@ -13,6 +13,7 @@ const searchInput = document.getElementById("search-input");
 const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
 let lastOpenedInfoWindow = null;
+const infoMessage = document.getElementById("info-message");
 
 navEl.addEventListener("click", () => nav.classList.toggle("active"));
 searchButton.addEventListener("click", handleSearch);
@@ -53,7 +54,6 @@ async function initMap() {
         alert("xəritənin yüklənməsində xəta var. Zəhmət olmasa bizimlə əlaqə saxlayın və yaxud bir az sonra yenidən dənəyin");
     }
 }
-
 /**
  * api fetch
  */
@@ -61,7 +61,7 @@ async function fetchMarkersAndDisplay() {
     toggleLoading(true);
 
     try {
-        const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
@@ -129,8 +129,8 @@ function manageMarkerVisibility() {
 
         marker.setVisible(shouldBeVisible);
     });
-}
 
+}
 /**
  * axtarış filteri
  */
@@ -140,8 +140,11 @@ function handleSearch() {
 
     if (!searchText) {
         resetMarkers();
+        infoMessage.style.display = "none";
         return;
     }
+    infoMessage.textContent = `Digər markerlərin yenidən görünməsi üçün zəhmət olmasa axtarış xanasını boş saxlayın`;
+    infoMessage.style.display = "block";
 
     markers.forEach(marker => marker.setVisible(false));
     foundMarkers = markers.filter(marker =>
@@ -167,6 +170,7 @@ function resetMarkers() {
     isSearching = false;
     searchInput.value = "";
     foundMarkers = [];
+    infoMessage.style.display = "none";
     hideNavigationButtons();
     manageMarkerVisibility();
 }

@@ -78,6 +78,11 @@ public class LocationController {
         return locationService.getAllMarkers();
     }
 
+    @GetMapping("/duplicates")
+    public List<ResponseDto> getDuplicateMarkers() {
+        return locationService.getDuplicateMarkers();
+    }
+
 
     @PutMapping("/update/{id}")
     public ResponseDto updateLocation(
