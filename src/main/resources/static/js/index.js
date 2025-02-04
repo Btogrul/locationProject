@@ -143,7 +143,7 @@ function handleSearch() {
         infoMessage.style.display = "none";
         return;
     }
-    infoMessage.textContent = `Digər markerlərin yenidən görünməsi üçün zəhmət olmasa axtarış xanasını boş saxlayın`;
+    infoMessage.textContent = `Digər pinləri göstər`;
     infoMessage.style.display = "block";
 
     markers.forEach(marker => marker.setVisible(false));

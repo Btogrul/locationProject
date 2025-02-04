@@ -159,8 +159,14 @@ body{
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-}
+    cursor: pointer;
+    transition: all .2s ease-in-out;
 
+}
+.info-message:hover{
+    background-color: #887a7a;
+    color: #fdfdfd;
+}
 #search-container .change-buttons{
     display: flex;
     justify-content: space-between;
