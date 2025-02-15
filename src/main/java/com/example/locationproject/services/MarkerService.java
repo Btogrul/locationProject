@@ -12,6 +12,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +49,53 @@ public class MarkerService {
         log.info("Markers saved successfully." + geoJsonFiles);
     }
 
+    public void processGeoJsonFile(MultipartFile file) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
 
+        try (InputStream inputStream = file.getInputStream()) {
+            JsonNode root = objectMapper.readTree(inputStream);
+
+            for (JsonNode feature : root.get("features")) {
+                JsonNode geometry = feature.get("geometry");
+                JsonNode properties = feature.get("properties");
+
+                double longitude = geometry.get("coordinates").get(0).asDouble();
+                double latitude = geometry.get("coordinates").get(1).asDouble();
+                String name = properties.has("name") ? properties.get("name").asText() : "Unknown";
+                String type = geometry.has("type") ? geometry.get("type").asText() : "CUSTOM";
+
+                MarkerType markerType = switch (type.toLowerCase()) {
+                    case "region" -> MarkerType.REGION;
+                    case "building" -> MarkerType.BUILDING;
+                    default -> MarkerType.CUSTOM;
+                };
+
+                Marker marker = new Marker();
+                marker.setTitle(name);
+                marker.setLatitude(latitude);
+                marker.setLongitude(longitude);
+                marker.setCreatedDate(LocalDateTime.now());
+                marker.setUpdatedDate(LocalDateTime.now());
+                marker.setMarkerType(markerType);
+
+                if (!properties.has("description") || properties.get("description").asText().isEmpty()) {
+                    marker.setDescription(switch (markerType) {
+                        case REGION -> "Rayon";
+                        case BUILDING -> "Kənd";
+                        default -> name;
+                    });
+                } else {
+                    marker.setDescription(properties.get("description").asText());
+                }
+
+                markerRepository.save(marker);
+                log.info("Marker saved: " + marker.getTitle());
+            }
+        } catch (IOException e) {
+            log.error("Error processing GeoJSON file: " + file.getOriginalFilename(), e);
+            throw e;
+        }
+    }
 
     public void saveGeoJsonMarkers(List<String> geoJsonFilePaths) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();

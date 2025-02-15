@@ -16,10 +16,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -130,11 +133,26 @@ public class LocationController {
     }
 
 
+
+    @PostMapping("/upload-geojson")
+    public ResponseEntity<String> uploadGeoJson(@RequestParam("file") MultipartFile file) {
+        try {
+            markerService.processGeoJsonFile(file);
+            return ResponseEntity.ok("GeoJSON yükləndi");
+        } catch (IOException e) {
+            log.error("Xəta: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("geojson faylın işə salınmasında xəta");
+        }
+    }
+
     @GetMapping("/contact")
     public String showContactForm(Model model) {
         model.addAttribute("contact", new ContactDTO());
         return "contact";
     }
+
+
 
 //    @PostMapping("/contact/new")
 //    public ResponseEntity saveNewContact(

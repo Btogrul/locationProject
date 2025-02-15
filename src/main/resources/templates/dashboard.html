@@ -246,7 +246,12 @@
 
                 <input formtarget="_blank" class="submit" type="submit" value="yeni lokasiya yarat">
             </form>
-
+            <br><br>
+                <h2 class="title-form-dash">GeoJSON Fayl Yükləmə</h2>
+                <form id="uploadGeoJsonForm" enctype="multipart/form-data">
+                    <input type="file" id="geoJsonFile" name="file" accept=".geojson" required>
+                    <button type="submit">Faylı Yüklə</button>
+                </form>
         </div>
 
         <div class="group">
@@ -649,6 +654,31 @@
         document.getElementById(sectionId).classList.add('active');
         document.querySelector(`button[onclick="showContent('${sectionId}')"]`).classList.add('active');
     }
+    document.getElementById('uploadGeoJsonForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const fileInput = document.getElementById('geoJsonFile');
+        if (fileInput.files.length === 0) {
+            alert("Zəhmət olmasa, GeoJSON faylı seçin!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/api/v1/markers/upload-geojson', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error('Xəta:', error);
+                alert("GeoJSON faylını yükləmək mümkün olmadı.");
+            });
+    });
 
 
 </script>
