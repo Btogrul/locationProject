@@ -81,7 +81,8 @@
             border-bottom: 2px solid #007bff;
             padding-bottom: 5px;
         }
-        .title-form-dash{
+
+        .title-form-dash {
             color: #030771 !important;
             border-bottom: none !important;
             text-align: center;
@@ -90,11 +91,20 @@
             padding: 10px 0;
         }
 
-        form{
+        .link-to-dash {
+            font-size: 20px;
+            color: black;
+            font-weight: bolder;
+            text-decoration: none;
+            border: 2px solid #021b40;
+        }
+
+        form {
             border: 4px solid #0063E2;
             padding: 10px;
             margin: 5px 0;
         }
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -194,226 +204,285 @@
     </div>
 </div>
 
-    <div id="mapSection" class="container content active">
-        <div id="map" style="height: 700px; width: 100%;">
-
-        </div>
-<!--        <details>-->
-<!--            <summary>Markerlər üçün metodlar</summary>-->
-<!--            <ul>-->
-<!--                <li><a href="#yaratmaqD">1 ~ Yenisini yaratmaq</a></li>-->
-<!--                <li><a href="#hamisiniT">2 ~ Bütün lokasiyaların siyahısı</a></li>-->
-<!--                <li><a href="#adiIleT">3 ~ Lokasiya adı ilə axtarış</a></li>-->
-<!--                <li><a href="#idTapmaq">4 ~ id ilə axtarış</a></li>-->
-<!--                <li><a href="#updateMarkerTypeForm">5 ~ Lokasiyanın növünü dəyişmək</a></li>-->
-<!--                <li><a href="#updateDescriptionForm">6 ~ Lokasiya haqqında məlumatı dəyişmək</a></li>-->
-<!--                <li><a href="#updateForm">7 ~ Lokasiyanı tam dəyişmək</a></li>-->
-<!--                <li><a href="#deleteForm">8 ~ Lokasiyanı İD ilə silmək</a></li>-->
-<!--            </ul>-->
-<!--        </details>-->
-        <h1 style="text-align: center;">Markerlər üçün methodlar</h1>
-        <div class="group">
-            <h2 class="title-form-dash">Markerin yenisini yaratmaq</h2>
-            <form id="yaratmaqD" method="post" th:action="@{/api/v1/markers/new}" enctype="application/x-www-form-urlencoded">
-                <h2>Yenisini Yaratmaq</h2>
-
-                <label for="createTitle" class="label">Yerin adı:</label>
-                <input type="text" id="createTitle" name="title" placeholder="Title" required>
-
-                <label for="createDescription" class="label">haqqında:</label>
-                <input type="text" id="createDescription" name="description" placeholder="Description" required>
-
-                <label class="label" for="createType">Növü(şəhər, rayon, kənd və s):</label>
-                <select id="createType" name="markerType" required>
-                    <option value="CUSTOM">normal</option>
-                    <option value="BUILDING">Kənd</option>
-                    <option value="ROAD">yol</option>
-                    <option value="RESTAURANT">Restaurant</option>
-                    <option value="STORE">mağaza</option>
-                    <option value="PARK">Park</option>
-                    <option value="RIVER">çay</option>
-                    <!--                <option value="LAKE">Lake</option>-->
-                    <!--                <option value="VILLAGE">Village</option>-->
-                    <option value="CITY">Şəhər</option>
-                    <option value="REGION">Rayon</option>
-                </select><br><br>
-
-                <label for="createLatitude" class="label">Latitude:</label>
-                <input type="number" id="createLatitude" name="latitude" placeholder="Latitude" step="any" required>
-
-                <label for="createLongitude" class="label">Longitude:</label>
-                <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
-
-                <input formtarget="_blank" class="submit" type="submit" value="yeni lokasiya yarat">
-            </form>
-            <br><br>
-                <h2 class="title-form-dash">GeoJSON Fayl Yükləmə</h2>
-                <form id="uploadGeoJsonForm" enctype="multipart/form-data">
-                    <input type="file" id="geoJsonFile" name="file" accept=".geojson" required>
-                    <button type="submit">Faylı Yüklə</button>
-                </form>
-        </div>
-
-        <div class="group">
-            <h2 class="title-form-dash">Markerlərin axtarışı</h2>
-
-            <form id="idTapmaq" method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
-                <h2>İd-yə görə tapmaq</h2>
-                <label for="getId" class="label">Location ID:</label>
-                <input type="text" id="getId" name="id" placeholder="Location ID" required>
-                <input formtarget="_blank" class="submit" type="submit" value="Lokasiyanı əldə et">
-            </form>
-
-            <form id="hamisiniT" method="get" th:action="@{/api/v1/markers/all}">
-                <h2>Bütün lokasiyaları tapmaq</h2>
-                <input formtarget="_blank" class="submit" type="submit" value="Bütün lokasiyaların siyahısı">
-            </form>
-            <form id="duplicates-section" method="get" th:action="@{/api/v1/markers/duplicates}">
-                <h2>Oxşar pinləri üzə çıxartmaq, əgər varsa</h2>
-                <input formtarget="_blank" class="submit" type="submit" value="Bütün oxşar lokasiyaların siyahısı">
-            </form>
-            <form id="adiIleT" method="get" action="/api/v1/markers/by-title" enctype="application/x-www-form-urlencoded">
-                <h2>Adına görə tapmaq</h2>
-
-                <label for="getTitle" class="label">Adı:</label>
-                <input type="text" id="getTitle" name="title" placeholder="adını yaz" required>
-
-                <input formtarget="_blank" class="submit" type="submit" value="məlumatı əldə et">
-            </form>
-        </div>
-
-
-
-
-
-
-
-        <div class="group">
-            <h2 class="title-form-dash">Markerin dəyişdirilməsi</h2>
-
-            <form id="updateMarkerTypeForm" enctype="application/x-www-form-urlencoded">
-                <h2>Markerin növünü dəyişmək</h2>
-
-                <label for="markerId">Marker ID:</label>
-                <input type="number" id="typeMarkerId" name="markerId" required><br><br>
-
-                <label for="markerType">Marker Type:</label>
-                <select id="newMarkerType" name="markerType" required>
-                    <option value="CUSTOM">Normal</option>
-                    <option value="BUILDING">Kənd</option>
-                    <option value="ROAD">Yol</option>
-                    <option value="RESTAURANT">Restaurant</option>
-                    <option value="STORE">Mağaza</option>
-                    <option value="PARK">Park</option>
-                    <option value="RIVER">Çay</option>
-                    <option value="REGION">Rayon</option>
-                    <option value="CITY">Şəhər</option>
-                </select><br><br>
-
-                <button type="submit">Markerin növünü yenilə</button>
-            </form>
-
-            <form id="updateNameForm" enctype="application/x-www-form-urlencoded">
-                <h2>Markerin adını dəyişmək</h2>
-
-                <label for="markerIdGetN">Marker ID:</label>
-                <input type="number" id="markerIdGetN" name="markerN" required><br><br>
-                <label for="newName">Yeni adı : </label>
-                <input  type="text" id="newName" name="name" required><br><br>
-                <button type="submit">Yenilə</button>
-            </form>
-
-
-            <form id="updateDescriptionForm" enctype="application/x-www-form-urlencoded">
-                <h2>Markerin ~haqqında(description)~ hissəsini yeniləmək</h2>
-
-                <label for="markerIdGet">Marker ID:</label>
-                <input type="number" id="markerIdGet" name="markerId" required><br><br>
-
-                <label for="newDescription">Haqqında:</label>
-                <textarea id="newDescription" name="description" required rows="5" cols="40"
-                          placeholder="Enter new description"></textarea><br><br>
-
-                <button type="submit">Yenilə</button>
-            </form>
-
-
-
-            <form id="updateForm" enctype="application/x-www-form-urlencoded">
-                <h2>Tam dəyişmək</h2>
-
-                <label for="markerUpId">Marker ID:</label>
-                <input type="number" id="markerUpId" name="markerUpId" required><br><br>
-
-                <label for="title">Adı:</label>
-                <input type="text" id="title" name="title" required><br><br>
-
-                <label for="description">Haqqında:</label>
-                <textarea id="description" name="description" required rows="5" cols="40"></textarea><br><br>
-
-                <label for="markerType">Marker növü:</label>
-                <select id="markerType" name="markerType" required>
-                    <option value="CUSTOM">Normal</option>
-                    <option value="BUILDING">Kənd</option>
-                    <option value="ROAD">Yol</option>
-                    <option value="RESTAURANT">Restaurant</option>
-                    <option value="STORE">Mağaza</option>
-                    <option value="PARK">Park</option>
-                    <option value="RIVER">çay</option>
-                    <!--                <option value="LAKE">Lake</option>-->
-                    <!--                <option value="VILLAGE">Village</option>-->
-                    <option value="CITY">Şəhər</option>
-                    <option value="REGION">Rayon</option>
-                </select><br><br>
-
-                <label for="latitude">Latitude:</label>
-                <input type="number" id="latitude" name="latitude" step="any" required><br><br>
-
-                <label for="longitude">Longitude:</label>
-                <input type="number" id="longitude" name="longitude" step="any" required><br><br>
-
-                <button type="submit">lokasiyanı yenilə</button>
-            </form>
-        </div>
-
-
-
-        <div class="group">
-            <h2 class="title-form-dash">Markerin silinməsi</h2>
-
-            <form id="deleteForm">
-                <h2>Silmək</h2>
-
-                <label for="markerId">Lokasiyanın İd -ni əlavə et:</label>
-                <input type="number" id="markerId" name="markerId" required>
-                <button type="submit">Məlumatı silmək</button>
-            </form>
-        </div>
-
+<div id="mapSection" class="container content active">
+    <div id="map" style="height: 700px; width: 100%;">
 
     </div>
+    <!--        <details>-->
+    <!--            <summary>Markerlər üçün metodlar</summary>-->
+    <!--            <ul>-->
+    <!--                <li><a href="#yaratmaqD">1 ~ Yenisini yaratmaq</a></li>-->
+    <!--                <li><a href="#hamisiniT">2 ~ Bütün lokasiyaların siyahısı</a></li>-->
+    <!--                <li><a href="#adiIleT">3 ~ Lokasiya adı ilə axtarış</a></li>-->
+    <!--                <li><a href="#idTapmaq">4 ~ id ilə axtarış</a></li>-->
+    <!--                <li><a href="#updateMarkerTypeForm">5 ~ Lokasiyanın növünü dəyişmək</a></li>-->
+    <!--                <li><a href="#updateDescriptionForm">6 ~ Lokasiya haqqında məlumatı dəyişmək</a></li>-->
+    <!--                <li><a href="#updateForm">7 ~ Lokasiyanı tam dəyişmək</a></li>-->
+    <!--                <li><a href="#deleteForm">8 ~ Lokasiyanı İD ilə silmək</a></li>-->
+    <!--            </ul>-->
+    <!--        </details>-->
+    <h1 style="text-align: center;">Markerlər üçün methodlar</h1>
+    <div class="group">
+        <h2 class="title-form-dash">Markerin yenisini yaratmaq</h2>
+        <form id="yaratmaqD" method="post" th:action="@{/api/v1/markers/new}"
+              enctype="application/x-www-form-urlencoded">
+            <h2>Yenisini Yaratmaq</h2>
 
-    <div id="contactsSection" class="content">
-        <form method="get" th:action="@{/api/v1/markers/contact/all}">
-            <h2>Məktub qutusuna baxmaq</h2>
-            <input formtarget="_blank" class="submit" type="submit" value="məktub qutusunu açmaq">
+            <label for="createTitle" class="label">Yerin adı:</label>
+            <input type="text" id="createTitle" name="title" placeholder="Title" required>
+
+            <label for="createDescription" class="label">haqqında:</label>
+            <input type="text" id="createDescription" name="description" placeholder="Description" required>
+
+            <label class="label" for="createType">Növü(şəhər, rayon, kənd və s):</label>
+            <select id="createType" name="markerType" required>
+                <option value="CUSTOM">normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">yol</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">mağaza</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">çay</option>
+                <!--                <option value="LAKE">Lake</option>-->
+                <!--                <option value="VILLAGE">Village</option>-->
+                <option value="CITY">Şəhər</option>
+                <option value="REGION">Rayon</option>
+            </select><br><br>
+
+            <label for="createLatitude" class="label">Latitude:</label>
+            <input type="number" id="createLatitude" name="latitude" placeholder="Latitude" step="any" required>
+
+            <label for="createLongitude" class="label">Longitude:</label>
+            <input type="number" id="createLongitude" name="longitude" placeholder="Longitude" step="any" required>
+
+            <input formtarget="_blank" class="submit" type="submit" value="yeni lokasiya yarat">
         </form>
-        <form id="deleteSingleForm">
-            <h2>id ilə gələn mesajları silmək </h2>
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-
-            <label for="contactId">silmək istədiyiniz mesajın İD-si: </label>
-            <input type="number" id="contactId" name="contactId" required>
-            <input type="submit" value="delete a contact"/>
+        <br><br>
+        <h2 class="title-form-dash">GeoJSON Fayl Yükləmə</h2>
+        <a class="link-to-dash" target="_blank" href="https://products.aspose.app/gis/conversion/kml-to-geojson">Kml
+            faylını geoJsona dəyişmək üçün keçid elə <--</a>
+        <form id="uploadGeoJsonForm" enctype="multipart/form-data">
+            <input type="file" id="geoJsonFile" name="file" accept=".geojson" required>
+            <button type="submit">Faylı Yüklə</button>
         </form>
-
-        <form id="deleteAllContactsForm">
-            <h2>bütün mesajları silmək</h2>
-            <button type="submit">Hamısını silmək</button>
-        </form>
-
-
     </div>
+
+    <div class="group">
+        <h2 class="title-form-dash">Markerlərin axtarışı</h2>
+
+        <form id="idTapmaq" method="get" th:action="@{/api/v1/markers}" enctype="application/x-www-form-urlencoded">
+            <h2>İd-yə görə tapmaq</h2>
+            <label for="getId" class="label">Location ID:</label>
+            <input type="text" id="getId" name="id" placeholder="Location ID" required>
+            <input formtarget="_blank" class="submit" type="submit" value="Lokasiyanı əldə et">
+        </form>
+
+        <form id="hamisiniT" method="get" th:action="@{/api/v1/markers/all}">
+            <h2>Bütün lokasiyaları tapmaq</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="Bütün lokasiyaların siyahısı">
+        </form>
+        <form id="duplicates-section" method="get" th:action="@{/api/v1/markers/duplicates}">
+            <h2>Oxşar pinləri üzə çıxartmaq, əgər varsa</h2>
+            <input formtarget="_blank" class="submit" type="submit" value="Bütün oxşar lokasiyaların siyahısı">
+        </form>
+        <form id="adiIleT" method="get" action="/api/v1/markers/by-title" enctype="application/x-www-form-urlencoded">
+            <h2>Adına görə tapmaq</h2>
+
+            <label for="getTitle" class="label">Adı:</label>
+            <input type="text" id="getTitle" name="title" placeholder="adını yaz" required>
+
+            <input formtarget="_blank" class="submit" type="submit" value="məlumatı əldə et">
+        </form>
+    </div>
+
+
+    <div class="group">
+        <h2 class="title-form-dash">Markerin dəyişdirilməsi</h2>
+
+        <form id="updateMarkerTypeForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin növünü dəyişmək</h2>
+
+            <label for="markerId">Marker ID:</label>
+            <input type="number" id="typeMarkerId" name="markerId" required><br><br>
+
+            <label for="markerType">Marker Type:</label>
+            <select id="newMarkerType" name="markerType" required>
+                <option value="CUSTOM">Normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">Yol</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">Mağaza</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">Çay</option>
+                <option value="REGION">Rayon</option>
+                <option value="CITY">Şəhər</option>
+            </select><br><br>
+
+            <button type="submit">Markerin növünü yenilə</button>
+        </form>
+
+        <form id="updateNameForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin adını dəyişmək</h2>
+
+            <label for="markerIdGetN">Marker ID:</label>
+            <input type="number" id="markerIdGetN" name="markerN" required><br><br>
+            <label for="newName">Yeni adı : </label>
+            <input type="text" id="newName" name="name" required><br><br>
+            <button type="submit">Yenilə</button>
+        </form>
+
+
+        <form id="updateDescriptionForm" enctype="application/x-www-form-urlencoded">
+            <h2>Markerin ~haqqında(description)~ hissəsini yeniləmək</h2>
+
+            <label for="markerIdGet">Marker ID:</label>
+            <input type="number" id="markerIdGet" name="markerId" required><br><br>
+
+            <label for="newDescription">Haqqında:</label>
+            <textarea id="newDescription" name="description" required rows="5" cols="40"
+                      placeholder="Enter new description"></textarea><br><br>
+
+            <button type="submit">Yenilə</button>
+        </form>
+
+
+        <form id="updateForm" enctype="application/x-www-form-urlencoded">
+            <h2>Tam dəyişmək</h2>
+
+            <label for="markerUpId">Marker ID:</label>
+            <input type="number" id="markerUpId" name="markerUpId" required><br><br>
+
+            <label for="title">Adı:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="description">Haqqında:</label>
+            <textarea id="description" name="description" required rows="5" cols="40"></textarea><br><br>
+
+            <label for="markerType">Marker növü:</label>
+            <select id="markerType" name="markerType" required>
+                <option value="CUSTOM">Normal</option>
+                <option value="BUILDING">Kənd</option>
+                <option value="ROAD">Yol</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="STORE">Mağaza</option>
+                <option value="PARK">Park</option>
+                <option value="RIVER">çay</option>
+                <!--                <option value="LAKE">Lake</option>-->
+                <!--                <option value="VILLAGE">Village</option>-->
+                <option value="CITY">Şəhər</option>
+                <option value="REGION">Rayon</option>
+            </select><br><br>
+
+            <label for="latitude">Latitude:</label>
+            <input type="number" id="latitude" name="latitude" step="any" required><br><br>
+
+            <label for="longitude">Longitude:</label>
+            <input type="number" id="longitude" name="longitude" step="any" required><br><br>
+
+            <button type="submit">lokasiyanı yenilə</button>
+        </form>
+    </div>
+    <div class="group">
+        <h2 class="title-form-dash">Markerin silinməsi</h2>
+
+        <form id="deleteForm">
+            <h2>Silmək</h2>
+
+            <label for="markerId">Lokasiyanın İd -ni əlavə et:</label>
+            <input type="number" id="markerId" name="markerId" required>
+            <button type="submit">Məlumatı silmək</button>
+        </form>
+    </div>
+
+    <div class="group">
+        <h2 class="title-form-dash">Yeni "Təşəkkürlər" Bölməsi Əlavə Et</h2>
+        <form id="addDetailForm">
+            <label for="detailName">Bölmə Adı:</label>
+            <input type="text" id="detailName" placeholder="Məsələn: Layihə Dəstəkləyiciləri" required>
+            <button type="submit">Yeni Bölmə Yarat</button>
+        </form>
+
+
+
+        <h2 class="title-form-dash">Mövcud Bölməyə Yeni Ad Əlavə Et</h2>
+        <form id="addContributorForm">
+            <label for="detailSelect">Bölmə Seçin:</label>
+            <select id="detailSelect" required>
+                <option value="">Əvvəlcə bir bölmə seçin</option>
+            </select>
+
+
+            <label for="contributorName">İştirakçının Adı:</label>
+            <input type="text" id="contributorName" placeholder="Məsələn: Toghrul Bağırlı" required>
+
+            <button type="submit">Yeni Ad Əlavə Et</button>
+        </form>
+
+
+
+        <h2 class="title-form-dash">Bölməni Sil</h2>
+        <form id="deleteSectionForm">
+            <label for="deleteSectionSelect">Silinəcək Bölmə:</label>
+            <select id="deleteSectionSelect" required>
+                <option value="">Bölmə Seçin</option>
+            </select>
+            <button type="submit" class="delete-button">Bölməni Sil</button>
+        </form>
+
+
+
+        <h2 class="title-form-dash">İştirakçını Sil</h2>
+        <form id="deleteContributorForm">
+            <label for="deleteContributorSelect">Silinəcək Bölmə:</label>
+            <select id="deleteContributorSelect" required>
+                <option value="">Bölmə Seçin</option>
+            </select>
+
+            <label for="deleteContributorName">Silinəcək Ad:</label>
+            <input type="text" id="deleteContributorName" placeholder="İştirakçının Adı" required>
+
+            <button type="submit" class="delete-button">İştirakçını Sil</button>
+        </form>
+    </div>
+    <div class="group">
+        <h2 class="title-form-dash">Bütün İştirakçıları Gör və Sil</h2>
+
+        <div id="contributorsList" style="padding: 10px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px;">
+            <p>İştirakçılar yüklənir...</p>
+        </div>
+
+        <form id="deleteContributorByIdForm" style="margin-top: 20px;">
+            <label for="deleteContributorById">Silinəcək İştirakçının İD-si:</label>
+            <input type="number" id="deleteContributorById" placeholder="İştirakçı ID" required>
+            <button type="submit" class="delete-button">İştirakçını Sil (İD ilə)</button>
+        </form>
+    </div>
+
+
+
+</div>
+
+<div id="contactsSection" class="content">
+    <form method="get" th:action="@{/api/v1/markers/contact/all}">
+        <h2>Məktub qutusuna baxmaq</h2>
+        <input formtarget="_blank" class="submit" type="submit" value="məktub qutusunu açmaq">
+    </form>
+    <form id="deleteSingleForm">
+        <h2>id ilə gələn mesajları silmək </h2>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+
+        <label for="contactId">silmək istədiyiniz mesajın İD-si: </label>
+        <input type="number" id="contactId" name="contactId" required>
+        <input type="submit" value="delete a contact"/>
+    </form>
+
+    <form id="deleteAllContactsForm">
+        <h2>bütün mesajları silmək</h2>
+        <button type="submit">Hamısını silmək</button>
+    </form>
+
+
+</div>
 
 </div>
 
@@ -654,6 +723,7 @@
         document.getElementById(sectionId).classList.add('active');
         document.querySelector(`button[onclick="showContent('${sectionId}')"]`).classList.add('active');
     }
+
     document.getElementById('uploadGeoJsonForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -680,6 +750,184 @@
             });
     });
 
+    document.getElementById("addDetailForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const title = document.getElementById("detailName").value;
+
+        fetch("/api/v1/thanks/section?title=" + encodeURIComponent(title), {
+            method: "POST"
+        }).then(response => response.text())
+            .then(alert)
+            .then(() => location.reload());
+    });
+
+    document.getElementById("addContributorForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const detailSelect = document.getElementById("detailSelect");
+        console.log("Dropdown element found:", detailSelect);
+        if (detailSelect) {
+            console.log("Options count:", detailSelect.options.length);
+            console.log("Selected value:", detailSelect.value);
+        }
+        const sectionId = detailSelect ? detailSelect.value : undefined;
+        const contributor = document.getElementById("contributorName").value;
+
+        console.log("Submitting sectionId:", sectionId);  // 🔍 Check this in the console
+
+        if (!sectionId || isNaN(sectionId)) {
+            alert("Zəhmət olmasa düzgün bölmə seçin.");
+            return;
+        }
+
+        fetch("/api/v1/thanks/contributor", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                sectionId: parseInt(sectionId, 10),  // Ensure it's a number
+                contributor: contributor
+            })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error("Contributor could not be added.");
+            }
+            return response.text();
+        }).then(alert)
+            .then(() => location.reload())
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Xəta baş verdi, zəhmət olmasa yenidən cəhd edin.");
+            });
+    });
+
+    document.getElementById("deleteSectionForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const sectionId = document.getElementById("deleteSectionSelect").value;
+
+        fetch(`/api/v1/thanks/section/${sectionId}`, { method: "DELETE" })
+            .then(response => response.text())
+            .then(alert)
+            .then(() => location.reload());
+    });
+
+    document.getElementById("deleteContributorForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const sectionId = document.getElementById("deleteContributorSelect").value;
+        const contributor = document.getElementById("deleteContributorName").value;
+
+        fetch(`/api/v1/thanks/contributor?sectionId=${sectionId}&contributor=${encodeURIComponent(contributor)}`, {
+            method: "DELETE"
+        }).then(response => response.text())
+            .then(alert)
+            .then(() => location.reload());
+    });
+
+    fetch("/api/v1/thanks/sections")
+        .then(response => response.json())
+        .then(sections => {
+            console.log("Sections loaded:", sections);  // ✅ This will confirm if sections are fetched
+
+            const selectElements = [
+                document.getElementById("detailSelect"),
+                document.getElementById("deleteSectionSelect"),
+                document.getElementById("deleteContributorSelect")
+            ];
+
+            selectElements.forEach(select => {
+                if (!select) {
+                    console.warn("Dropdown missing for:", select);
+                    return;
+                }
+
+                select.innerHTML = '<option value="">Əvvəlcə bir bölmə seçin</option>';
+
+                sections.forEach(section => {
+                    const option = document.createElement("option");
+                    option.value = section.id;   // This must be a number!
+                    option.textContent = section.title;
+                    select.appendChild(option);
+                });
+            });
+        })
+        .catch(error => {
+            console.error("Failed to load sections:", error);
+        });
+
+    function loadAllContributors() {
+        fetch("/api/v1/thanks/contributors")
+            .then(response => response.json())
+            .then(contributors => {
+                const container = document.getElementById("contributorsList");
+                if (contributors.length === 0) {
+                    container.innerHTML = "<p>Heç bir iştirakçı tapılmadı.</p>";
+                    return;
+                }
+
+                container.innerHTML = "";
+                contributors.forEach(contributor => {
+                    const row = document.createElement("div");
+                    row.style.display = "flex";
+                    row.style.justifyContent = "space-between";
+                    row.style.padding = "5px 0";
+                    row.style.borderBottom = "1px solid #ddd";
+
+                    row.innerHTML = `
+                    <span>${contributor.sectionTitle} - ${contributor.contributor} (ID: ${contributor.id})</span>
+                    <button class="delete-contributor-btn" data-id="${contributor.id}" style="background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;">Sil</button>
+                `;
+
+                    container.appendChild(row);
+                });
+
+                document.querySelectorAll(".delete-contributor-btn").forEach(button => {
+                    button.addEventListener("click", function () {
+                        const id = this.getAttribute("data-id");
+                        if (confirm("Bu iştirakçını silmək istədiyinizə əminsiniz?")) {
+                            deleteContributorById(id);
+                        }
+                    });
+                });
+            })
+            .catch(error => {
+                console.error("İştirakçıları yükləmək mümkün olmadı:", error);
+                document.getElementById("contributorsList").innerHTML = "<p>Xəta baş verdi, yenidən yoxlayın.</p>";
+            });
+    }
+
+    function deleteContributorById(entryId) {
+        fetch(`/api/v1/thanks/contributor/${entryId}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Silinmə zamanı xəta baş verdi");
+                }
+                return response.text();
+            })
+            .then(message => {
+                alert(message);
+                loadAllContributors(); // Refresh after delete
+            })
+            .catch(error => {
+                console.error("Error silmə zamanı:", error);
+                alert("Xəta baş verdi.");
+            });
+    }
+
+    document.getElementById("deleteContributorByIdForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const entryId = document.getElementById("deleteContributorById").value;
+        if (confirm(`ID-si ${entryId} olan iştirakçını silmək istədiyinizə əminsiniz?`)) {
+            deleteContributorById(entryId);
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadAllContributors(); // Load contributors when page loads
+    });
 
 </script>
 </body>

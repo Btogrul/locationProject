@@ -61,7 +61,7 @@ async function fetchMarkersAndDisplay() {
     toggleLoading(true);
 
     try {
-        const response = await fetch('http://localhost:8082/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
+        const response = await fetch('https://qerbiazerbaycanim.com/api/v1/markers/all', { headers: { 'Content-Type': 'application/json' } });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();

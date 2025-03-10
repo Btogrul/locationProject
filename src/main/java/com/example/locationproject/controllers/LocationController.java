@@ -4,14 +4,12 @@ import com.example.locationproject.dtos.ContactDTO;
 import com.example.locationproject.dtos.ContactResponseDTO;
 import com.example.locationproject.dtos.RequestDto;
 import com.example.locationproject.dtos.ResponseDto;
-import com.example.locationproject.entities.Contact;
-import com.example.locationproject.entities.geojson.GeoJsonData;
 import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.repositories.MarkerRepository;
 import com.example.locationproject.services.CaptchaService;
 import com.example.locationproject.services.LocationService;
 import com.example.locationproject.services.MarkerService;
-import com.example.locationproject.utils.GeoJsonParser;
+import com.example.locationproject.services.ThankService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -36,6 +34,7 @@ public class LocationController {
     private final CaptchaService captchaService;
     @Autowired
     private MarkerService markerService;
+    private final ThankService service;
 
 
 
@@ -145,6 +144,9 @@ public class LocationController {
                     .body("geojson faylın işə salınmasında xəta");
         }
     }
+
+
+
 
     @GetMapping("/contact")
     public String showContactForm(Model model) {
