@@ -34,18 +34,16 @@ public class MarkerService {
             System.out.println("Markers already exist in the database. Skipping import.");
             return;
         }
-        List<String> geoJsonFiles = List.of("data/babacan.geojson",
-                "data/comerdliplaces.geojson", "data/agvanlixarabaliq.geojson",
-                "data/agyoxush.geojson", "data/keypeshin.geojson", "data/comerdlienson.geojson", "data/qoshabulaq.geojson", "data/gerd.geojson",
-                "data/giqi.geojson", "data/Gomaran.geojson", "data/Lehvaz.geojson", "data/Macxarabalığı.geojson", "data/Meğri.geojson",
-                "data/Müsəlləm.geojson", "data/Nərimanlı.geojson", "data/Pəmbək.geojson", "data/Pəyhan.geojson","data/atqiz.geojson",
-                "data/Pürülü.geojson", "data/Cıbıllı.geojson", "data/Qaraçimən.geojson", "data/caxirli.geojson",
-                "data/cobanli.geojson", "data/Qaradığa.geojson", "data/QARAQOYUNLU.geojson", "data/Sədənağac.geojson",
-                "data/canehmed.geojson", "data/Şəhərcik.geojson", "data/aldere.geojson", "data/ashagigiretag.geojson",
-                "data/Subatan.geojson", "data/Yuxarı Girətağ.geojson", "data/Yuxarı Gödəkli.geojson", "data/Yuxarı Zağalı.geojson"
-
-        );
-
+        List<String> geoJsonFiles = List.of();
+        //"data/babacan.geojson",
+        //                "data/comerdliplaces.geojson", "data/agvanlixarabaliq.geojson",
+        //                "data/agyoxush.geojson", "data/keypeshin.geojson", "data/comerdlienson.geojson", "data/qoshabulaq.geojson", "data/gerd.geojson",
+        //                "data/giqi.geojson", "data/Gomaran.geojson", "data/Lehvaz.geojson", "data/Macxarabalığı.geojson", "data/Meğri.geojson",
+        //                "data/Müsəlləm.geojson", "data/Nərimanlı.geojson", "data/Pəmbək.geojson", "data/Pəyhan.geojson","data/atqiz.geojson",
+        //                "data/Pürülü.geojson", "data/Cıbıllı.geojson", "data/Qaraçimən.geojson", "data/caxirli.geojson",
+        //                "data/cobanli.geojson", "data/Qaradığa.geojson", "data/QARAQOYUNLU.geojson", "data/Sədənağac.geojson",
+        //                "data/canehmed.geojson", "data/Şəhərcik.geojson", "data/aldere.geojson", "data/ashagigiretag.geojson",
+        //                "data/Subatan.geojson", "data/Yuxarı Girətağ.geojson", "data/Yuxarı Gödəkli.geojson", "data/Yuxarı Zağalı.geojson"
 
         saveGeoJsonMarkers(geoJsonFiles);
         log.info("Markers saved successfully." + geoJsonFiles);
