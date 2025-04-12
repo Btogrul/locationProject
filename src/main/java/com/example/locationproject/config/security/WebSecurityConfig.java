@@ -38,7 +38,8 @@ public class WebSecurityConfig {
             "/about",
             "/contact",
             "/api/v1/markers/contact/new",
-            "/test"
+            "/test",
+            "/api/v1/thanks/sections"
 
     };
     static final String[] SWAGGER_WHITELIST = new String[]{
