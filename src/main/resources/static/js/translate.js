@@ -40,46 +40,92 @@ const translations = {
     }
 };
 
-
 function translateToEnglish() {
-    document.getElementById("head-about-btn").innerText = translations.en.text1;
-    document.getElementById("head-contact-btn").innerText = translations.en.text2;
-    document.getElementById("loading-text").innerText = translations.en.text3;
-    document.getElementById("search-input").placeholder = translations.en.text4;
-    document.getElementById("prev-button").innerText = translations.en.prevButton;
-    document.getElementById("next-button").innerText = translations.en.nextButton;
-    document.getElementById("about-text1").innerText = translations.en.aboutText1;
-    document.getElementById("about-text2").innerText = translations.en.aboutText2;
-    document.getElementById("about-text3").innerText = translations.en.aboutText3;
-    document.getElementById("about-text4").innerText = translations.en.aboutText4;
-    document.getElementById("about-text5").innerText = translations.en.aboutText5;
-    document.getElementById("about-text6").innerText = translations.en.aboutText6;
-    document.getElementById("non-commercial-text").innerHTML = translations.en.nonCommercialText;
-    document.getElementById("quote1").innerText = translations.en.quote1;
-    document.getElementById("author1").innerText = translations.en.author1;
-    document.getElementById("quote2").innerText = translations.en.quote2;
-    document.getElementById("author2").innerText = translations.en.author2;
+    applyTranslations('en');
+    localStorage.setItem('language', 'en');
+    console.log('Language set to English');
 }
-
 
 function translateToAzerbaijani() {
-    document.getElementById("head-about-btn").innerText = translations.az.text1;
-    document.getElementById("head-contact-btn").innerText = translations.az.text2;
-    document.getElementById("loading-text").innerText = translations.az.text3;
-    document.getElementById("search-input").placeholder = translations.az.text4;
-    document.getElementById("prev-button").innerText = translations.az.prevButton;
-    document.getElementById("next-button").innerText = translations.az.nextButton;
-    document.getElementById("about-text1").innerText = translations.az.aboutText1;
-    document.getElementById("about-text2").innerText = translations.az.aboutText2;
-    document.getElementById("about-text3").innerText = translations.az.aboutText3;
-    document.getElementById("about-text4").innerText = translations.az.aboutText4;
-    document.getElementById("about-text5").innerText = translations.az.aboutText5;
-    document.getElementById("about-text6").innerText = translations.az.aboutText6;
-    document.getElementById("non-commercial-text").innerHTML = translations.az.nonCommercialText;
-    document.getElementById("quote1").innerText = translations.az.quote1;
-    document.getElementById("author1").innerText = translations.az.author1;
-    document.getElementById("quote2").innerText = translations.az.quote2;
-    document.getElementById("author2").innerText = translations.az.author2;
-
-
+    applyTranslations('az');
+    localStorage.setItem('language', 'az');
+    console.log('Language set to Azerbaijani');
 }
+
+
+
+function applyTranslations(lang) {
+    console.log('Applying translations for:', lang);
+    document.getElementById("head-about-btn").innerText = translations[lang].text1;
+    document.getElementById("head-contact-btn").innerText = translations[lang].text2;
+    document.getElementById("loading-text").innerText = translations[lang].text3;
+    document.getElementById("search-input").placeholder = translations[lang].text4;
+    document.getElementById("prev-button").innerText = translations[lang].prevButton;
+    document.getElementById("next-button").innerText = translations[lang].nextButton;
+    document.getElementById("about-text1").innerText = translations[lang].aboutText1;
+    document.getElementById("about-text2").innerText = translations[lang].aboutText2;
+    document.getElementById("about-text3").innerText = translations[lang].aboutText3;
+    document.getElementById("about-text4").innerText = translations[lang].aboutText4;
+    document.getElementById("about-text5").innerText = translations[lang].aboutText5;
+    document.getElementById("about-text6").innerText = translations[lang].aboutText6;
+    document.getElementById("non-commercial-text").innerHTML = translations[lang].nonCommercialText;
+    document.getElementById("quote1").innerText = translations[lang].quote1;
+    document.getElementById("author1").innerText = translations[lang].author1;
+    document.getElementById("quote2").innerText = translations[lang].quote2;
+    document.getElementById("author2").innerText = translations[lang].author2;
+}
+// function translateToEnglish() {
+//     document.getElementById("head-about-btn").innerText = translations.en.text1;
+//     document.getElementById("head-contact-btn").innerText = translations.en.text2;
+//     document.getElementById("loading-text").innerText = translations.en.text3;
+//     document.getElementById("search-input").placeholder = translations.en.text4;
+//     document.getElementById("prev-button").innerText = translations.en.prevButton;
+//     document.getElementById("next-button").innerText = translations.en.nextButton;
+//     document.getElementById("about-text1").innerText = translations.en.aboutText1;
+//     document.getElementById("about-text2").innerText = translations.en.aboutText2;
+//     document.getElementById("about-text3").innerText = translations.en.aboutText3;
+//     document.getElementById("about-text4").innerText = translations.en.aboutText4;
+//     document.getElementById("about-text5").innerText = translations.en.aboutText5;
+//     document.getElementById("about-text6").innerText = translations.en.aboutText6;
+//     document.getElementById("non-commercial-text").innerHTML = translations.en.nonCommercialText;
+//     document.getElementById("quote1").innerText = translations.en.quote1;
+//     document.getElementById("author1").innerText = translations.en.author1;
+//     document.getElementById("quote2").innerText = translations.en.quote2;
+//     document.getElementById("author2").innerText = translations.en.author2;
+// }
+//
+//
+// function translateToAzerbaijani() {
+//     document.getElementById("head-about-btn").innerText = translations.az.text1;
+//     document.getElementById("head-contact-btn").innerText = translations.az.text2;
+//     document.getElementById("loading-text").innerText = translations.az.text3;
+//     document.getElementById("search-input").placeholder = translations.az.text4;
+//     document.getElementById("prev-button").innerText = translations.az.prevButton;
+//     document.getElementById("next-button").innerText = translations.az.nextButton;
+//     document.getElementById("about-text1").innerText = translations.az.aboutText1;
+//     document.getElementById("about-text2").innerText = translations.az.aboutText2;
+//     document.getElementById("about-text3").innerText = translations.az.aboutText3;
+//     document.getElementById("about-text4").innerText = translations.az.aboutText4;
+//     document.getElementById("about-text5").innerText = translations.az.aboutText5;
+//     document.getElementById("about-text6").innerText = translations.az.aboutText6;
+//     document.getElementById("non-commercial-text").innerHTML = translations.az.nonCommercialText;
+//     document.getElementById("quote1").innerText = translations.az.quote1;
+//     document.getElementById("author1").innerText = translations.az.author1;
+//     document.getElementById("quote2").innerText = translations.az.quote2;
+//     document.getElementById("author2").innerText = translations.az.author2;
+//
+//
+// }
+document.addEventListener('DOMContentLoaded', function() {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+        applyTranslations(savedLanguage);
+        console.log('Language preference loaded from localStorage:', savedLanguage);
+    } else {
+        console.log('No language preference found in localStorage');
+    }
+
+    document.querySelector('.lang-btns .lang-btn:nth-child(1)').addEventListener('click', translateToEnglish);
+    document.querySelector('.lang-btns .lang-btn:nth-child(2)').addEventListener('click', translateToAzerbaijani);
+    console.log('Event listeners added to language buttons');
+});

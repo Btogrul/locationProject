@@ -18,24 +18,61 @@ const translations = {
 };
 
 
+// function translateToEnglish() {
+//     document.getElementById("head-main-btn").innerText = translations.en.homePage;
+//     document.getElementById("head-contact-btn").innerText = translations.en.text2;
+//     document.getElementById("idea-author-title").innerText = translations.en.ideaAuthorTitle;
+//     document.getElementById("idea-author-description").innerText = translations.en.ideaAuthorDescription;
+//     document.getElementById("thanks-guys").innerText = translations.en.aboutAuthorH;
+//
+//
+// }
+//
+//
+// function translateToAzerbaijani() {
+//     document.getElementById("head-main-btn").innerText = translations.az.homePage;
+//     document.getElementById("head-contact-btn").innerText = translations.az.text2;
+//     document.getElementById("idea-author-title").innerText = translations.az.ideaAuthorTitle;
+//     document.getElementById("idea-author-description").innerText = translations.az.ideaAuthorDescription;
+//     document.getElementById("thanks-guys").innerText = translations.az.aboutAuthorH;
+//
+//
+//
+// }
+
+
 function translateToEnglish() {
-    document.getElementById("head-main-btn").innerText = translations.en.homePage;
-    document.getElementById("head-contact-btn").innerText = translations.en.text2;
-    document.getElementById("idea-author-title").innerText = translations.en.ideaAuthorTitle;
-    document.getElementById("idea-author-description").innerText = translations.en.ideaAuthorDescription;
-    document.getElementById("thanks-guys").innerText = translations.en.aboutAuthorH;
-
-
+    applyTranslations('en');
+    localStorage.setItem('language', 'en');
+    console.log('Language set to English');
 }
-
 
 function translateToAzerbaijani() {
-    document.getElementById("head-main-btn").innerText = translations.az.homePage;
-    document.getElementById("head-contact-btn").innerText = translations.az.text2;
-    document.getElementById("idea-author-title").innerText = translations.az.ideaAuthorTitle;
-    document.getElementById("idea-author-description").innerText = translations.az.ideaAuthorDescription;
-    document.getElementById("thanks-guys").innerText = translations.az.aboutAuthorH;
-
-
-
+    applyTranslations('az');
+    localStorage.setItem('language', 'az');
+    console.log('Language set to Azerbaijani');
 }
+
+function applyTranslations(lang) {
+    console.log('Applying translations for:', lang);
+    document.getElementById("head-main-btn").innerText = translations[lang].homePage;
+    document.getElementById("head-contact-btn").innerText = translations[lang].text2;
+    document.getElementById("idea-author-title").innerText = translations[lang].ideaAuthorTitle;
+    document.getElementById("idea-author-description").innerText = translations[lang].ideaAuthorDescription;
+    document.getElementById("thanks-guys").innerText = translations[lang].aboutAuthorH;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired');
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+        applyTranslations(savedLanguage);
+        console.log('Language preference loaded from localStorage:', savedLanguage);
+    } else {
+        console.log('No language preference found in localStorage');
+    }
+
+    document.querySelector('.lang-btns .lang-btn:nth-child(1)').addEventListener('click', translateToEnglish);
+    document.querySelector('.lang-btns .lang-btn:nth-child(2)').addEventListener('click', translateToAzerbaijani);
+    console.log('Event listeners added to language buttons');
+});
