@@ -234,7 +234,7 @@ function getIcon(type) {
         park: '/images/icons/park.svg',
         river: '/images/icons/river.svg',
         lake: '/images/icons/lake.svg',
-        village: '/images/icons/v.svg',
+        village: '/images/icons/xaraba.svg',
         region: '/images/icons/region.svg',
         city: '/images/icons/city.svg',
         default: '/images/icons/pin.svg'
@@ -256,7 +256,7 @@ function getMarkerType(marker) {
         park: '/images/icons/park.svg',
         river: '/images/icons/river.svg',
         lake: '/images/icons/lake.svg',
-        village: '/images/icons/v.svg',
+        village: '/images/icons/xaraba.svg',
         region: '/images/icons/region.svg',
         city: '/images/icons/city.svg',
         default: '/images/icons/pin.svg'
