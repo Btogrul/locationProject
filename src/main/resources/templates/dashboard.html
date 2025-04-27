@@ -285,6 +285,10 @@
             <h2>Oxşar pinləri üzə çıxartmaq, əgər varsa</h2>
             <input formtarget="_blank" class="submit" type="submit" value="Bütün oxşar lokasiyaların siyahısı">
         </form>
+        <form id="deleteAllContactsDuplicates">
+            <h2>bütün duplicatları silmək</h2>
+            <button type="submit">Hamısını silmək</button>
+        </form>
         <form id="adiIleT" method="get" action="/api/v1/markers/by-title" enctype="application/x-www-form-urlencoded">
             <h2>Adına görə tapmaq</h2>
 
@@ -708,6 +712,27 @@
             });
     });
 
+
+
+    document.getElementById('deleteAllContactsDuplicates').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const url = '/api/v1/markers/duplicated/deleteAll';
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
 
     function showContent(sectionId) {
         const sections = document.querySelectorAll('.content');

@@ -216,6 +216,13 @@ public ResponseEntity<String> saveNewContact(
     }
 
 
+    @DeleteMapping("/duplicated/deleteAll")
+    public ResponseEntity<String> deleteDuplicatedContacts() {
+        locationService.deleteAllDuplicates();
+        return ResponseEntity.ok("Uğurla silindi bütün duplikatlar");
+    }
+
+
 
 
 }

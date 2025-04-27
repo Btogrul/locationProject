@@ -67,6 +67,32 @@ public class LocationService {
         return listMapping(dupMarkers, ResponseDto.class);
     }
 
+
+    @Transactional
+    public void deleteAllDuplicates() {
+        List<Marker> duplicateMarkers = markerRepo.findDuplicateMarkers();
+
+        var groupedMarkers = duplicateMarkers.stream()
+                .filter(marker -> marker.getMarkerType() == MarkerType.CUSTOM) // Only CUSTOM type
+                .collect(Collectors.groupingBy(marker -> marker.getTitle() + "|"
+                        + marker.getDescription() + "|"
+                        + marker.getLatitude() + "|"
+                        + marker.getLongitude() + "|"
+                        + marker.getMarkerType()));
+
+        for (var entry : groupedMarkers.entrySet()) {
+            List<Marker> markers = entry.getValue();
+
+            markers.sort((m1, m2) -> Long.compare(m2.getId(), m1.getId()));
+
+            if (markers.size() > 1) {
+                List<Marker> markersToDelete = markers.subList(1, markers.size());
+                markerRepo.deleteAll(markersToDelete);
+            }
+        }
+    }
+
+
     public ResponseDto updateMarkerType(Long id, MarkerType markerType) {
         Marker existingMarker = markerRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Marker not found with id: " + id));
