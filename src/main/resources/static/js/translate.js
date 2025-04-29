@@ -116,16 +116,30 @@ function applyTranslations(lang) {
 //
 //
 // }
+// document.addEventListener('DOMContentLoaded', function() {
+//     const savedLanguage = localStorage.getItem('language');
+//     if (savedLanguage) {
+//         applyTranslations(savedLanguage);
+//         console.log('Language preference loaded from localStorage:', savedLanguage);
+//     } else {
+//         console.log('No language preference found in localStorage');
+//     }
+//
+//     document.querySelector('.lang-btns .lang-btn:nth-child(1)').addEventListener('click', translateToEnglish);
+//     document.querySelector('.lang-btns .lang-btn:nth-child(2)').addEventListener('click', translateToAzerbaijani);
+//     console.log('Event listeners added to language buttons');
+// });
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
         applyTranslations(savedLanguage);
-        console.log('Language preference loaded from localStorage:', savedLanguage);
-    } else {
-        console.log('No language preference found in localStorage');
     }
 
-    document.querySelector('.lang-btns .lang-btn:nth-child(1)').addEventListener('click', translateToEnglish);
-    document.querySelector('.lang-btns .lang-btn:nth-child(2)').addEventListener('click', translateToAzerbaijani);
-    console.log('Event listeners added to language buttons');
+    const langButtons = document.querySelectorAll('.lang-btns .lang-btn');
+    if (langButtons.length >= 2) {
+        langButtons[0].addEventListener('click', translateToEnglish);
+        langButtons[1].addEventListener('click', translateToAzerbaijani);
+    }
 });
