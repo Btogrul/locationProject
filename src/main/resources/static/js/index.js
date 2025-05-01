@@ -134,6 +134,83 @@ function manageMarkerVisibility() {
 /**
  * axtarış filteri
  */
+
+function getLocalizedTypeLabel(type) {
+    switch (type.toLowerCase()) {
+        case 'building':
+            return 'Kənd';
+        case 'region':
+            return 'Rayon';
+        case 'village':
+            return 'Xaraba';
+        default:
+            return 'Yer adı';
+    }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// function renderSearchResults(results) {
+//     const container = document.getElementById("search-results");
+//     container.innerHTML = ""; // clear previous
+//
+//     if (results.length === 0) {
+//         container.style.display = "none";
+//         return;
+//     }
+//
+//     results.forEach((marker, index) => {
+//         const item = document.createElement("div");
+//         item.className = "search-result-item";
+//         item.textContent = marker.getTitle();
+//         item.addEventListener("click", () => {
+//             currentIndex = index;
+//             focusOnMarker(marker);
+//         });
+//         container.appendChild(item);
+//     });
+//
+//     container.style.display = "block";
+// }
+function renderSearchResults(results) {
+    const container = document.getElementById("search-results");
+    container.innerHTML = "";
+
+    if (results.length === 0) {
+        container.style.display = "none";
+        return;
+    }
+
+    results.forEach((marker, index) => {
+        const type = getMarkerType(marker);
+        const iconUrl = getIcon(type);
+
+        const item = document.createElement("div");
+        item.className = "search-result-item";
+        item.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <img src="${iconUrl}" alt="${type}" style="width: 20px; height: 20px; margin-right: 10px;">
+                <div>
+                    <div style="font-weight: 500;">${marker.getTitle()}</div>
+                    <div style="font-size: 12px; color: #666;">${getLocalizedTypeLabel(type)}</div>
+                </div>
+            </div>
+        `;
+
+        item.addEventListener("click", () => {
+            currentIndex = index;
+            focusOnMarker(marker);
+        });
+
+        container.appendChild(item);
+    });
+
+    container.style.display = "block";
+}
+
+
 function handleSearch() {
     const searchText = searchInput.value.toLowerCase().trim();
     isSearching = !!searchText;
@@ -147,9 +224,27 @@ function handleSearch() {
     infoMessage.style.display = "block";
 
     markers.forEach(marker => marker.setVisible(false));
-    foundMarkers = markers.filter(marker =>
-        marker.getTitle().toLowerCase().includes(searchText)
-    );
+    // foundMarkers = markers.filter(marker =>
+    //     marker.getTitle().toLowerCase().includes(searchText)
+    // );
+
+    // if (foundMarkers.length > 0) {
+    //     foundMarkers.forEach(marker => marker.setVisible(true));
+    //     currentIndex = 0;
+    //     focusOnMarker(foundMarkers[currentIndex]);
+    // }
+
+
+    foundMarkers = markers
+        .filter(marker => marker.getTitle().toLowerCase().includes(searchText))
+        .sort((a, b) => {
+            const typeA = getMarkerType(a).toLowerCase();
+            const typeB = getMarkerType(b).toLowerCase();
+
+            if (typeA === 'building' && typeB !== 'building') return -1;
+            if (typeA !== 'building' && typeB === 'building') return 1;
+            return 0;
+        });
 
     if (foundMarkers.length > 0) {
         foundMarkers.forEach(marker => marker.setVisible(true));
@@ -159,6 +254,7 @@ function handleSearch() {
     // else {
     //     alert("tapılmadı.");
     // }
+    renderSearchResults(foundMarkers);
 
     updateNavigationButtons();
 }
@@ -171,6 +267,7 @@ function resetMarkers() {
     searchInput.value = "";
     foundMarkers = [];
     infoMessage.style.display = "none";
+    document.getElementById("search-results").style.display = "none";
     hideNavigationButtons();
     manageMarkerVisibility();
 }
