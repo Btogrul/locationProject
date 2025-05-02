@@ -203,9 +203,14 @@ function renderSearchResults(results) {
             </div>
         `;
 
+        // item.addEventListener("click", () => {
+        //     currentIndex = index;
+        //     focusOnMarker(marker);
+        // });
         item.addEventListener("click", () => {
             currentIndex = index;
             focusOnMarker(marker);
+            document.getElementById("search-results").style.display = "none";
         });
 
         container.appendChild(item);
@@ -405,5 +410,10 @@ function throttle(func, limit) {
     };
 }
 
+searchInput.addEventListener("focus", () => {
+    if (foundMarkers.length > 0) {
+        document.getElementById("search-results").style.display = "block";
+    }
+});
 
 window.onload = initMap;
