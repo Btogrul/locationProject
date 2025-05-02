@@ -11,7 +11,7 @@ const translations = {
         homePage: "Ana Səhifə",
         text2: "əlaqə",
         ideaAuthorTitle: "İdea və layihə müəllifi",
-        ideaAuthorDescription: "Asif Sevindik oğlu Muradzadə 1969-cu ildə anadan olub. Əslən Qərbi Azərbaycanın Zəngəzur mahalının Qarakilsə rayonunun Ağdü kəndindəndir. Azərbaycan Texnologiya İnstitutunu və Azərbaycan Dövlət İqtisad Universitetini bitirmişdir. Azərbaycan Respublikası Dövlət Gömrük Komitəsində və Azərbaycan Respublikası Vergilər Nazirliyində müxtəlif vəzifələrdə işləmişdir. Hazırda Azərbaycan Respublikasının İqtisadiyyat Nazirliyi yanında Dövlət Vergi Xidmətinin Bakı şəhəri Lokal Gəlirlər Baş İdarəsinin əməkdaşıdır.",
+        ideaAuthorDescription: "Asif Sevindik oğlu Muradzadə 1969-cu ildə anadan olub. Əslən Qərbi Azərbaycanın Zəngəzur mahalının Qarakilsə rayonunun Ağdü kəndindəndir. Azərbaycan Texnologiya İnstitutunu və Azərbaycan Dövlət İqtisad Universitetini bitirmişdir. Azərbaycan Respublikası Dövlət Gömrük Komitəsində və Azərbaycan Respublikası Vergilər Nazirliyində müxtəlif fəaliyyət göstərmişdir. Hazırda Azərbaycan Respublikasının İqtisadiyyat Nazirliyi yanında Dövlət Vergi Xidmətinin Bakı şəhəri Lokal Gəlirlər Baş İdarəsinin əməkdaşıdır.",
         aboutAuthorH: "Layihədə iştirak edənlərə öz təşəkkürümüzü bildiririk."
 
     }

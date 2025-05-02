@@ -10,16 +10,16 @@ const nav = document.querySelector("nav");
 const loadingOverlay = document.getElementById("loadingOverlay");
 const searchButton = document.getElementById("search-button");
 const searchInput = document.getElementById("search-input");
-const prevButton = document.getElementById("prev-button");
-const nextButton = document.getElementById("next-button");
+// const prevButton = document.getElementById("prev-button");
+// const nextButton = document.getElementById("next-button");
 let lastOpenedInfoWindow = null;
 const infoMessage = document.getElementById("info-message");
 
 navEl.addEventListener("click", () => nav.classList.toggle("active"));
 searchButton.addEventListener("click", handleSearch);
 searchInput.addEventListener("input", throttle(handleSearch, 300));
-prevButton.addEventListener("click", () => navigateMarkers(-1));
-nextButton.addEventListener("click", () => navigateMarkers(1));
+// prevButton.addEventListener("click", () => navigateMarkers(-1));
+// nextButton.addEventListener("click", () => navigateMarkers(1));
 
 /**
  * marker fetchi və xəritə
@@ -65,11 +65,13 @@ async function fetchMarkersAndDisplay() {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
         data.forEach(markerData => addMarkerToMap(markerData));
         manageMarkerVisibility();
     } catch (error) {
         console.error("Error fetching markers:", error);
-        alert("Unable to load markers. Please try again.");
+        alert("Bağlantı xətası. Zəhmət olmasa səhifəni yeniləyin!");
     } finally {
         toggleLoading(false);
     }
@@ -143,6 +145,8 @@ function getLocalizedTypeLabel(type) {
             return 'Rayon';
         case 'village':
             return 'Xaraba';
+        case 'city':
+            return 'Şəhər';
         default:
             return 'Yer adı';
     }
@@ -237,13 +241,30 @@ function handleSearch() {
 
     foundMarkers = markers
         .filter(marker => marker.getTitle().toLowerCase().includes(searchText))
+        // .sort((a, b) => {
+        //     const typeA = getMarkerType(a).toLowerCase();
+        //     const typeB = getMarkerType(b).toLowerCase();
+        //
+        //     if (typeA === 'building' && typeB !== 'building') return -1;
+        //     if (typeA !== 'building' && typeB === 'building') return 1;
+        //     return 0;
+
         .sort((a, b) => {
+            const priority = {
+                city: 1,
+                region: 2,
+                building: 3,
+                village: 4,
+                default: 99
+            };
+
             const typeA = getMarkerType(a).toLowerCase();
             const typeB = getMarkerType(b).toLowerCase();
 
-            if (typeA === 'building' && typeB !== 'building') return -1;
-            if (typeA !== 'building' && typeB === 'building') return 1;
-            return 0;
+            const rankA = priority[typeA] !== undefined ? priority[typeA] : priority.default;
+            const rankB = priority[typeB] !== undefined ? priority[typeB] : priority.default;
+
+            return rankA - rankB;
         });
 
     if (foundMarkers.length > 0) {
@@ -256,7 +277,7 @@ function handleSearch() {
     // }
     renderSearchResults(foundMarkers);
 
-    updateNavigationButtons();
+    // updateNavigationButtons();
 }
 
 /**
@@ -298,19 +319,19 @@ function navigateMarkers(step) {
 /**
  * görünməyin dəyişməyi
  */
-function updateNavigationButtons() {
-    const visible = foundMarkers.length > 1 ? "block" : "none";
-    prevButton.style.display = visible;
-    nextButton.style.display = visible;
-}
+// function updateNavigationButtons() {
+//     const visible = foundMarkers.length > 1 ? "block" : "none";
+//     prevButton.style.display = visible;
+//     nextButton.style.display = visible;
+// }
 
-/**
- * əvvəl sonra buttonların görünüşü
- */
-function hideNavigationButtons() {
-    prevButton.style.display = "none";
-    nextButton.style.display = "none";
-}
+// /**
+//  * əvvəl sonra buttonların görünüşü
+//  */
+// function hideNavigationButtons() {
+//     prevButton.style.display = "none";
+//     nextButton.style.display = "none";
+// }
 
 /**
  * yüklənmə zamanı display
