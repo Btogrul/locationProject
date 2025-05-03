@@ -123,16 +123,23 @@ function manageMarkerVisibility() {
 
         if (currentZoom >= 15) {
             shouldBeVisible = bounds.contains(markerPosition);
-        } else if (currentZoom >= 12 && currentZoom < 18 && markerType === 'building') {
+        } else if (
+            currentZoom >= 12 &&
+            currentZoom < 18 &&
+            (markerType === 'building' || markerType === 'village')
+        ) {
             shouldBeVisible = bounds.contains(markerPosition);
-        } else if (currentZoom < 12 && (markerType === 'city' || markerType === 'region')) {
+        } else if (
+            currentZoom < 12 &&
+            (markerType === 'city' || markerType === 'region')
+        ) {
             shouldBeVisible = bounds.contains(markerPosition);
         }
 
         marker.setVisible(shouldBeVisible);
     });
-
 }
+
 /**
  * axtarış filteri
  */
