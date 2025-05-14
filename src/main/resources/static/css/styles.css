@@ -129,6 +129,35 @@ body{
 
 /* header mobile menu finished */
 
+#map {
+    height: 100vh;
+    /*width: 100%;*/
+}
+
+.marker-label {
+    padding-top: 30px;
+    margin-top: 30px;
+    text-align: center;
+    text-shadow: -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+    font-family: Arial, sans-serif;
+}
+
+.gm-style-iw-d {
+    overflow: auto !important;
+
+    padding: 10px;
+}
+
+.gm-style-iw-d p {
+    word-break: break-word;
+    text-align: justify;
+    overflow: auto;
+}
+
+
 #main-section{
     position: relative;
     display: flex;
