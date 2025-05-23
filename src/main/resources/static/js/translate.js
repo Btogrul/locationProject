@@ -4,8 +4,6 @@ const translations = {
         text2: "contact us",
         text3: "Loading...",
         text4: "Search...",
-        prevButton: "Previous",
-        nextButton: "Next",
         aboutText1: "The genocides that began in Western Azerbaijan in the 20th century resulted in the destruction of Turkic settlements and the Armenization of the region's population. At the same time, it was a war against our culture, an attack on our centuries-old heritage. Along with our devastated villages, our toponyms, the names of our cities and villages were officially changed, and our traces were erased from our lands.",
         aboutText2: "Our presented project is aimed at the restoration and preservation of the cultural and historical traces of our ancestral homeland, Western Azerbaijan. Our main goal is to restore the toponyms erased as a result of Armenian barbarism on our historical lands, to reclaim our centuries-old blood memory, to raise awareness among the younger generation in this direction, and to convey the truth to the international community.",
         aboutText3: "We invite our compatriots from Western Azerbaijan to cooperate in the placement of overlooked toponyms and to address any possible inaccuracies on the map.",
@@ -23,8 +21,6 @@ const translations = {
         text2: "əlaqə",
         text3: "Yüklənir...",
         text4: "Axtar...",
-        prevButton: "Əvvəlki",
-        nextButton: "Sonrakı",
         aboutText1: "XX əsrdə Qərbi Azərbaycanda başlanmış soyqırımlar türk yaşayış məskənlərinin dağıdılması və bölgə əhalisinin erməniləşdirilməsi ilə nəticələndi. Bu, eyni zamanda, mədəniyyətimizə qarşı müharibə, çoxəsrlik irsimizə edilmiş qəsd idi. Viran qalan kəndlərimizlə bərabər toponimlərimiz, şəhərlərimizin və kəndlərimizin adı rəsmi olaraq dəyişdirildi, izlərimiz də torpaqlarımızdan silindi.",
         aboutText2: "Təqdim olunan layihəmiz dədə-baba yurdumuz olan Qərbi Azərbaycandakı mədəni-tarixi izlərimizin bərpasına və qorunmasına yönəlmişdir. Əsas məqsədimiz tarixi torpaqlarımızda erməni barbarlığı nəticəsində silinmiş toponimlərimizin bərpası ilə çoxəsrlik qan yaddaşının qaytarılması, gənc nəsildə bu istiqamətdə məlumatlılığın formalaşdırılması və beynəlxalq ictimaiyyətə həqiqətlərin çatdırılmasıdır.",
         aboutText3: "Biz diqqətdən yayınan toponimlərimizin yerləşdirilməsi və xəritədə ola biləcək hər hansı bir çatışmamazlıqla əlaqədar Qərbi Azərbaycandan olan soydaşlarımızı əməkdaşlığa dəvət edirik.",
@@ -60,8 +56,6 @@ function applyTranslations(lang) {
     document.getElementById("head-contact-btn").innerText = translations[lang].text2;
     document.getElementById("loading-text").innerText = translations[lang].text3;
     document.getElementById("search-input").placeholder = translations[lang].text4;
-    document.getElementById("prev-button").innerText = translations[lang].prevButton;
-    document.getElementById("next-button").innerText = translations[lang].nextButton;
     document.getElementById("about-text1").innerText = translations[lang].aboutText1;
     document.getElementById("about-text2").innerText = translations[lang].aboutText2;
     document.getElementById("about-text3").innerText = translations[lang].aboutText3;
