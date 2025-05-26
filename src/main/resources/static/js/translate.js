@@ -67,6 +67,22 @@ function applyTranslations(lang) {
     document.getElementById("author1").innerText = translations[lang].author1;
     document.getElementById("quote2").innerText = translations[lang].quote2;
     document.getElementById("author2").innerText = translations[lang].author2;
+    markers.forEach(marker => {
+        const { originalDescription, translations: markerTranslations, title, infoWindow } = marker.customData;
+        console.log('Marker ID:', marker.customData.id, 'Translations:', marker.customData.translations);
+
+        let translatedText = originalDescription;
+
+        if (lang !== 'az' && Array.isArray(markerTranslations)) {
+            const found = markerTranslations.find(t => t.languageCode === lang);
+            if (found && found.description) {
+                translatedText = found.description;
+            }
+        }
+
+        const content = `<div class="custom-info-window"><strong>${title}</strong><p>${translatedText}</p></div>`;
+        infoWindow.setContent(content);
+    });
 }
 // function translateToEnglish() {
 //     document.getElementById("head-about-btn").innerText = translations.en.text1;

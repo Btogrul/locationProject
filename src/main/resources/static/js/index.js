@@ -17,7 +17,8 @@ const infoMessage = document.getElementById("info-message");
 
 navEl.addEventListener("click", () => nav.classList.toggle("active"));
 searchButton.addEventListener("click", handleSearch);
-searchInput.addEventListener("input", throttle(handleSearch, 300));
+searchInput.addEventListener("input", debounce(handleSearch, 300));
+// searchInput.addEventListener("input", throttle(handleSearch, 300));
 // prevButton.addEventListener("click", () => navigateMarkers(-1));
 // nextButton.addEventListener("click", () => navigateMarkers(1));
 
@@ -96,8 +97,11 @@ function addMarkerToMap(markerData) {
         visible: false
     });
 
+    const originalDescription = markerData.description;
+    const translations = markerData.translations || [];
+
     const infoWindow = new google.maps.InfoWindow({
-        content: `<div class="custom-info-window"><strong>${markerData.title}</strong><p>${markerData.description}</p></div>`
+        content: `<div class="custom-info-window"><strong>${markerData.title}</strong><p>${originalDescription}</p></div>`
     });
 
     mapMarker.addListener("click", () => {
@@ -105,6 +109,14 @@ function addMarkerToMap(markerData) {
         infoWindow.open(map, mapMarker);
         lastOpenedInfoWindow = infoWindow;
     });
+
+    mapMarker.customData = {
+        id: markerData.id,
+        title: markerData.title,
+        originalDescription: originalDescription,
+        translations: translations,
+        infoWindow: infoWindow
+    };
 
     markers.push(mapMarker);
 }
@@ -163,28 +175,6 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// function renderSearchResults(results) {
-//     const container = document.getElementById("search-results");
-//     container.innerHTML = ""; // clear previous
-//
-//     if (results.length === 0) {
-//         container.style.display = "none";
-//         return;
-//     }
-//
-//     results.forEach((marker, index) => {
-//         const item = document.createElement("div");
-//         item.className = "search-result-item";
-//         item.textContent = marker.getTitle();
-//         item.addEventListener("click", () => {
-//             currentIndex = index;
-//             focusOnMarker(marker);
-//         });
-//         container.appendChild(item);
-//     });
-//
-//     container.style.display = "block";
-// }
 function renderSearchResults(results) {
     const container = document.getElementById("search-results");
     container.innerHTML = "";
@@ -210,14 +200,16 @@ function renderSearchResults(results) {
             </div>
         `;
 
-        // item.addEventListener("click", () => {
-        //     currentIndex = index;
-        //     focusOnMarker(marker);
-        // });
         item.addEventListener("click", () => {
             currentIndex = index;
             focusOnMarker(marker);
             document.getElementById("search-results").style.display = "none";
+
+            const searchInput = document.getElementById("search-input");
+            if (searchInput) {
+                searchInput.value = "";
+                //handleSearch();
+            }
         });
 
         container.appendChild(item);
@@ -240,27 +232,10 @@ function handleSearch() {
     infoMessage.style.display = "block";
 
     markers.forEach(marker => marker.setVisible(false));
-    // foundMarkers = markers.filter(marker =>
-    //     marker.getTitle().toLowerCase().includes(searchText)
-    // );
-
-    // if (foundMarkers.length > 0) {
-    //     foundMarkers.forEach(marker => marker.setVisible(true));
-    //     currentIndex = 0;
-    //     focusOnMarker(foundMarkers[currentIndex]);
-    // }
 
 
     foundMarkers = markers
         .filter(marker => marker.getTitle().toLowerCase().includes(searchText))
-        // .sort((a, b) => {
-        //     const typeA = getMarkerType(a).toLowerCase();
-        //     const typeB = getMarkerType(b).toLowerCase();
-        //
-        //     if (typeA === 'building' && typeB !== 'building') return -1;
-        //     if (typeA !== 'building' && typeB === 'building') return 1;
-        //     return 0;
-
         .sort((a, b) => {
             const priority = {
                 city: 1,
@@ -284,12 +259,7 @@ function handleSearch() {
         currentIndex = 0;
         focusOnMarker(foundMarkers[currentIndex]);
     }
-    // else {
-    //     alert("tapılmadı.");
-    // }
     renderSearchResults(foundMarkers);
-
-    // updateNavigationButtons();
 }
 
 /**
@@ -396,27 +366,38 @@ function getMarkerType(marker) {
 }
 
 
-function throttle(func, limit) {
-    let lastFunc;
-    let lastRan;
+// function throttle(func, limit) {
+//     let lastFunc;
+//     let lastRan;
+//     return function () {
+//         const context = this;
+//         const args = arguments;
+//         if (!lastRan) {
+//             func.apply(context, args);
+//             lastRan = Date.now();
+//         } else {
+//             clearTimeout(lastFunc);
+//             lastFunc = setTimeout(function () {
+//                 if (Date.now() - lastRan >= limit) {
+//                     func.apply(context, args);
+//                     lastRan = Date.now();
+//                 }
+//             }, limit - (Date.now() - lastRan));
+//         }
+//     };
+// }
+
+function debounce(func, delay) {
+    let timerId;
     return function () {
         const context = this;
         const args = arguments;
-        if (!lastRan) {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
             func.apply(context, args);
-            lastRan = Date.now();
-        } else {
-            clearTimeout(lastFunc);
-            lastFunc = setTimeout(function () {
-                if (Date.now() - lastRan >= limit) {
-                    func.apply(context, args);
-                    lastRan = Date.now();
-                }
-            }, limit - (Date.now() - lastRan));
-        }
+        }, delay);
     };
 }
-
 searchInput.addEventListener("focus", () => {
     if (foundMarkers.length > 0) {
         document.getElementById("search-results").style.display = "block";

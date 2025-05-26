@@ -3,7 +3,8 @@ package com.example.locationproject.dtos;
 import com.example.locationproject.enums.MarkerType;
 import lombok.Data;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ResponseDto {
@@ -13,4 +14,7 @@ public class ResponseDto {
     private MarkerType markerType;
     private double latitude;
     private double longitude;
+
+    private List<ResponseTranslate> translations;
+
 }

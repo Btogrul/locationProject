@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,4 +30,8 @@ public class Marker {
     private double longitude;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+
+
+    @OneToMany(mappedBy = "marker", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TranslateDescription> translations = new ArrayList<>();
 }

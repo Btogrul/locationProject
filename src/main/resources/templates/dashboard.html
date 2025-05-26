@@ -388,6 +388,39 @@
         </form>
     </div>
     <div class="group">
+        <h2 class="title-form-dash">Mövcud markerin descriptionuna tərcümə əlavə et</h2>
+
+        <form id="addTranslationForm">
+            <label for="markerIdTranslate" class="label">Marker ID:</label>
+            <input type="number" id="markerIdTranslate" name="markerId" placeholder="Markerin ID-si" required>
+
+            <label for="languageCode" class="label">Dil kodu (məs: en, ru):</label>
+            <input type="text" id="languageCode" name="languageCode" placeholder="en" required maxlength="2" pattern="[a-z]{2}">
+
+            <label for="translatedDescription" class="label">Tərcümə edilmiş təsvir:</label>
+            <input type="text" id="translatedDescription" name="description" placeholder="Təsvir" required>
+
+            <button type="submit">Tərcümə əlavə et</button>
+        </form>
+
+    </div>
+    <div class="group">
+        <h2 class="title-form-dash">Bütün tərcümələri əldə et</h2>
+        <form id="getAllTranslationsForm">
+            <button type="submit">Tərcümələri gətir</button>
+        </form>
+        <div id="translationResults"></div>
+    </div>
+    <div class="group">
+        <h2 class="title-form-dash">Tərcüməni sil</h2>
+        <form id="deleteTranslationForm">
+            <label for="translateId" class="label">Tərcümənin ID-si:</label>
+            <input type="number" id="translateId" name="id" placeholder="ID" required>
+            <button type="submit">Sil</button>
+        </form>
+    </div>
+
+    <div class="group">
         <h2 class="title-form-dash">Markerin silinməsi</h2>
 
         <form id="deleteForm">
@@ -559,8 +592,103 @@
             });
     });
 
+    document.getElementById('addTranslationForm').addEventListener('submit', function (event) {
+        const langInput = document.getElementById('languageCode');
+        const langValue = langInput.value.trim();
 
-    document.getElementById('updateMarkerTypeForm').addEventListener('submit', function (event) {
+        if (!/^[a-z]{2}$/.test(langValue)) {
+            event.preventDefault();
+            alert('Dil kodu yalnız 2 hərfdən ibarət ola bilər (məsələn, "en", "ru")');
+            langInput.focus();
+            return false;
+        }
+        event.preventDefault();
+
+        const markerId = document.getElementById('markerIdTranslate').value;
+        const languageCode = document.getElementById('languageCode').value;
+        const description = document.getElementById('translatedDescription').value;
+
+        const url = `/api/v1/markers/translate/add?markerId=${markerId}`;
+        const data = {
+            languageCode: languageCode,
+            description: description
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(`Uğurla əlavə olundu!\nDil: ${data.languageCode}\nTəsvir: ${data.description}`);
+            })
+            .catch((error) => {
+                alert("Xəta baş verdi: " + error.message);
+                console.error('Error:', error);
+            });
+    });
+    document.getElementById('getAllTranslationsForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        fetch('/api/v1/markers/translate/all')
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('translationResults');
+                resultDiv.innerHTML = ''; // очистка перед добавлением
+
+                if (data.length === 0) {
+                    resultDiv.innerHTML = '<p>Tərcümə tapılmadı.</p>';
+                    return;
+                }
+
+                data.forEach(t => {
+                    const item = document.createElement('p');
+                    item.textContent = `ID: ${t.id} | Dil: ${t.languageCode} | Təsvir: ${t.description}`;
+                    resultDiv.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error('Xəta:', error);
+                alert('Tərcümələri almaq mümkün olmadı');
+            });
+    });
+
+
+
+        document.getElementById('deleteTranslationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const id = document.getElementById('translateId').value;
+        const url = `/api/v1/markers/translate/delete/${id}`;
+
+        fetch(url, {
+        method: 'DELETE'
+    })
+        .then(response => {
+        if (!response.ok) {
+        return response.text().then(text => { throw new Error(text); });
+    }
+        return response.json();
+    })
+        .then(data => {
+        alert(`Tərcümə silindi:\nID: ${data.id}\nDil: ${data.languageCode}`);
+    })
+        .catch(error => {
+        console.error('Xəta:', error);
+        alert('Tərcüməni silmək mümkün olmadı: ' + error.message);
+    });
+    });
+
+
+document.getElementById('updateMarkerTypeForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const markerId = document.getElementById('typeMarkerId').value;
@@ -958,6 +1086,5 @@
 </script>
 </body>
 </html>
-
 
 

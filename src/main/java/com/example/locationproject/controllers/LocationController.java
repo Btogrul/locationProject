@@ -1,9 +1,6 @@
 package com.example.locationproject.controllers;
 
-import com.example.locationproject.dtos.ContactDTO;
-import com.example.locationproject.dtos.ContactResponseDTO;
-import com.example.locationproject.dtos.RequestDto;
-import com.example.locationproject.dtos.ResponseDto;
+import com.example.locationproject.dtos.*;
 import com.example.locationproject.enums.MarkerType;
 import com.example.locationproject.repositories.MarkerRepository;
 import com.example.locationproject.services.CaptchaService;
@@ -35,7 +32,6 @@ public class LocationController {
     @Autowired
     private MarkerService markerService;
     private final ThankService service;
-
 
 
 //    @PostMapping("/new")
@@ -156,7 +152,7 @@ public class LocationController {
 
 
 
-//    @PostMapping("/contact/new")
+    //    @PostMapping("/contact/new")
 //    public ResponseEntity saveNewContact(
 //            @RequestParam("name") String name,
 //            @RequestParam("surname") String surname,
@@ -173,31 +169,31 @@ public class LocationController {
 //        locationService.saveContact(contactDTO);
 //        return ResponseEntity.ok("Contact saved successfully");
 //    }
-@PostMapping("/contact/new")
-public ResponseEntity<String> saveNewContact(
-        @RequestParam("name") String name,
-        @RequestParam("surname") String surname,
-        @RequestParam("email") String email,
-        @RequestParam("contactNumber") String contactNumber,
-        @RequestParam("description") String description,
-        @RequestParam("g-recaptcha-response") String captchaResponse) {
+    @PostMapping("/contact/new")
+    public ResponseEntity<String> saveNewContact(
+            @RequestParam("name") String name,
+            @RequestParam("surname") String surname,
+            @RequestParam("email") String email,
+            @RequestParam("contactNumber") String contactNumber,
+            @RequestParam("description") String description,
+            @RequestParam("g-recaptcha-response") String captchaResponse) {
 
 
-    if (!captchaService.verifyCaptcha(captchaResponse)) {
-        return ResponseEntity.badRequest().body("Captcha verification failed");
+        if (!captchaService.verifyCaptcha(captchaResponse)) {
+            return ResponseEntity.badRequest().body("Captcha verification failed");
+        }
+
+
+        ContactDTO contactDTO = new ContactDTO();
+        contactDTO.setName(name);
+        contactDTO.setSurname(surname);
+        contactDTO.setEmail(email);
+        contactDTO.setContactNumber(contactNumber);
+        contactDTO.setDescription(description);
+
+        locationService.saveContact(contactDTO);
+        return ResponseEntity.ok("Contact saved successfully");
     }
-
-
-    ContactDTO contactDTO = new ContactDTO();
-    contactDTO.setName(name);
-    contactDTO.setSurname(surname);
-    contactDTO.setEmail(email);
-    contactDTO.setContactNumber(contactNumber);
-    contactDTO.setDescription(description);
-
-    locationService.saveContact(contactDTO);
-    return ResponseEntity.ok("Contact saved successfully");
-}
 
     @GetMapping("/contact/all")
     public List<ContactResponseDTO> getAllContacts() {
@@ -222,6 +218,23 @@ public ResponseEntity<String> saveNewContact(
         return ResponseEntity.ok("Uğurla silindi bütün duplikatlar");
     }
 
+    //-----------------------------translate
+    @PostMapping("/translate/add")
+    public ResponseTranslate addTranslationToMarker(
+            @RequestParam Long markerId,
+            @RequestBody RequestTranslate requestTranslate) {
+        return locationService.addTranslationToMarker(markerId, requestTranslate);
+    }
+
+    @GetMapping("/translate/all")
+    public List<ResponseTranslate> getAllTranslations() {
+        return locationService.getAllTranslate();
+    }
+
+    @DeleteMapping("/translate/delete/{id}")
+    public ResponseTranslate deleteTranslation(@PathVariable Long id) {
+        return locationService.deleteTranslate(id);
+    }
 
 
 
